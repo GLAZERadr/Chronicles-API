@@ -2,7 +2,6 @@
   "name": "chronicles-backend",
   "version": "0.0.0",
   "description": "Chronicles backend api",
-  "type": "module",
   "engines": {
     "node": ">= 20.9 < 21"
   },
@@ -25,7 +24,7 @@
     "typescript": "~5.4"
   },
   "scripts": {
-    "start": "nodemon",
+    "start": "nodemon -L ./src/main.ts",
     "prettier": "prettier --config .prettierrc --write ."
   },
   "author": "Adrian Glazer <adrianbadjideh@student.telkomuniversity.ac.id>",
