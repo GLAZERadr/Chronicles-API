@@ -1,13 +1,13 @@
-const Sequalize = require('sequelize');
+import { Sequelize } from "sequelize";
 
-export const sequalize = new Sequalize (
-    process.env.DATABASE_NAME,
-    process.env.DATABASE_USER,
-    process.env.DATABASE_PASSWORD,
+export const sequalize = new Sequelize (
+    'Chronicles', //env
+    'root', //env
+    'Adrian*04', //env
     {
-        host: process.env.DATABASE_HOST,
-        dialect: 'mysql',
-        port: process.env.DATABASE_PORT,
+        host: '127.0.0.1', //env
+        dialect: 'mysql', //env
+        port: 3306, //env
         retry: {
             max: 10,
             timeout: 3000,

@@ -2,6 +2,7 @@
   "name": "chronicles-backend",
   "version": "0.0.0",
   "description": "Chronicles backend api",
+  "type": "module",
   "engines": {
     "node": ">= 20.9 < 21"
   },
@@ -11,6 +12,7 @@
     "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "~7.6",
     "@typescript-eslint/parser": "~7.6",
+    "cookie-parser": "^1.4.6",
     "eslint": "~8.56",
     "eslint-config-prettier": "~9.1",
     "eslint-plugin-jest": "~28.2",
@@ -31,6 +33,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.7",
     "sequelize": "^6.37.3",
     "tslib": "~2.6"
