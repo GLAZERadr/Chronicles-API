@@ -32,6 +32,7 @@
   "author": "Adrian Glazer <adrianbadjideh@student.telkomuniversity.ac.id>",
   "license": "Apache-2.0",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.7",

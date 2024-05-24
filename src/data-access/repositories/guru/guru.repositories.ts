@@ -1,6 +1,5 @@
-import { promises } from "dns";
 import { DatabaseException } from "../../../common/exceptions/exceptions";
-import { Guru, GuruInput, GuruOutput } from "../../models/guru/guru";
+import { Guru, GuruOutput } from "../../models/guru/guru";
 
 export const createGuru = async (newGuru: Guru): Promise<GuruOutput> => {
     try {
@@ -12,7 +11,7 @@ export const createGuru = async (newGuru: Guru): Promise<GuruOutput> => {
 
 export const deleteGuru = async (id: string): Promise<string> => {
     try {
-        const result = await Guru.destroy({ where: {id: id } });
+        const result = await Guru.destroy({ where: { id: id } });
         if (result === 0) {
             return 'Guru not deleted';
         }

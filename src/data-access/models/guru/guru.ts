@@ -1,5 +1,6 @@
 import { Model,DataTypes } from "sequelize";
 import { sequalize } from "../../../common/config/database";
+import { Kelas } from "../kelas/kelas";
 
 interface GuruAttributes {
     id: string,
@@ -46,6 +47,8 @@ Guru.init(
     }
 );
 
-sequalize.sync({force: false})
+Guru.hasMany(Kelas, { foreignKey: 'id_guru', as: 'guru'});
+
+sequalize.sync({ force: false })
     .then(() => console.log('Guru table created!!!'))
     .catch((error: Error) => console.log('Error creating table guru:', error))

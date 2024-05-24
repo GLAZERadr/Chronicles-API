@@ -1,5 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { sequalize } from "../../../common/config/database";
+import { Kelompok } from "../kelompok/kelompok";
+import { Anggota } from "../kelompok/anggota.kelompok";
 
 interface MuridAttributes {
     id: string,
@@ -46,6 +48,9 @@ Murid.init(
     },
 );
 
-sequalize.sync({force: false})
+Murid.hasOne(Kelompok, { foreignKey: 'ketua', as: 'ketua' });
+Murid.belongsToMany(Kelompok, { through: Anggota, foreignKey: 'id_murid', otherKey: 'kode_kelompok', as: 'kelompok' });
+
+sequalize.sync({ force: false })
     .then(() => console.log('Murid table created!!!'))
     .catch((error: Error) => console.log('Error creating table murid: ', error));

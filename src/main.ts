@@ -5,12 +5,14 @@ import muridRouter from './routes/murid.routes';
 import sessionRouter from './routes/session.routes';
 
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 const app: Application = express();
 const port: number = parseInt(process.env.SERVER_PORT as string, 10) || 3000;
 
 app.use(express.json());
 app.use(errorMiddleware);
+app.use(cors());
 app.use(cookieParser());
 
 //handle logger
