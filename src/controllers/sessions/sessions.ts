@@ -1,4 +1,4 @@
-import express, { NextFunction, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { validateLogin } from '../../services/sessions/sessions.validator';
 
 import * as guruServices from '../../services/guru/guru.services'
@@ -23,6 +23,10 @@ export const loginGuru = async (req: CustomRequest, res: Response, next: NextFun
             throw new ElementInvalidException('Guru credentials are invalid!!');
         }
 
+        if (loginInfo.password != guru.password) {
+            throw new ElementInvalidException('Guru credentials are invalid!!');
+        }
+
         let token = await tokenServices.generateToken(guru);
 
         res.cookie('jwt_token', token, {httpOnly: true});
@@ -40,13 +44,17 @@ export const loginMurid = async (req: CustomRequest, res: Response, next: NextFu
         let loginInfo: LoginInput = req.body;
         validateLogin(loginInfo);
 
-        let guru = await muridServices.getMuridByUsername(loginInfo.username);
+        let murid = await muridServices.getMuridByUsername(loginInfo.username);
 
-        if (!guru) {
+        if (!murid) {
             throw new ElementInvalidException('Murid credentials are invalid!!');
         }
 
-        let token = await tokenServices.generateToken(guru);
+        if (loginInfo.password != murid.password) {
+            throw new ElementInvalidException('Murid credentials are invalid!!');
+        }
+
+        let token = await tokenServices.generateToken(murid);
 
         res.cookie('jwt_token', token, {httpOnly: true});
         res.status(200).json({
