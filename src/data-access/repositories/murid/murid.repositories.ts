@@ -64,3 +64,12 @@ export const getAllMurid = async (): Promise<Array<MuridOutput> | null> => {
         throw new DatabaseException(error.message);
     }
 };
+
+export const getMuridByUsernameAndPass = async (username: string, password: string): Promise<MuridOutput | null> => {
+    try {
+        const murid = await Murid.findOne({ where: { username, password } });
+        return murid || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};

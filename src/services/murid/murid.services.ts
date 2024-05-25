@@ -48,3 +48,13 @@ export const getAllMurid = async (): Promise<Array<MuridOutput> | null> => {
     const murid = await muridRepository.getAllMurid();
     return murid;
 }
+
+export const getMuridByUsernameAndPass = async (username: string, password: string): Promise<MuridOutput | null> => {
+    const existingMurid = await muridRepository.existingMuridByUsername(username);
+    if (!existingMurid) {
+        throw new exceptions.ElementNotFoundException(`Murid with ${username} not found!!`);
+    }
+
+    const murid = await muridRepository.getMuridByUsernameAndPass(username, password);
+    return murid;
+}

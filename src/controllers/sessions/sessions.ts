@@ -17,13 +17,9 @@ export const loginGuru = async (req: CustomRequest, res: Response, next: NextFun
         let loginInfo: LoginInput = req.body;
         validateLogin(loginInfo);
 
-        let guru = await guruServices.getGuruByUsername(loginInfo.username);
+        let guru = await guruServices.getGuruByUsernameAndPass(loginInfo.username, loginInfo.password);
 
         if (!guru) {
-            throw new ElementInvalidException('Guru credentials are invalid!!');
-        }
-
-        if (loginInfo.password != guru.password) {
             throw new ElementInvalidException('Guru credentials are invalid!!');
         }
 
@@ -44,13 +40,9 @@ export const loginMurid = async (req: CustomRequest, res: Response, next: NextFu
         let loginInfo: LoginInput = req.body;
         validateLogin(loginInfo);
 
-        let murid = await muridServices.getMuridByUsername(loginInfo.username);
+        let murid = await muridServices.getMuridByUsernameAndPass(loginInfo.username, loginInfo.password);
 
         if (!murid) {
-            throw new ElementInvalidException('Murid credentials are invalid!!');
-        }
-
-        if (loginInfo.password != murid.password) {
             throw new ElementInvalidException('Murid credentials are invalid!!');
         }
 

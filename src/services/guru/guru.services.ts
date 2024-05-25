@@ -48,3 +48,13 @@ export const getAllGuru = async (): Promise<Array<GuruOutput> | null> => {
     const guru = await guruRepository.getAllGuru();
     return guru;
 };
+
+export const getGuruByUsernameAndPass = async (username: string, password: string): Promise<GuruOutput | null> => {
+    const existingGuru = await guruRepository.existingGuruByUsername(username);
+    if (!existingGuru) {
+        throw new exceptions.ElementNotFoundException(`Guru with ${username} not found!!`);
+    }
+
+    const guru = await guruRepository.getGuruByUsernameAndPass(username, password);
+    return guru;
+}

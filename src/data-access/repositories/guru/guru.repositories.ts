@@ -65,3 +65,12 @@ export const getAllGuru = async (): Promise<Array<GuruOutput> | null> => {
         throw new DatabaseException(error.message);
     }
 };
+
+export const getGuruByUsernameAndPass = async (username: string, password: string): Promise<GuruOutput | null> => {
+    try {
+        const guru = await Guru.findOne({ where: { username, password } });
+        return guru || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};
