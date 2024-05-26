@@ -6,6 +6,15 @@ import sessionRouter from './routes/session.routes';
 
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import { anggotaRouter } from './routes/anggota.routes';
+import { gambarRouter } from './routes/gambar.routes';
+import { kelasMuridRouter } from './routes/kelas_murid.routes';
+import { kelasRouter } from './routes/kelas.routes';
+import { kelompokRouter } from './routes/kelompok.routes';
+import { pertandinganRouter } from './routes/pertandingan.routes';
+import { tugasRouter } from './routes/tugas.routes';
+import { storyRouter } from './routes/story.routes';
+import { restoryRouter } from './routes/restory.routes';
 
 const app: Application = express();
 const port: number = parseInt(process.env.SERVER_PORT as string, 10) || 3000;
@@ -23,7 +32,16 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 app.use('/chronicles-v1/api/guru', guruRouter);
 app.use('/chronicles-v1/api/murid', muridRouter);
+app.use('/chronicles-v1/api/kelas', kelasRouter);
+app.use('/chronicles-v1/api/kelompok', kelompokRouter);
+app.use('/chronicles-v1/api/pertandingan', pertandinganRouter);
+app.use('/chronicles-v1/api/tugas', tugasRouter);
 app.use('/chronicles-v1/api/session', sessionRouter);
+app.use('/chronicles-v1/api/anggota', anggotaRouter);
+app.use('/chronicles-v1/api/story', storyRouter);
+app.use('/chronicles-v1/api/restory', restoryRouter)
+app.use('/chronicles-v1/api/gambar', gambarRouter);
+app.use('/chronicles-v1/api/kelas-murid', kelasMuridRouter);
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ message: error.message });
