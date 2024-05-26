@@ -29,5 +29,3 @@ export const getAllAnggota = async (): Promise<Array<AnggotaOutput> | null> => {
         throw new DatabaseException(error.message);
     }
 };
-
-// tinggal getAnggotaByKelompok sama existingAnggotaByKelompok

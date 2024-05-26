@@ -1,5 +1,6 @@
 import { DatabaseException } from "../../../common/exceptions/exceptions";
 import { Kelas, KelasOutput } from "../../models/kelas/kelas";
+import { Kelompok } from "../../models/kelompok/kelompok";
 
 export const createKelas = async (newKelas: Kelas): Promise<KelasOutput> => {
     try {
@@ -48,4 +49,13 @@ export const getAllKelas = async (): Promise<Array<KelasOutput> | null> => {
     }
 };
 
-//get kelas by guru
+//get kelompok by kelas
+export const getKelompokBykelas = async (id: string): Promise<KelasOutput | null> => {
+    try {
+        const kelompok_by_kelas = await Kelas.findByPk(id, { include: Kelompok });
+        return kelompok_by_kelas || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    } 
+}
+

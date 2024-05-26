@@ -1,5 +1,6 @@
 import { DatabaseException } from "../../../common/exceptions/exceptions";
 import { Guru, GuruOutput } from "../../models/guru/guru";
+import { Kelas } from "../../models/kelas/kelas";
 
 export const createGuru = async (newGuru: Guru): Promise<GuruOutput> => {
     try {
@@ -74,3 +75,13 @@ export const getGuruByUsernameAndPass = async (username: string, password: strin
         throw new DatabaseException(error.message);
     }
 };
+
+// get kelas by guru
+export const getKelasByGuru = async (id: string): Promise<GuruOutput | null> => {
+    try {
+        const kelas_by_guru = await Guru.findByPk(id, { include: Kelas });
+        return kelas_by_guru || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+}

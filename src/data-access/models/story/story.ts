@@ -48,23 +48,23 @@ Story.init(
             allowNull: false,
         },
         orientation: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         complication: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         resolution: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         reorientation: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         kode_kelompok: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
             references: {
                 model: 'kelompok',

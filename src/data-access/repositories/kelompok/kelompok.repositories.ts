@@ -1,4 +1,5 @@
 import { DatabaseException } from "../../../common/exceptions/exceptions";
+import { Anggota } from "../../models/kelompok/anggota.kelompok";
 import { Kelompok, KelompokOutput } from "../../models/kelompok/kelompok";
 
 export const createKelompok = async (newKelompok: Kelompok): Promise<KelompokOutput> => {
@@ -11,7 +12,7 @@ export const createKelompok = async (newKelompok: Kelompok): Promise<KelompokOut
 
 export const deleteKelompok = async (kode_kelompok: string): Promise<string> => {
     try {
-        const result = await Kelompok.destroy({ where: { kode_kelompok: kode_kelompok }});
+        const result = await Kelompok.destroy({ where: { kode_kelompok: kode_kelompok } });
         if (result === 0) {
             return 'Kelompok not deleted';
         }
@@ -48,4 +49,11 @@ export const getKelompokById = async (kode_kelompok: string): Promise<KelompokOu
     }
 };
 
-//get kelompok by kelas
+export const getAnggotaByKelompok = async (id: string): Promise<KelompokOutput | null> => {
+    try {
+        const kelompok = await Kelompok.findByPk(id, {  include: Anggota });
+        return kelompok || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+}
