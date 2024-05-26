@@ -45,7 +45,7 @@ Anggota.init(
 );
 
 Kelompok.belongsToMany(Murid, { through: Anggota, foreignKey: 'kode_kelompok', otherKey: 'id_murid', as: 'kelompok' });
-Murid.belongsToMany(Kelompok, { through: Anggota, foreignKey: 'id_murid', otherKey: 'kode_kelompok', as: 'murid' });
+Murid.belongsToMany(Kelompok, { through: Anggota, foreignKey: 'id_murid', otherKey: 'kode_kelompok', as: 'anggota_murid' });
 
 sequalize.sync({ force: false })
     .then(() => console.log('Anggota table created!!!'))
