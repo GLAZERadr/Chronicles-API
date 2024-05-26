@@ -4,7 +4,7 @@ import * as restoryRepository from '../../data-access/repositories/restory/resto
 import { validateRestory } from './restory.validator';
 import { Restory, RestoryOutput } from '../../data-access/models/restory/restory';
 
-export const createStory = async (newRestory:Restory): Promise<RestoryOutput> => {
+export const createRestory = async (newRestory:Restory): Promise<RestoryOutput> => {
     validateRestory(newRestory);
 
     const judulStoryExist: boolean = await restoryRepository.existJudulOfRestory(newRestory.judul);
@@ -15,7 +15,7 @@ export const createStory = async (newRestory:Restory): Promise<RestoryOutput> =>
     return await restoryRepository.createRestory(newRestory);
 };
 
-export const deleteStory = async (id: string): Promise<string> => {
+export const deleteRestory = async (id: string): Promise<string> => {
     const existingRestory: boolean = await restoryRepository.existingRestoryById(id);
     if (!existingRestory) {
         throw new exceptions.ElementNotFoundException(`Restory with id ${id} not found`);
@@ -24,7 +24,7 @@ export const deleteStory = async (id: string): Promise<string> => {
     return await restoryRepository.deleteRestory(id);
 };
 
-export const getKelompokByStory = async (id: string): Promise<RestoryOutput | null> => {
+export const getKelompokByRestory = async (id: string): Promise<RestoryOutput | null> => {
     const existingRestory: boolean = await restoryRepository.existingRestoryById(id);
     if (!existingRestory) {
         throw new exceptions.ElementNotFoundException(`Restory with id ${id} not found`);

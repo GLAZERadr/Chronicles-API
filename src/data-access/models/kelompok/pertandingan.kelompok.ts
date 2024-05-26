@@ -54,3 +54,4 @@ Pertandingan.belongsTo(Kelompok, { foreignKey: 'kode_kelompok_genap', as: 'kelom
 sequalize.sync({ force: false })
     .then(() => console.log('Pertandingan table created!!'))
     .catch((error: Error) => console.log('Error creating table pertandingan: ', error));
+    

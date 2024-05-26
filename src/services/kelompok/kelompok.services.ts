@@ -13,7 +13,7 @@ export const createKelompok = async (newKelompok: Kelompok): Promise<KelompokOut
     }
 
     return await kelompokRepository.createKelompok(newKelompok);
-}
+};
 
 export const deleteKelompok = async (id: string): Promise<string> => {
     const existingKelompok: boolean = await kelompokRepository.existingKelompokById(id);
@@ -22,11 +22,11 @@ export const deleteKelompok = async (id: string): Promise<string> => {
     }
 
     return await kelompokRepository.deleteKelompok(id);
-}
+};
 
 export const getAllKelompok = async (): Promise<Array<KelompokOutput> | null> => {
     return await kelompokRepository.getAllKelompok();
-}
+};
 
 export const getKelompokById = async (id: string): Promise<KelompokOutput | null> => {
     const existingKelompok: boolean = await kelompokRepository.existingKelompokById(id);
@@ -36,7 +36,7 @@ export const getKelompokById = async (id: string): Promise<KelompokOutput | null
 
     const kelompok = await kelompokRepository.getKelompokById(id);
     return kelompok;
-}
+};
 
 export const getAnggotaByKelompok = async (id: string): Promise<KelompokOutput | null> => {
     const existingKelompok: boolean = await kelompokRepository.existingKelompokById(id);
@@ -46,4 +46,4 @@ export const getAnggotaByKelompok = async (id: string): Promise<KelompokOutput |
 
     const kelompok = await kelompokRepository.getAnggotaByKelompok(id);
     return kelompok;
-}
+};

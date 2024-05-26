@@ -56,4 +56,4 @@ export const getGuruByUsernameAndPass = async (username: string, password: strin
 
     const guru = await guruRepository.getGuruByUsernameAndPass(username, password);
     return guru;
-}
+};

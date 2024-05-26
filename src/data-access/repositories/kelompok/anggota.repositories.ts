@@ -9,13 +9,13 @@ export const createAnggota = async (newAnggota: Anggota): Promise<AnggotaOutput>
     }
 };
 
-export const deleteAnggota = async (id: string): Promise<string> => {
+export const deleteAnggota = async (id_murid: string, kode_kelompok: string): Promise<string> => {
     try {
-        const result = await Anggota.destroy({ where: { id: id }});
+        const result = await Anggota.destroy({ where: { id_murid: id_murid, kode_kelompok: kode_kelompok }});
         if (result === 0) {
             return 'Anggota not deleted';
         }
-        return `Anggota ${id} not deleted`;
+        return `Anggota ${id_murid} not deleted from ${kode_kelompok}`;
     } catch (error: any) {
         throw new DatabaseException(error.message);
     }
@@ -30,9 +30,9 @@ export const getAllAnggota = async (): Promise<Array<AnggotaOutput> | null> => {
     }
 };
 
-export const existAngotaById = async (id: string): Promise<boolean> => {
+export const existAnggotaById = async (id_murid: string, kode_kelompok: string): Promise<boolean> => {
     try {
-        const anggota = await Anggota.findByPk(id);
+        const anggota = await Anggota.findOne({ where: {id_murid: id_murid, kode_kelompok: kode_kelompok} })
         return !!anggota;
     } catch (error: any) {
         throw new DatabaseException(error.message);

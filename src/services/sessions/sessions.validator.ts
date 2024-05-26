@@ -1,5 +1,5 @@
 import * as stringValidator from '../../common/utils/validations/string.validator';
-import { LoginInput } from '../../controllers/sessions/sessions';
+import { LoginInput } from '../../controllers/sessions/sessions.controllers';
 
 export const validateLogin = (loginRequest: LoginInput): void => {
     validateUsername(loginRequest.username);

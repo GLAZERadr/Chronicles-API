@@ -1,10 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { sequalize } from "../../../common/config/database";
-// import { Murid } from "../murid/murid";
-// import { Anggota } from "./anggota.kelompok";
-import { Kelas } from "../kelas/kelas";
-import { Pertandingan } from "./pertandingan.kelompok";
 import { Story } from "../story/story";
+import { Restory } from "../restory/restory";
 
 interface KelompokAttributes {
     kode_kelompok: string,
@@ -54,11 +51,8 @@ Kelompok.init(
     },
 );
 
-Kelompok.hasOne(Kelas, { foreignKey: 'kode_kelompok', as: 'kelompok' });
 Kelompok.hasOne(Story, { foreignKey: 'kode_kelompok', as: 'kelompok_story' });
-
-// Kelompok.hasMany(Pertandingan, { foreignKey: 'kode_kelompok_ganjil', as: 'pertandinganGanjil' });
-// Kelompok.hasMany(Pertandingan, { foreignKey: 'kode_kelompok_genap', as: 'pertandinganGenap' });
+Kelompok.hasOne(Restory, { foreignKey: 'kode_kelompok', as: 'kelompok_restory' })
 
 sequalize.sync({ force: false })
     .then(() => console.log('Kelompok table created!!!'))

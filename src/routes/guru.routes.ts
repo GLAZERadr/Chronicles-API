@@ -1,6 +1,6 @@
 import express from 'express';
 
-import * as guruController from '../controllers/guru/guru';
+import * as guruController from '../controllers/guru/guru.controllers';
 import { verifyJWTToken } from '../common/middlewares/auth.middlewares';
 
 export const guruRouter = express.Router();

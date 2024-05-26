@@ -1,6 +1,6 @@
 import express from 'express';
 
-import * as sessionControllers from '../controllers/sessions/sessions';
+import * as sessionControllers from '../controllers/sessions/sessions.controllers';
 
 export const sessionRouter = express.Router();
 

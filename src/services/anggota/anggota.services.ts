@@ -7,14 +7,14 @@ export const createAnggota = async (newAnggota: Anggota): Promise<AnggotaOutput>
     return await anggotaRepository.createAnggota(newAnggota);
 };
 
-export const deleteAnggota = async (id: string): Promise<string> => {
-    const existAnggota: boolean = await anggotaRepository.existAngotaById(id);
+export const deleteAnggota = async (id_murid: string, kode_kelompok: string): Promise<string> => {
+    const existAnggota: boolean = await anggotaRepository.existAnggotaById(id_murid, kode_kelompok);
 
     if (!existAnggota) {
-        throw new exceptions.ElementNotFoundException(`Anggota ${id} not found`);
+        throw new exceptions.ElementNotFoundException(`Anggota ${id_murid} not found`);
     } 
 
-    return await anggotaRepository.deleteAnggota(id); 
+    return await anggotaRepository.deleteAnggota(id_murid, kode_kelompok); 
 }
 
 export const getAllAnggota = async (): Promise<Array<AnggotaOutput> | null> => {

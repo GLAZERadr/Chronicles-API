@@ -24,16 +24,16 @@ export const deleteKelas = async (id: string): Promise<string> => {
     return await kelasRepository.deleteKelas(id);
 };
 
-export const getllKelas = async (): Promise<Array<KelasOutput> | null> => {
-    return await kelasRepository.getAllKelas();
-}
+export const getAllKelas = async (): Promise<Array<KelasOutput> | null> => {
+    return await kelasRepository.getAllKelas() || null;
+};
 
-export const getKelompokByKelas = async(id: string): Promise<KelasOutput | null> => {
-    const existingKelas: boolean = await kelasRepository.existingKelasById(id);
+export const getKelasByNamaKelas = async(nama_kelas: string): Promise<KelasOutput | null> => {
+    const existingKelas: boolean = await kelasRepository.existingKelasByName(nama_kelas);
     if (!existingKelas) {
-        throw new exceptions.ElementNotFoundException(`Murid with ${id} not found!!`);
+        throw new exceptions.ElementNotFoundException(`Kelas ${nama_kelas} not found!!`);
     }
 
-    const kelas = kelasRepository.getKelompokBykelas(id);
-    return kelas;
-}
+    const kelas = kelasRepository.getKelasByNamaKelas(nama_kelas);
+    return kelas || null;
+};

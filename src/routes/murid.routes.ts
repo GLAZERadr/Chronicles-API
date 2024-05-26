@@ -1,6 +1,6 @@
 import express from 'express';
 
-import * as muridControllers from '../controllers/murid/murid';
+import * as muridControllers from '../controllers/murid/murid.controllers';
 import { verifyJWTToken } from '../common/middlewares/auth.middlewares';
 
 export const muridRouter = express.Router();

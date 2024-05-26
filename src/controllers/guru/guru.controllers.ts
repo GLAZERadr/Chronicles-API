@@ -28,7 +28,7 @@ export const deleteGuru = async (req: CustomRequest, res: Response, next: NextFu
     } catch (error) {
         return next(error);
     }
-}
+};
 
 export const getGuru = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
@@ -40,9 +40,9 @@ export const getGuru = async (req: CustomRequest, res: Response, next: NextFunct
     } catch (error) {
         return next(error);
     }
-}
+};
 
-export const getAllGuru = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+export const getAllGuru = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         let gurus = await guruServices.getAllGuru();
 
@@ -50,4 +50,4 @@ export const getAllGuru = async (req: Request, res: Response, next: NextFunction
     } catch (error) {
         return next(error);
     }
-}
+};
