@@ -47,3 +47,12 @@ export const getStoryFromKelompokByPertandingan = async (id: string): Promise<Pe
       throw new DatabaseException(error.message);
     }
 };
+
+export const existingPertandinganByid = async (id: string): Promise<boolean> => {
+    try {
+        const result = await Pertandingan.findByPk(id);
+        return !!result;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+      }
+};

@@ -18,7 +18,7 @@ export const createMurid = async (newMurid: Murid): Promise<MuridOutput> => {
 export const deleteMurid = async (id: string): Promise<string> => {
     const existingMurid: boolean = await muridRepository.existingMuridById(id);
     if (!existingMurid) {
-        throw new exceptions.ElementAlreadyExists(`Murid with ${id} not found!!`);
+        throw new exceptions.ElementNotFoundException(`Murid with ${id} not found!!`);
     }
 
     return await muridRepository.deleteMurid(id);
@@ -27,7 +27,7 @@ export const deleteMurid = async (id: string): Promise<string> => {
 export const getMuridByUsername = async (username: string): Promise<MuridOutput | null> =>  {
     const existingMurid: boolean = await muridRepository.existingMuridByUsername(username);
     if (!existingMurid) {
-        throw new exceptions.ElementAlreadyExists(`Murid with ${username} not found!!`);
+        throw new exceptions.ElementNotFoundException(`Murid with ${username} not found!!`);
     }
 
     const murid = await muridRepository.getMuridByUsername(username);
@@ -37,7 +37,7 @@ export const getMuridByUsername = async (username: string): Promise<MuridOutput 
 export const getMuridById = async (id: string): Promise<MuridOutput | null> => {
     const existingMurid: boolean = await muridRepository.existingMuridById(id);
     if (!existingMurid) {
-        throw new exceptions.ElementAlreadyExists(`Murid with ${id} not found!!`);
+        throw new exceptions.ElementNotFoundException(`Murid with ${id} not found!!`);
     }
 
     const murid = await muridRepository.getMuridById(id);
@@ -45,8 +45,7 @@ export const getMuridById = async (id: string): Promise<MuridOutput | null> => {
 };
 
 export const getAllMurid = async (): Promise<Array<MuridOutput> | null> => {
-    const murid = await muridRepository.getAllMurid();
-    return murid;
+    return await muridRepository.getAllMurid();
 }
 
 export const getMuridByUsernameAndPass = async (username: string, password: string): Promise<MuridOutput | null> => {

@@ -29,3 +29,12 @@ export const getAllAnggota = async (): Promise<Array<AnggotaOutput> | null> => {
         throw new DatabaseException(error.message);
     }
 };
+
+export const existAngotaById = async (id: string): Promise<boolean> => {
+    try {
+        const anggota = await Anggota.findByPk(id);
+        return !!anggota;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};

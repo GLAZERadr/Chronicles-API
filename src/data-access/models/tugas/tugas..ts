@@ -4,6 +4,7 @@ import { Story } from "../story/story";
 
 interface TugasAttributes {
     id: string,
+    instruksi_tugas: string,
     nilai_kelompok: number,
     nilai_similaritas:  number,
     komentar: string,
@@ -15,6 +16,7 @@ export interface TugasOutput extends Model<TugasAttributes>, TugasAttributes {};
 
 export class Tugas extends Model<TugasAttributes, TugasInput> implements TugasAttributes {
     public id!: string;
+    public instruksi_tugas!: string;
     public nilai_kelompok!: number;
     public nilai_similaritas!: number;
     public komentar!: string;
@@ -28,12 +30,16 @@ Tugas.init(
             primaryKey: true,
             allowNull: false,
         },
+        instruksi_tugas: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         nilai_kelompok: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.DECIMAL,
             allowNull: true,
         },
         nilai_similaritas: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.DOUBLE,
             allowNull: true,
         },
         komentar: {

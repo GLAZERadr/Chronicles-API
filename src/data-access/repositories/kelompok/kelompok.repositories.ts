@@ -22,6 +22,15 @@ export const deleteKelompok = async (kode_kelompok: string): Promise<string> => 
     }
 };
 
+export const existingKelompokByNama = async (nama_kelompok: string): Promise<boolean> => {
+    try {
+        const result = await Kelompok.findOne({ where: { nama_kelompok: nama_kelompok } });
+        return !!result;
+    } catch (error: any) {
+        throw new DatabaseException(error.message); 
+    }
+};
+
 export const existingKelompokById = async (kode_kelompok: string): Promise<boolean> => {
     try {
         const result = await Kelompok.findByPk(kode_kelompok);
@@ -29,7 +38,7 @@ export const existingKelompokById = async (kode_kelompok: string): Promise<boole
     } catch (error: any) {
         throw new DatabaseException(error.message); 
     }
-}
+};
 
 export const getAllKelompok = async (): Promise<Array<KelompokOutput> | null> => {
     try {

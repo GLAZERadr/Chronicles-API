@@ -30,3 +30,21 @@ export const getKelompokByStory = async (id: string): Promise<StoryOutput | null
         throw new DatabaseException(error.message); 
     } 
 };
+
+export const existJudulOfStory = async (judul: string): Promise<boolean> => {
+    try {
+        const result = await Story.findOne({ where: { judul: judul } });
+        return !!result;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};
+
+export const existingStoryById = async(id: string): Promise<boolean> => {
+    try {
+        const result = await Story.findByPk(id);
+        return !!result;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};

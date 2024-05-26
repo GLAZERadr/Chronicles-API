@@ -1,5 +1,6 @@
 import { DatabaseException } from "../../../common/exceptions/exceptions";
 import { Gambar, GambarOutput } from "../../models/gambar/gambar";
+import { Story } from "../../models/story/story";
 
 export const createGambar = async (newGambar: Gambar): Promise<GambarOutput> => {
     try {
@@ -19,7 +20,7 @@ export const deleteGambar = async (id: string): Promise<string> => {
     } catch (error: any) {
         throw new DatabaseException(error.message); 
     }
-}
+};
 
 export const updateGambar = async (id: string, url_gambar: string): Promise<GambarOutput | null> => {
     try {
@@ -29,3 +30,21 @@ export const updateGambar = async (id: string, url_gambar: string): Promise<Gamb
         throw new DatabaseException(error.message); 
     }
 };
+
+export const getStoryByGambar = async (id: string): Promise<GambarOutput | null> => {
+    try {
+        const gambar = await Gambar.findByPk(id, { include: Story });
+        return gambar || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message); 
+    }
+}
+
+export const existGambarById = async (id: string): Promise<boolean> => {
+    try {
+        const result = await Gambar.findByPk(id);
+        return !!result;
+    } catch (error: any) {
+        throw new DatabaseException(error.message); 
+    }
+}

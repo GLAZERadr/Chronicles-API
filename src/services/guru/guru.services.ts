@@ -45,8 +45,7 @@ export const getGuruById = async (id: string): Promise<GuruOutput | null> => {
 };
 
 export const getAllGuru = async (): Promise<Array<GuruOutput> | null> => {
-    const guru = await guruRepository.getAllGuru();
-    return guru;
+    return await guruRepository.getAllGuru();
 };
 
 export const getGuruByUsernameAndPass = async (username: string, password: string): Promise<GuruOutput | null> => {
