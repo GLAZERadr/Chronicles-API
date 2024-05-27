@@ -23,7 +23,7 @@ export class Kelompok extends Model<KelompokAttributes, KelompokInput> implement
 Kelompok.init(
     {
         kode_kelompok: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(15),
             primaryKey: true,
             allowNull: false,
         },
@@ -36,7 +36,7 @@ Kelompok.init(
             allowNull: false,
         },
         ketua: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(15),
             allowNull: false,
             references: {
                 model: 'murid',

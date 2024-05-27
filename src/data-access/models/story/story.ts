@@ -31,12 +31,12 @@ export class Story extends Model<StoryAttributes, StoryInput> implements StoryAt
 Story.init(
     {
         id: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(15),
             primaryKey: true,
             allowNull: false,
         },
         id_tugas: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(15),
             allowNull: false,
             references: {
                 model: 'tugas',
@@ -64,7 +64,7 @@ Story.init(
             allowNull: false,
         },
         kode_kelompok: {
-            type: DataTypes.TEXT,
+            type: DataTypes.STRING(15),
             allowNull: false,
             references: {
                 model: 'kelompok',

@@ -26,7 +26,7 @@ export class Tugas extends Model<TugasAttributes, TugasInput> implements TugasAt
 Tugas.init(
     {
         id: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(15),
             primaryKey: true,
             allowNull: false,
         },
@@ -47,7 +47,7 @@ Tugas.init(
             allowNull: true,
         },
         id_guru: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(15),
             allowNull: false,
             references: {
                 model: 'guru',

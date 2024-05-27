@@ -23,7 +23,7 @@ export class Murid extends Model<MuridAttributes, MuridInput> implements MuridAt
 Murid.init(
     {
         id: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(15),
             primaryKey: true,
             allowNull: false,
         },

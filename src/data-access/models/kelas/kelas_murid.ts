@@ -19,7 +19,7 @@ export class KelasMurid extends Model<KelasMuridAttributes, KelasMuridInput> imp
 KelasMurid.init(
     {
         id_kelas: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(15),
             allowNull: false,
             primaryKey: true,
             references: {
@@ -28,7 +28,7 @@ KelasMurid.init(
             },
         },
         id_murid: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(915),
             allowNull: false,
             primaryKey: true,
             references: {

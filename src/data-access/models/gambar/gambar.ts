@@ -19,12 +19,12 @@ export class Gambar extends Model<GambarAttributes, GambarInput> implements Gamb
 Gambar.init(
     {
         id: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(15),
             primaryKey: true,
             allowNull: false,
         },
         id_story: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(15),
             allowNull: false,
             references: {
                 model: 'story',
@@ -32,7 +32,7 @@ Gambar.init(
             },
         },
         url_gambar: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
         },
     },

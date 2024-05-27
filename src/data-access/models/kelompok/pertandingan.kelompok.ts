@@ -20,12 +20,12 @@ export class Pertandingan extends Model<PertandinganAttributes, PertandinganInpu
 Pertandingan.init(
     {
         id: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(15),
             primaryKey: true,
             allowNull: false,
         },
         kode_kelompok_ganjil: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(15),
             allowNull: false,
             references: {
                 model: Kelompok,
@@ -33,7 +33,7 @@ Pertandingan.init(
             }
         },
         kode_kelompok_genap: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(15),
             allowNull: false,
             references: {
                 model: Kelompok,
