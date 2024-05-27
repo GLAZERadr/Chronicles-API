@@ -12,8 +12,8 @@ export interface KelasMuridInput extends KelasMuridAttributes {};
 export interface KelasMuridOutput extends Model<KelasMuridAttributes>, KelasMuridAttributes {};
 
 export class KelasMurid extends Model<KelasMuridAttributes, KelasMuridInput> implements KelasMuridAttributes {
-    public id_kelas!: string;
-    public id_murid!: string;
+    declare id_kelas: string;
+    declare id_murid: string;
 };
 
 KelasMurid.init(

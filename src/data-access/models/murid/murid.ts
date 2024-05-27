@@ -14,10 +14,10 @@ export interface MuridInput extends MuridAttributes {};
 export interface MuridOutput extends Model<MuridAttributes>, MuridAttributes {};
 
 export class Murid extends Model<MuridAttributes, MuridInput> implements MuridAttributes {
-    public id!: string;
-    public username!: string;
-    public password!: string;
-    public nama!: string;
+    declare id: string;
+    declare username: string;
+    declare password: string;
+    declare nama: string;
 };
 
 Murid.init(

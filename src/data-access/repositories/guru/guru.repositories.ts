@@ -84,4 +84,4 @@ export const getKelasByGuru = async (id: string): Promise<GuruOutput | null> => 
     } catch (error: any) {
         throw new DatabaseException(error.message);
     }
-}
+};

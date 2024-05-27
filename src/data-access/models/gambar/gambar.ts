@@ -11,9 +11,9 @@ export interface GambarInput extends GambarAttributes {};
 export interface GambarOutput extends Model<GambarAttributes>, GambarAttributes {};
 
 export class Gambar extends Model<GambarAttributes, GambarInput> implements GambarAttributes {
-    public id!: string;
-    public id_story!: string;
-    public url_gambar!: string;
+    declare id: string;
+    declare id_story: string;
+    declare url_gambar: string;
 };
 
 Gambar.init(

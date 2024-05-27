@@ -16,14 +16,14 @@ export interface RestoryInput extends RestoryAttributes {};
 export interface RestoryOutput extends Model<RestoryAttributes>, RestoryAttributes {};
 
 export class Restory extends Model<RestoryAttributes, RestoryInput> implements RestoryAttributes {
-    public id!: string;
-    public id_story!: string;
-    public kode_kelompok!: string;
-    public judul!: string;
-    public orientation!: string;
-    public complication!: string;
-    public resolution!: string;
-    public reorientation!: string;
+    declare id: string;
+    declare id_story: string;
+    declare kode_kelompok: string;
+    declare judul: string;
+    declare orientation: string;
+    declare complication: string;
+    declare resolution: string;
+    declare reorientation: string;
 };
 
 Restory.init(

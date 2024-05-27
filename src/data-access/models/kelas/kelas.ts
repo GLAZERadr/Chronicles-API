@@ -11,9 +11,9 @@ export interface KelasInput extends KelasAttributes {};
 export interface KelasOutput extends Model<KelasAttributes>, KelasAttributes {};
 
 export class Kelas extends Model<KelasAttributes, KelasInput> implements KelasAttributes {
-    public id!: string;
-    public nama_kelas!: string;
-    public id_guru!: string;
+    declare id: string;
+    declare nama_kelas: string;
+    declare id_guru: string;
 };
 
 Kelas.init(

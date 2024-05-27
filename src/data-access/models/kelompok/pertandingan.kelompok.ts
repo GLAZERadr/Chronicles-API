@@ -12,9 +12,9 @@ export interface PertandinganInput extends PertandinganAttributes {};
 export interface PertandinganOutput extends Model<PertandinganAttributes>, PertandinganAttributes {};
 
 export class Pertandingan extends Model<PertandinganAttributes, PertandinganInput> implements PertandinganAttributes {
-    public id!: string;
-    public kode_kelompok_ganjil!: string;
-    public kode_kelompok_genap!: string;
+    declare id: string;
+    declare kode_kelompok_ganjil: string;
+    declare kode_kelompok_genap: string;
 }
 
 Pertandingan.init(

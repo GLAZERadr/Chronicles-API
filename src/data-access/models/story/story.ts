@@ -18,14 +18,14 @@ export interface StoryInput extends StoryAttributes {};
 export interface StoryOutput extends Model<StoryAttributes>, StoryAttributes {};
 
 export class Story extends Model<StoryAttributes, StoryInput> implements StoryAttributes {
-    public id!: string;
-    public id_tugas!: string;
-    public judul!: string;
-    public orientation!: string;
-    public complication!: string;
-    public resolution!: string;
-    public reorientation!: string;
-    public kode_kelompok!: string;
+    declare id: string;
+    declare id_tugas: string;
+    declare judul: string;
+    declare orientation: string;
+    declare complication: string;
+    declare resolution: string;
+    declare reorientation: string;
+    declare kode_kelompok: string;
 };
 
 Story.init(

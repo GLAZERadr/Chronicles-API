@@ -14,10 +14,10 @@ export interface KelompokInput extends KelompokAttributes {};
 export interface KelompokOutput extends Model<KelompokAttributes>, KelompokAttributes {};
 
 export class Kelompok extends Model<KelompokAttributes, KelompokInput> implements KelompokAttributes {
-    public kode_kelompok!: string;
-    public nama_kelompok!: string;
-    public status!: string;
-    public ketua!: string;
+    declare kode_kelompok: string;
+    declare nama_kelompok: string;
+    declare status: string;
+    declare ketua: string;
 };
 
 Kelompok.init(

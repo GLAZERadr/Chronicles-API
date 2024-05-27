@@ -15,12 +15,12 @@ export interface TugasInput extends TugasAttributes {};
 export interface TugasOutput extends Model<TugasAttributes>, TugasAttributes {};
 
 export class Tugas extends Model<TugasAttributes, TugasInput> implements TugasAttributes {
-    public id!: string;
-    public instruksi_tugas!: string;
-    public nilai_kelompok!: number;
-    public nilai_similaritas!: number;
-    public komentar!: string;
-    public id_guru!: string;
+    declare id: string;
+    declare instruksi_tugas: string;
+    declare nilai_kelompok: number;
+    declare nilai_similaritas: number;
+    declare komentar: string;
+    declare id_guru: string;
 }
 
 Tugas.init(

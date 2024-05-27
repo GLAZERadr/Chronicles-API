@@ -27,7 +27,10 @@ export const loginGuru = async (req: CustomRequest, res: Response, next: NextFun
 
         res.cookie('jwt_token', token, {httpOnly: true});
         res.status(200).json({
-            username: loginInfo.username,
+            message: 'Login success!!',
+            id: guru.id,
+            nama: guru.nama,
+            uername: guru.username,
             token: token
         })
     } catch (error) {
@@ -50,7 +53,9 @@ export const loginMurid = async (req: CustomRequest, res: Response, next: NextFu
 
         res.cookie('jwt_token', token, {httpOnly: true});
         res.status(200).json({
-            username: loginInfo.username,
+            id: murid.id,
+            username: murid.username,
+            nama: murid.nama,
             token: token
         })
     } catch (error) {

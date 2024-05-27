@@ -12,8 +12,8 @@ export interface AnggotaInput extends AnggotaAttributes {};
 export interface AnggotaOutput extends Model<AnggotaAttributes>, AnggotaAttributes {};
 
 export class Anggota extends Model<AnggotaAttributes, AnggotaInput> implements AnggotaAttributes {
-    public kode_kelompok!: string;
-    public id_murid!: string;
+    declare kode_kelompok: string;
+    declare id_murid: string;
 };
 
 Anggota.init(

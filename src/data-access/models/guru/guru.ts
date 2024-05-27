@@ -14,10 +14,10 @@ export interface GuruInput extends GuruAttributes {}
 export interface GuruOutput extends Model<GuruAttributes>, GuruAttributes {}
 
 export class Guru extends Model<GuruAttributes, GuruInput> implements GuruAttributes {
-    public id!: string;
-    public username!: string;
-    public password!: string;
-    public nama!: string;
+    declare id: string;
+    declare username: string;
+    declare password: string;
+    declare nama: string;
 };
 
 Guru.init(
