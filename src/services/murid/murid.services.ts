@@ -3,6 +3,9 @@ import * as muridRepository from '../../data-access/repositories/murid/murid.rep
 
 import { validateMurid } from './murid.validator';
 import { Murid, MuridOutput } from '../../data-access/models/murid/murid';
+import { generateIdUser } from '../../common/helpers/generateid/generateid';
+import { generateRandomUsername } from '../../common/helpers/randomAccount/randomusername';
+import { generateRandomPassword } from '../../common/helpers/randomAccount/randompass';
 
 export const createMurid = async (newMurid: Murid): Promise<MuridOutput> => {
     validateMurid(newMurid);
@@ -46,7 +49,7 @@ export const getMuridById = async (id: string): Promise<MuridOutput | null> => {
 
 export const getAllMurid = async (): Promise<Array<MuridOutput> | null> => {
     return await muridRepository.getAllMurid();
-}
+};
 
 export const getMuridByUsernameAndPass = async (username: string, password: string): Promise<MuridOutput | null> => {
     const existingMurid = await muridRepository.existingMuridByUsername(username);
@@ -56,4 +59,32 @@ export const getMuridByUsernameAndPass = async (username: string, password: stri
 
     const murid = await muridRepository.getMuridByUsernameAndPass(username, password);
     return murid;
+};
+
+export const createRandomAccountByTeamNumbers = async (teamnumbers: number, newMurid: Partial<Murid>): Promise<Array<MuridOutput> | null> => {
+    const accounts: Array<Murid> = [];
+
+    for (let i = 0; i < teamnumbers; i++) {
+        const username = generateRandomUsername.generateRandUname();
+        const newMuridId = generateIdUser.generateId('MUR_' + username);
+        const password = generateRandomPassword.generateRandPass();
+        const nama = "";
+
+        const newMuridData: Partial<Murid> = { ...newMurid, id: newMuridId, username: username, password: password, nama: nama };
+
+        accounts.push(newMuridData as Murid); 
+    }
+
+    return await muridRepository.createRandomAccounts(accounts);
+};
+
+export const updateNama = async (id: string, nama: string): Promise<MuridOutput | null> => {
+    const existingMurid = await muridRepository.existingMuridById(id);
+
+    if (!existingMurid) {
+        throw new exceptions.ElementNotFoundException(`Murid with ${id} not found!!`);
+    }
+
+    const updatedNama = await muridRepository.updateNama(id, nama);
+    return updatedNama || null;
 }

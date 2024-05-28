@@ -42,7 +42,7 @@ export const getMurid = async (req: CustomRequest, res: Response, next: NextFunc
     }
 }
 
-export const getAllMurid = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+export const getAllMurid = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         let murids = await muridServices.getAllMurid();
 
@@ -51,3 +51,16 @@ export const getAllMurid = async (req: Request, res: Response, next: NextFunctio
         return next(error);
     }
 }
+
+export const updateNamaMurid = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id } = req.params;
+        const { nama } = req.body;
+
+        let murid = await muridServices.updateNama(id, nama);
+
+        return res.status(200).send(murid);
+    } catch (error) {
+        return next(error);
+    }
+}; 

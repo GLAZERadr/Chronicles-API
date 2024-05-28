@@ -19,7 +19,7 @@ export class Kelas extends Model<KelasAttributes, KelasInput> implements KelasAt
 Kelas.init(
     {
         id: {
-            type: DataTypes.STRING(15),
+            type: DataTypes.STRING,
             primaryKey: true,
             allowNull: false,
         },
@@ -29,7 +29,7 @@ Kelas.init(
             unique: true,
         },
         id_guru: {
-            type: DataTypes.STRING(15),
+            type: DataTypes.STRING,
             allowNull: false,
             references: {
                 model: 'guru',

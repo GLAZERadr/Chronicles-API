@@ -19,8 +19,8 @@ export class Anggota extends Model<AnggotaAttributes, AnggotaInput> implements A
 Anggota.init(
     {
         kode_kelompok: {
-            type: DataTypes.STRING(15),
-            primaryKey: true,
+            type: DataTypes.STRING,
+            // primaryKey: true,
             allowNull: false,
             references: {
                 model: 'kelompok',
@@ -28,8 +28,8 @@ Anggota.init(
             },
         },
         id_murid: {
-            type: DataTypes.STRING(15),
-            primaryKey: true, 
+            type: DataTypes.STRING,
+            // primaryKey: true, 
             allowNull: false,
             references: {
                 model: 'murid',

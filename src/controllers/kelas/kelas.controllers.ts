@@ -51,3 +51,15 @@ export const getKelasByNamaKelas = async (req: CustomRequest, res: Response, nex
         return next(error);
     }
 };
+
+export const getKelompokByKelas = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id } = req.params;
+
+        let result = await kelasServices.getKelompokByKelas(id);
+
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+};

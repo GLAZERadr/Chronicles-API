@@ -23,7 +23,7 @@ export class Guru extends Model<GuruAttributes, GuruInput> implements GuruAttrib
 Guru.init(
     {
         id: {
-            type: DataTypes.STRING(15),
+            type: DataTypes.STRING,
             primaryKey: true,
             allowNull: false,
         },

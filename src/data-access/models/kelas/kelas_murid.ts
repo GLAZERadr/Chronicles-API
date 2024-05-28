@@ -19,18 +19,18 @@ export class KelasMurid extends Model<KelasMuridAttributes, KelasMuridInput> imp
 KelasMurid.init(
     {
         id_kelas: {
-            type: DataTypes.STRING(15),
+            type: DataTypes.STRING,
             allowNull: false,
-            primaryKey: true,
+            // primaryKey: true,
             references: {
                 model: 'kelas',
                 key: "id_kelas",
             },
         },
         id_murid: {
-            type: DataTypes.STRING(915),
+            type: DataTypes.STRING,
             allowNull: false,
-            primaryKey: true,
+            // primaryKey: true,
             references: {
                 model: 'murid',
                 key: "id_murid",

@@ -30,7 +30,7 @@ export const loginGuru = async (req: CustomRequest, res: Response, next: NextFun
             message: 'Login success!!',
             id: guru.id,
             nama: guru.nama,
-            uername: guru.username,
+            username: guru.username,
             token: token
         })
     } catch (error) {

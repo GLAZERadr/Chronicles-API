@@ -34,10 +34,13 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "generate-password-ts": "^1.6.5",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.7",
+    "random-pwd-gen": "^1.1.2",
     "sequelize": "^6.37.3",
-    "tslib": "~2.6"
+    "tslib": "~2.6",
+    "unique-username-generator": "^1.3.0"
   },
   "volta": {
     "node": "20.12.2"

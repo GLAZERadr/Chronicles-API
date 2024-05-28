@@ -73,3 +73,28 @@ export const getMuridByUsernameAndPass = async (username: string, password: stri
         throw new DatabaseException(error.message);
     }
 };
+
+export const createRandomAccounts = async (accounts: Array<Murid>): Promise<Array<MuridOutput>> => {
+    try {
+        const createdAccounts: Array<MuridOutput> = [];
+
+        for (const account of accounts) {
+            const murid = await Murid.create(account);
+            createdAccounts.push(murid);
+        }
+
+        return createdAccounts;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};
+
+
+export const updateNama = async (id: string, nama: string): Promise<MuridOutput | null> => {
+    try {
+        await Murid.update({ nama: nama }, { where: { id: id }});
+        return await Murid.findByPk(id);
+    } catch (error: any) {
+        throw new DatabaseException(error.message); 
+    }
+};

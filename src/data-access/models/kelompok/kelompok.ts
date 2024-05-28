@@ -2,6 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import { sequalize } from "../../../common/config/database";
 import { Story } from "../story/story";
 import { Restory } from "../restory/restory";
+import { KelasMurid } from "../kelas/kelas_murid";
 
 interface KelompokAttributes {
     kode_kelompok: string,
@@ -23,7 +24,7 @@ export class Kelompok extends Model<KelompokAttributes, KelompokInput> implement
 Kelompok.init(
     {
         kode_kelompok: {
-            type: DataTypes.STRING(15),
+            type: DataTypes.STRING,
             primaryKey: true,
             allowNull: false,
         },
@@ -36,8 +37,8 @@ Kelompok.init(
             allowNull: false,
         },
         ketua: {
-            type: DataTypes.STRING(15),
-            allowNull: false,
+            type: DataTypes.STRING,
+            allowNull: true,
             references: {
                 model: 'murid',
                 key: 'id',
@@ -46,7 +47,7 @@ Kelompok.init(
     },
     {
         tableName: 'kelompok',
-        timestamps: false,
+        timestamps: true,
         sequelize: sequalize,
     },
 );

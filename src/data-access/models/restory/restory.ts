@@ -29,12 +29,12 @@ export class Restory extends Model<RestoryAttributes, RestoryInput> implements R
 Restory.init(
     {
         id: {
-            type: DataTypes.STRING(15),
+            type: DataTypes.STRING,
             primaryKey: true,
             allowNull: false
         },
         id_story: {
-            type: DataTypes.STRING(15),
+            type: DataTypes.STRING,
             allowNull: false,
             references: {
                 model: 'story',
@@ -42,7 +42,7 @@ Restory.init(
             },
         },
         kode_kelompok: {
-            type: DataTypes.STRING(15),
+            type: DataTypes.STRING,
             allowNull: false,
             references: {
                 model: 'kelompok',
