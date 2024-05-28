@@ -1,5 +1,5 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
-import { errorMiddleware } from './common/middlewares/error.middlewares';
+// import { errorMiddleware } from './common/middlewares/error.middlewares';
 import guruRouter from './routes/guru.routes';
 import muridRouter from './routes/murid.routes';
 import sessionRouter from './routes/session.routes';
@@ -20,7 +20,7 @@ const app: Application = express();
 const port: number = 8000;
 
 app.use(express.json());
-app.use(errorMiddleware);
+// app.use(errorMiddleware);
 app.use(cors());
 app.use(cookieParser());
 
