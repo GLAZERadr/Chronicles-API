@@ -17,7 +17,7 @@ import { storyRouter } from './routes/story.routes';
 import { restoryRouter } from './routes/restory.routes';
 
 const app: Application = express();
-const port: number = parseInt(process.env.SERVER_PORT as string, 10) || 3000;
+const port: number = 8000;
 
 app.use(express.json());
 app.use(errorMiddleware);
@@ -45,6 +45,10 @@ app.use('/chronicles-v1/api/kelas-murid', kelasMuridRouter);
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ message: error.message });
+})
+
+app.use('/', (req: Request, res: Response, next: NextFunction) => {
+  res.status(200).json({ message: 'Hello Chronicles😎' });
 })
 
 app.get('/cookies', function (req: Request, res: Response) {

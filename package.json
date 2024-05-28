@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Chronicles backend api",
   "type": "module",
+  "build": "[my-framework] build --output public",
   "engines": {
     "node": ">= 20.9 < 21"
   },

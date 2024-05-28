@@ -6,7 +6,7 @@ import { generateIdUser } from "../../common/helpers/generateid/generateid";
 
 export const signUp = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
-        const newMuridId = generateIdUser.generateId('MUR_');
+        const newMuridId = generateIdUser.generateId('MUR_' + req.body.username);
 
         const newMuridData = { ...req.body, id: newMuridId };
 
