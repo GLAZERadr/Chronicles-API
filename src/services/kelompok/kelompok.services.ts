@@ -3,6 +3,9 @@ import * as kelompokRepository from '../../data-access/repositories/kelompok/kel
 
 import { validateKelompok } from './kelompok.validator';
 import { Kelompok, KelompokOutput } from '../../data-access/models/kelompok/kelompok';
+import { generateRandomUsername } from '../../common/helpers/randomAccount/randomusername';
+import { generateIdUser } from '../../common/helpers/generateid/generateid';
+import { generateRandomPassword } from '../../common/helpers/randomAccount/randompass';
 
 export const createKelompok = async (newKelompok: Kelompok): Promise<KelompokOutput> => {
     validateKelompok(newKelompok);
@@ -31,19 +34,36 @@ export const getAllKelompok = async (): Promise<Array<KelompokOutput> | null> =>
 export const getKelompokById = async (id: string): Promise<KelompokOutput | null> => {
     const existingKelompok: boolean = await kelompokRepository.existingKelompokById(id);
     if (!existingKelompok) {
-        throw new exceptions.ElementNotFoundException(`Murid with ${id} not found!!`);
+        throw new exceptions.ElementNotFoundException(`Kelompok with ${id} not found!!`);
     }
 
     const kelompok = await kelompokRepository.getKelompokById(id);
     return kelompok;
 };
 
-export const getAnggotaByKelompok = async (id: string): Promise<KelompokOutput | null> => {
-    const existingKelompok: boolean = await kelompokRepository.existingKelompokById(id);
-    if (!existingKelompok) {
-        throw new exceptions.ElementNotFoundException(`Kelompok with ${id} not found!!`);
+
+export const createRandomAccountByTeamNumbers = async (teamnumbers: number, newKelompok: Partial<Kelompok>): Promise<Array<KelompokOutput> | null> => {
+    const accounts: Array<Kelompok> = [];
+
+    for (let i = 0; i < teamnumbers; i++) {
+        const username = generateRandomUsername.generateRandUname();
+        const newKelompokId = generateIdUser.generateId('KEL_' + username);
+        const password = generateRandomPassword.generateRandPass();
+
+        const newKelompokData: Partial<Kelompok> = { ...newKelompok, id: newKelompokId, username: username, password: password };
+
+        accounts.push(newKelompokData as Kelompok); 
     }
 
-    const kelompok = await kelompokRepository.getAnggotaByKelompok(id);
-    return kelompok;
+    return await kelompokRepository.createRandomAccounts(accounts);
 };
+
+export const getKelompokByUsernameAndPassword = async (username: string, password: string): Promise<KelompokOutput | null> => {
+    const existingUsername: boolean = await kelompokRepository.existigKelompokByUsername(username);
+    if (!existingUsername) {
+        throw new exceptions.ElementNotFoundException(`Kelompok with ${username} not found!!!`);
+    }
+
+    const kelompok = await kelompokRepository.getKelompokByUsernameAndPassword(username, password);
+    return kelompok || null;
+}

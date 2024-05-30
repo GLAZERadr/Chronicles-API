@@ -1,7 +1,7 @@
 import express from 'express';
 
 import * as guruController from '../controllers/guru/guru.controllers';
-import * as randomAccCreation from '../controllers/murid/random.murid.account.controllers';
+import * as randomAccCreation from '../controllers/kelompok/random.account.controllers';
 
 import { verifyJWTToken } from '../common/middlewares/auth.middlewares';
 

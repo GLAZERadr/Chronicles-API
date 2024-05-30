@@ -52,15 +52,3 @@ export const getKelompok = async (req: CustomRequest, res: Response, next: NextF
         return next(error);
     }
 };
-
-export const getAnggotaByKelompok = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
-    try {
-        const { id } = req.params;
-
-        let kelompok = await kelompokServices.getAnggotaByKelompok(id);
-
-        return res.status(200).send(kelompok);
-    } catch (error) {
-        return next(error);
-    }
-};

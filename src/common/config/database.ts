@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 
 export const sequalize = new Sequelize (
-    'defaultdb', //env
+    'chronicles', //env
     'avnadmin', //env
     'AVNS_tCBEMHVqWfQCzDPMP_M', //env
     {

@@ -1,11 +1,11 @@
-import { MuridOutput } from "../../data-access/models/murid/murid";
+import { KelompokOutput } from "../../data-access/models/kelompok/kelompok";
 import { GuruOutput } from "../../data-access/models/guru/guru";
 import jwt from 'jsonwebtoken';
 
 const expiration_time = process.env.EXPIRED_TIME || '12h';
 const secret_key = 'DamnMann*tap'; //env
 
-export const generateToken = async (user: MuridOutput | GuruOutput | undefined) => {
+export const generateToken = async (user: KelompokOutput | GuruOutput | undefined) => {
     let signOptions = {
         expiresIn: expiration_time,
     };

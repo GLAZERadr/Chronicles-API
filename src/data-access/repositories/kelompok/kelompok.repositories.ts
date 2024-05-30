@@ -1,5 +1,4 @@
 import { DatabaseException } from "../../../common/exceptions/exceptions";
-import { Anggota } from "../../models/kelompok/anggota.kelompok";
 import { Kelompok, KelompokOutput } from "../../models/kelompok/kelompok";
 
 export const createKelompok = async (newKelompok: Kelompok): Promise<KelompokOutput> => {
@@ -10,13 +9,13 @@ export const createKelompok = async (newKelompok: Kelompok): Promise<KelompokOut
     }
 };
 
-export const deleteKelompok = async (kode_kelompok: string): Promise<string> => {
+export const deleteKelompok = async (id: string): Promise<string> => {
     try {
-        const result = await Kelompok.destroy({ where: { kode_kelompok: kode_kelompok } });
+        const result = await Kelompok.destroy({ where: { id: id } });
         if (result === 0) {
             return 'Kelompok not deleted';
         }
-        return `Kelompok ${kode_kelompok} is deleted`;
+        return `Kelompok ${id} is deleted`;
     } catch (error: any) {
         throw new DatabaseException(error.message); 
     }
@@ -31,9 +30,9 @@ export const existingKelompokByNama = async (nama_kelompok: string): Promise<boo
     }
 };
 
-export const existingKelompokById = async (kode_kelompok: string): Promise<boolean> => {
+export const existingKelompokById = async (id: string): Promise<boolean> => {
     try {
-        const result = await Kelompok.findByPk(kode_kelompok);
+        const result = await Kelompok.findByPk(id);
         return !!result;
     } catch (error: any) {
         throw new DatabaseException(error.message); 
@@ -49,20 +48,44 @@ export const getAllKelompok = async (): Promise<Array<KelompokOutput> | null> =>
     }
 };
 
-export const getKelompokById = async (kode_kelompok: string): Promise<KelompokOutput | null> => {
+export const getKelompokById = async (id: string): Promise<KelompokOutput | null> => {
     try {
-        const kelompok = await Kelompok.findByPk(kode_kelompok);
+        const kelompok = await Kelompok.findByPk(id);
         return kelompok || null;
     } catch (error: any) {
         throw new DatabaseException(error.message); 
     }
 };
 
-export const getAnggotaByKelompok = async (id: string): Promise<KelompokOutput | null> => {
+export const createRandomAccounts = async (accounts: Array<Kelompok>): Promise<Array<KelompokOutput>> => {
     try {
-        const kelompok = await Kelompok.findByPk(id, {  include: Anggota });
-        return kelompok || null;
+        const createdAccounts: Array<KelompokOutput> = [];  
+
+        for (const account of accounts) {
+            const kelompok = await Kelompok.create(account);
+            createdAccounts.push(kelompok);
+        }
+
+        return createdAccounts;
     } catch (error: any) {
         throw new DatabaseException(error.message);
     }
+};
+
+export const getKelompokByUsernameAndPassword = async (username: string, password: string): Promise<KelompokOutput | null> => {
+    try {
+        const kelompok = await Kelompok.findOne({ where: { username: username, password: password }});
+        return kelompok || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    };
+}
+
+export const existigKelompokByUsername = async (username: string): Promise<boolean> => {
+    try {
+        const result = await Kelompok.findOne({ where: { username: username } });
+        return !!result;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    };
 }

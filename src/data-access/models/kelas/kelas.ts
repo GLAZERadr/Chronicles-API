@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import { sequalize } from "../../../common/config/database";
+import { Kelompok } from "../kelompok/kelompok";
 
 interface KelasAttributes {
     id: string,
@@ -43,6 +44,8 @@ Kelas.init(
         sequelize: sequalize,
     },
 );
+
+Kelas.hasMany(Kelompok, { foreignKey: 'id_kelas', as: 'kelompok_kelas'});
 
 sequalize.sync({ force: false })
     .then(() => console.log('Kelas table created!!!'))

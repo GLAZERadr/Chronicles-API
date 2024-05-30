@@ -38,12 +38,12 @@ export const getKelasByNamaKelas = async(nama_kelas: string): Promise<KelasOutpu
     return kelas || null;
 };
 
-export const getKelompokByKelas = async (id: string): Promise<Array<KelasOutput> | null> => {
-    const existingKelas: boolean = await kelasRepository.existingKelasById(id);
-    if (!existingKelas) {
-        throw new exceptions.ElementNotFoundException(`Kelas ${id} not found!!`);
-    }
+// export const getKelompokByKelas = async (id: string): Promise<Array<KelasOutput> | null> => {
+//     const existingKelas: boolean = await kelasRepository.existingKelasById(id);
+//     if (!existingKelas) {
+//         throw new exceptions.ElementNotFoundException(`Kelas ${id} not found!!`);
+//     }
 
-    const kelas = kelasRepository.getKelompokByKelas(id);
-    return kelas || null;
-}
+//     const kelas = kelasRepository.getKelompokByKelas(id);
+//     return kelas || null;
+// }

@@ -46,7 +46,7 @@ Restory.init(
             allowNull: false,
             references: {
                 model: 'kelompok',
-                key: 'kode_kelompok',
+                key: 'id',
             },
         },
         judul: {

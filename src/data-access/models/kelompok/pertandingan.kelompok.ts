@@ -29,7 +29,7 @@ Pertandingan.init(
             allowNull: false,
             references: {
                 model: Kelompok,
-                key: 'kode_kelompok',
+                key: 'id',
             }
         },
         kode_kelompok_genap: {
@@ -37,7 +37,7 @@ Pertandingan.init(
             allowNull: false,
             references: {
                 model: Kelompok,
-                key: 'kode_kelompok',
+                key: 'id',
             }
         },
     },

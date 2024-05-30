@@ -2,7 +2,7 @@ import { NextFunction, Response } from 'express';
 import { validateLogin } from '../../services/sessions/sessions.validator';
 
 import * as guruServices from '../../services/guru/guru.services'
-import * as muridServices from '../../services/murid/murid.services'
+import * as kelompokServices from '../../services/kelompok/kelompok.services'
 import * as tokenServices from '../../services/tokens/token.services'
 import { CustomRequest } from '../../common/middlewares/auth.middlewares';
 import { ElementInvalidException } from '../../common/exceptions/exceptions';
@@ -38,24 +38,23 @@ export const loginGuru = async (req: CustomRequest, res: Response, next: NextFun
     }
 }
 
-export const loginMurid = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+export const loginKelompok = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         let loginInfo: LoginInput = req.body;
         validateLogin(loginInfo);
 
-        let murid = await muridServices.getMuridByUsernameAndPass(loginInfo.username, loginInfo.password);
+        let kelompok = await kelompokServices.getKelompokByUsernameAndPassword(loginInfo.username, loginInfo.password);
 
-        if (!murid) {
+        if (!kelompok) {
             throw new ElementInvalidException('Murid credentials are invalid!!');
         }
 
-        let token = await tokenServices.generateToken(murid);
+        let token = await tokenServices.generateToken(kelompok);
 
         res.cookie('jwt_token', token, {httpOnly: true});
         res.status(200).json({
-            id: murid.id,
-            username: murid.username,
-            nama: murid.nama,
+            id: kelompok.id,
+            username: kelompok.username,
             token: token
         })
     } catch (error) {
