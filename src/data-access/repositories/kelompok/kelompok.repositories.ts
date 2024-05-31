@@ -79,7 +79,7 @@ export const getKelompokByUsernameAndPassword = async (username: string, passwor
     } catch (error: any) {
         throw new DatabaseException(error.message);
     };
-}
+};
 
 export const existigKelompokByUsername = async (username: string): Promise<boolean> => {
     try {
@@ -88,4 +88,24 @@ export const existigKelompokByUsername = async (username: string): Promise<boole
     } catch (error: any) {
         throw new DatabaseException(error.message);
     };
-}
+};
+
+//update info kelompok
+export const updateInfoKelompok = async (id: string, nama_kelompok: string, ketua: string, anggota1: string, anggota2: string, anggota3: string, anggota4: string): Promise<KelompokOutput | null> => {
+    try {
+        await Kelompok.update({ nama_kelompok: nama_kelompok, ketua: ketua, anggota1: anggota1, anggota2: anggota2, anggota3: anggota3, anggota4: anggota4 }, { where: { id: id }});
+        return await Kelompok.findByPk(id);
+    } catch (error: any) {
+        throw new DatabaseException(error.message); 
+    }
+};
+
+//update status story restory kelompok
+export const updateStatusKelompok = async (id: string, status: string): Promise<KelompokOutput | null> => {
+    try {
+        await Kelompok.update({ status: status }, { where: {id: id }});
+        return await Kelompok.findByPk(id);
+    } catch (error: any) {
+        throw new DatabaseException(error.message); 
+    }
+};

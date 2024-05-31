@@ -89,3 +89,23 @@ export const existigKelompokByUsername = async (username) => {
     }
     ;
 };
+//update info kelompok
+export const updateInfoKelompok = async (id, nama_kelompok, ketua, anggota1, anggota2, anggota3, anggota4) => {
+    try {
+        await Kelompok.update({ nama_kelompok: nama_kelompok, ketua: ketua, anggota1: anggota1, anggota2: anggota2, anggota3: anggota3, anggota4: anggota4 }, { where: { id: id } });
+        return await Kelompok.findByPk(id);
+    }
+    catch (error) {
+        throw new DatabaseException(error.message);
+    }
+};
+//update status story restory kelompok
+export const updateStatusKelompok = async (id, status) => {
+    try {
+        await Kelompok.update({ status: status }, { where: { id: id } });
+        return await Kelompok.findByPk(id);
+    }
+    catch (error) {
+        throw new DatabaseException(error.message);
+    }
+};

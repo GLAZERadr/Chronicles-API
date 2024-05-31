@@ -33,7 +33,7 @@ export const existingTugasById = async (id: string): Promise<boolean> => {
 
 export const getGuruByTugas = async (id: string): Promise<TugasOutput | null> => {
     try {
-        const tugas = await Tugas.findByPk(id, { include: Guru });
+        const tugas = await Tugas.findByPk(id, { include: [{ model: Guru, as: 'guru' }] });
         return tugas || null;
     } catch (error: any) {
         throw new DatabaseException(error.message);

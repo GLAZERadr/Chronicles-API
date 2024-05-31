@@ -56,3 +56,19 @@ export const getKelompokByUsernameAndPassword = async (username, password) => {
     const kelompok = await kelompokRepository.getKelompokByUsernameAndPassword(username, password);
     return kelompok || null;
 };
+export const updateInfoKelompok = async (id, nama_kelompok, ketua, anggota1, anggota2, anggota3, anggota4) => {
+    const existingKelompok = await kelompokRepository.existingKelompokById(id);
+    if (!existingKelompok) {
+        throw new exceptions.ElementNotFoundException(`Kelompok with ${id} not found!!`);
+    }
+    const updatedKelompokInfo = await kelompokRepository.updateInfoKelompok(id, nama_kelompok, ketua, anggota1, anggota2, anggota3, anggota4);
+    return updatedKelompokInfo || null;
+};
+export const updateStatusKelompok = async (id, status) => {
+    const existingKelompok = await kelompokRepository.existingKelompokById(id);
+    if (!existingKelompok) {
+        throw new exceptions.ElementNotFoundException(`Kelompok with ${id} not found!!`);
+    }
+    const updatedKelompokStatus = await kelompokRepository.updateStatusKelompok(id, status);
+    return updatedKelompokStatus || null;
+};

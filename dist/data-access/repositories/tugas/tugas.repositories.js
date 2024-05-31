@@ -32,7 +32,7 @@ export const existingTugasById = async (id) => {
 };
 export const getGuruByTugas = async (id) => {
     try {
-        const tugas = await Tugas.findByPk(id, { include: Guru });
+        const tugas = await Tugas.findByPk(id, { include: [{ model: Guru, as: 'guru' }] });
         return tugas || null;
     }
     catch (error) {

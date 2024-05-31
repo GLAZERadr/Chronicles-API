@@ -9,3 +9,5 @@ kelompokRouter.get('/get', verifyJWTToken, kelompokController.getAllKelompok);
 kelompokRouter.get('/get/:id', verifyJWTToken, kelompokController.getKelompok);
 kelompokRouter.post('/post', verifyJWTToken, kelompokController.createKelompok);
 kelompokRouter.delete('/delete', verifyJWTToken, kelompokController.deleteKelompok);
+kelompokRouter.patch('/update/info/:id', verifyJWTToken, kelompokController.updateInfoKelompok);
+kelompokRouter.patch('/update/status/:id', verifyJWTToken, kelompokController.updateStatusKelompok);

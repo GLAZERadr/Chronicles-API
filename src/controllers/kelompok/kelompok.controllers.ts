@@ -33,9 +33,9 @@ export const deleteKelompok = async (req: CustomRequest, res: Response, next: Ne
 
 export const getAllKelompok = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
-        let kelompoks = await kelompokServices.getAllKelompok();
+        let result = await kelompokServices.getAllKelompok();
 
-        return res.status(200).send(kelompoks);
+        return res.status(200).send(result);
     } catch(error) {
         return next(error);
     }
@@ -45,9 +45,42 @@ export const getKelompok = async (req: CustomRequest, res: Response, next: NextF
     try {
         const { id } = req.params;
 
-        let kelompok = await kelompokServices.getKelompokById(id);
+        let result = await kelompokServices.getKelompokById(id);
 
-        return res.status(200).send(kelompok);
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+};
+
+export const updateInfoKelompok = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id } = req.params;
+
+        const { nama_kelompok } = req.body;
+        const { ketua } = req.body;
+        const { anggota1 } = req.body;
+        const { anggota2 } = req.body;
+        const { anggota3 } = req.body;
+        const { anggota4 } = req.body;
+
+        let result = await kelompokServices.updateInfoKelompok(id, nama_kelompok, ketua, anggota1, anggota2, anggota3, anggota4);
+
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+};
+
+export const updateStatusKelompok = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id } = req.params;
+
+        const { status } = req.body;
+
+        let result = await kelompokServices.updateStatusKelompok(id, status);
+
+        return res.status(200).send(result);
     } catch (error) {
         return next(error);
     }
