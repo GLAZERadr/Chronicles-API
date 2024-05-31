@@ -51,3 +51,16 @@ export const getAllGuru = async (req: CustomRequest, res: Response, next: NextFu
         return next(error);
     }
 };
+
+//get all kelas by guru
+export const getKelasByGuru = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id } = req.params;
+
+        let kelasByGuru = await guruServices.getKelasByGuru(id);
+
+        return res.status(200).send(kelasByGuru);
+    } catch (error) {
+        return next(error);
+    }
+}

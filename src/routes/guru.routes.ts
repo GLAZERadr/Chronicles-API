@@ -9,8 +9,9 @@ export const guruRouter = express.Router();
 
 guruRouter.get('/get', guruController.getAllGuru);
 guruRouter.get('/get/:id', verifyJWTToken, guruController.getGuru);
+guruRouter.get('/kelas/:id', verifyJWTToken, guruController.getKelasByGuru);
 guruRouter.delete('/delete/:id', verifyJWTToken, guruController.deleteGuru);
 guruRouter.post('/signup', guruController.signUp);
-guruRouter.post('/team-numbers/:team_numbers', randomAccCreation.createRandomAccountByTeamNumbers);
+guruRouter.post('/kelas/:id_kelas/team-numbers/:team_numbers', randomAccCreation.createRandomAccountByTeamNumbers);
 
 export default guruRouter;

@@ -6,6 +6,7 @@ import { CustomRequest } from "../../common/middlewares/auth.middlewares";
 export const createRandomAccountByTeamNumbers = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { team_numbers } = req.params;
+        const { id_kelas } = req.params;
 
         if (!team_numbers || isNaN(parseInt(team_numbers))) {
             return res.status(400).json({ error: "Invalid team_numbers parameter" });
@@ -16,9 +17,9 @@ export const createRandomAccountByTeamNumbers = async (req: CustomRequest, res: 
             return res.status(400).json({ error: "team_numbers must be a positive number" });
         }
 
-        const newMuridData = { ...req.body, nama: "" };
+        const newKelompokData = { ...req.body, id_kelas: id_kelas };
 
-        const akun = await kelompokServices.createRandomAccountByTeamNumbers(team_numbers_number, newMuridData);
+        const akun = await kelompokServices.createRandomAccountByTeamNumbers(team_numbers_number, newKelompokData);
 
         return res.status(201).send(akun);
     } catch (error) {

@@ -36,7 +36,14 @@ export const createRandomAccountByTeamNumbers = async (teamnumbers, newKelompok)
         const username = generateRandomUsername.generateRandUname();
         const newKelompokId = generateIdUser.generateId('KEL_' + username);
         const password = generateRandomPassword.generateRandPass();
-        const newKelompokData = { ...newKelompok, id: newKelompokId, username: username, password: password };
+        let status;
+        if (i % 2 != 0) {
+            status = 'story';
+        }
+        else {
+            status = 'restory';
+        }
+        const newKelompokData = { ...newKelompok, id: newKelompokId, username: username, password: password, status: status };
         accounts.push(newKelompokData);
     }
     return await kelompokRepository.createRandomAccounts(accounts);

@@ -43,3 +43,19 @@ export const getGuruByUsernameAndPass = async (username, password) => {
     const guru = await guruRepository.getGuruByUsernameAndPass(username, password);
     return guru;
 };
+export const getKelasByGuru = async (id) => {
+    const existingGuru = await guruRepository.existingGuruById(id);
+    if (!existingGuru) {
+        throw new exceptions.ElementNotFoundException(`Guru with ${id} not found!!`);
+    }
+    const kelasByGuru = await guruRepository.getKelasByGuru(id);
+    return kelasByGuru;
+};
+// export const getKelasByGuru = async (id: string): Promise<Array<KelasOutput> | null> => {
+//     const existingGuru = await guruRepository.existingGuruById(id);
+//     if (!existingGuru) {
+//         throw new exceptions.ElementNotFoundException(`Guru with ${id} not found!!`);
+//     }
+//     const kelasByGuru = await guruRepository.getKelasByGuru(id);
+//     return kelasByGuru;
+// }

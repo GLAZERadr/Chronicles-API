@@ -50,7 +50,14 @@ export const createRandomAccountByTeamNumbers = async (teamnumbers: number, newK
         const newKelompokId = generateIdUser.generateId('KEL_' + username);
         const password = generateRandomPassword.generateRandPass();
 
-        const newKelompokData: Partial<Kelompok> = { ...newKelompok, id: newKelompokId, username: username, password: password };
+        let status: string;
+        if (i % 2 != 0 )  {
+            status = 'story';
+        } else {
+            status = 'restory';
+        }
+
+        const newKelompokData: Partial<Kelompok> = { ...newKelompok, id: newKelompokId, username: username, password: password, status: status };
 
         accounts.push(newKelompokData as Kelompok); 
     }

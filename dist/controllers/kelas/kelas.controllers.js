@@ -40,6 +40,8 @@ export const getKelasByNamaKelas = async (req, res, next) => {
         return next(error);
     }
 };
+export const getKelasByGuru = async (req, res, next) => {
+};
 // export const getKelompokByKelas = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
 //     try {
 //         const { id } = req.params;

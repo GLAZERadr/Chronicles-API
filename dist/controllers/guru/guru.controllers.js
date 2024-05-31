@@ -40,3 +40,14 @@ export const getAllGuru = async (req, res, next) => {
         return next(error);
     }
 };
+//get all kelas by guru
+export const getKelasByGuru = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        let kelasByGuru = await guruServices.getKelasByGuru(id);
+        return res.status(200).send(kelasByGuru);
+    }
+    catch (error) {
+        return next(error);
+    }
+};

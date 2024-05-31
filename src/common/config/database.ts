@@ -1,11 +1,11 @@
 import { Sequelize } from "sequelize";
 
 export const sequalize = new Sequelize (
-    'chronicles', //env
+    'defaultdb', //env
     'avnadmin', //env
-    'AVNS_tCBEMHVqWfQCzDPMP_M', //env
+    'AVNS_DnhVSwZtBL05nYGliqY', //env
     {
-        host: 'mysql-3de7121e-student-dbf6.h.aivencloud.com', //env
+        host: 'chronicles-student-dbf6.g.aivencloud.com', //env
         dialect: 'mysql', //env
         port: 22155, //env,
         dialectOptions: {
@@ -16,7 +16,7 @@ export const sequalize = new Sequelize (
         },
         retry: {
             max: 10,
-            timeout: 3000,
+            timeout: 5000,
         },
     },
 );

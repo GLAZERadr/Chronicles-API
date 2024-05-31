@@ -51,7 +51,7 @@ Kelompok.init(
         },
         nama_kelompok: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },  
         status: {
             type: DataTypes.STRING,

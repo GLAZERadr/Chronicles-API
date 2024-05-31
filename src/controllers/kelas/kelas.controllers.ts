@@ -52,6 +52,10 @@ export const getKelasByNamaKelas = async (req: CustomRequest, res: Response, nex
     }
 };
 
+export const getKelasByGuru = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    
+}
+
 // export const getKelompokByKelas = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
 //     try {
 //         const { id } = req.params;

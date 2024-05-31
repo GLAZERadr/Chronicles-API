@@ -27,11 +27,3 @@ export const getKelasByNamaKelas = async (nama_kelas) => {
     const kelas = kelasRepository.getKelasByNamaKelas(nama_kelas);
     return kelas || null;
 };
-// export const getKelompokByKelas = async (id: string): Promise<Array<KelasOutput> | null> => {
-//     const existingKelas: boolean = await kelasRepository.existingKelasById(id);
-//     if (!existingKelas) {
-//         throw new exceptions.ElementNotFoundException(`Kelas ${id} not found!!`);
-//     }
-//     const kelas = kelasRepository.getKelompokByKelas(id);
-//     return kelas || null;
-// }
