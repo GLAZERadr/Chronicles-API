@@ -40,6 +40,16 @@ export const getKelompok = async (req, res, next) => {
         return next(error);
     }
 };
+export const getKelompokByClass = async (req, res, next) => {
+    try {
+        const { id_kelas } = req.params;
+        let result = await kelompokServices.getKelompokByClass(id_kelas);
+        return res.status(200).send(result);
+    }
+    catch (error) {
+        return next(error);
+    }
+};
 export const updateInfoKelompok = async (req, res, next) => {
     try {
         const { id } = req.params;

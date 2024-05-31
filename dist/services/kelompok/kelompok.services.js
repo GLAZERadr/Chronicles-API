@@ -30,6 +30,13 @@ export const getKelompokById = async (id) => {
     const kelompok = await kelompokRepository.getKelompokById(id);
     return kelompok;
 };
+export const getKelompokByClass = async (id_kelas) => {
+    const kelompok = await kelompokRepository.getKelompokByClass(id_kelas);
+    if (!kelompok) {
+        throw new exceptions.ElementNotFoundException(`Kelompok with ${id_kelas} not found!!`);
+    }
+    return kelompok;
+};
 export const createRandomAccountByTeamNumbers = async (teamnumbers, newKelompok) => {
     const accounts = [];
     for (let i = 0; i < teamnumbers; i++) {

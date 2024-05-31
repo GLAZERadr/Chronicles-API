@@ -56,6 +56,15 @@ export const getKelompokById = async (id) => {
         throw new DatabaseException(error.message);
     }
 };
+export const getKelompokByClass = async (id_kelas) => {
+    try {
+        const kelompok = await Kelompok.findAll({ where: { id_kelas: id_kelas } });
+        return kelompok || null;
+    }
+    catch (error) {
+        throw new DatabaseException(error.message);
+    }
+};
 export const createRandomAccounts = async (accounts) => {
     try {
         const createdAccounts = [];

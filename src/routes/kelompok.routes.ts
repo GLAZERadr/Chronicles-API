@@ -7,6 +7,7 @@ export const kelompokRouter = express.Router();
 
 kelompokRouter.get('/get', verifyJWTToken, kelompokController.getAllKelompok);
 kelompokRouter.get('/get/:id', verifyJWTToken, kelompokController.getKelompok);
+kelompokRouter.get('/get/class/:id_kelas', verifyJWTToken, kelompokController.getKelompokByClass);
 kelompokRouter.post('/post', verifyJWTToken, kelompokController.createKelompok);
 kelompokRouter.delete('/delete', verifyJWTToken, kelompokController.deleteKelompok);
 kelompokRouter.patch('/update/info/:id', verifyJWTToken, kelompokController.updateInfoKelompok);
