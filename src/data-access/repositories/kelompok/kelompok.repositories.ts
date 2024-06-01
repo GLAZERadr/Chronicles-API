@@ -58,6 +58,15 @@ export const getKelompokById = async (id: string): Promise<KelompokOutput | null
     }
 };
 
+export const getKelompokByClass = async (id_kelas: string): Promise<Array<KelompokOutput> | null> => {
+    try {
+        const kelompok = await Kelompok.findAll({ where: { id_kelas: id_kelas } });
+        return kelompok || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+}
+
 export const createRandomAccounts = async (accounts: Array<Kelompok>): Promise<Array<KelompokOutput>> => {
     try {
         const createdAccounts: Array<KelompokOutput> = [];  

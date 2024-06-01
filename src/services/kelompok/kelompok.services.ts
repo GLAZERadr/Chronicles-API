@@ -41,6 +41,16 @@ export const getKelompokById = async (id: string): Promise<KelompokOutput | null
     return kelompok;
 };
 
+export const getKelompokByClass = async (id_kelas: string): Promise<Array<KelompokOutput> | null> => {
+    const kelompok = await kelompokRepository.getKelompokByClass(id_kelas);
+
+    if (!kelompok) {
+        throw new exceptions.ElementNotFoundException(`Kelompok with ${id_kelas} not found!!`);
+    }
+    
+    return kelompok;
+}
+
 
 export const createRandomAccountByTeamNumbers = async (teamnumbers: number, newKelompok: Partial<Kelompok>): Promise<Array<KelompokOutput> | null> => {
     const accounts: Array<Kelompok> = [];

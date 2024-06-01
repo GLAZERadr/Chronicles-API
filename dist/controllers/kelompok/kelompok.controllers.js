@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStoryByKelompok = exports.updateStatusKelompok = exports.updateInfoKelompok = exports.getKelompok = exports.getAllKelompok = exports.deleteKelompok = exports.createKelompok = void 0;
+exports.getStoryByKelompok = exports.updateStatusKelompok = exports.updateInfoKelompok = exports.getKelompokByClass = exports.getKelompok = exports.getAllKelompok = exports.deleteKelompok = exports.createKelompok = void 0;
 const kelompokServices = __importStar(require("../../services/kelompok/kelompok.services"));
 const generateid_1 = require("../../common/helpers/generateid/generateid");
 const createKelompok = async (req, res, next) => {
@@ -70,6 +70,17 @@ const getKelompok = async (req, res, next) => {
     }
 };
 exports.getKelompok = getKelompok;
+const getKelompokByClass = async (req, res, next) => {
+    try {
+        const { id_kelas } = req.params;
+        let result = await kelompokServices.getKelompokByClass(id_kelas);
+        return res.status(200).send(result);
+    }
+    catch (error) {
+        return next(error);
+    }
+};
+exports.getKelompokByClass = getKelompokByClass;
 const updateInfoKelompok = async (req, res, next) => {
     try {
         const { id } = req.params;

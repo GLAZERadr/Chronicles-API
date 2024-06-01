@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStoryByKelompok = exports.updateStatusKelompok = exports.updateInfoKelompok = exports.existigKelompokByUsername = exports.getKelompokByUsernameAndPassword = exports.createRandomAccounts = exports.getKelompokById = exports.getAllKelompok = exports.existingKelompokById = exports.existingKelompokByNama = exports.deleteKelompok = exports.createKelompok = void 0;
+exports.getStoryByKelompok = exports.updateStatusKelompok = exports.updateInfoKelompok = exports.existigKelompokByUsername = exports.getKelompokByUsernameAndPassword = exports.createRandomAccounts = exports.getKelompokByClass = exports.getKelompokById = exports.getAllKelompok = exports.existingKelompokById = exports.existingKelompokByNama = exports.deleteKelompok = exports.createKelompok = void 0;
 const exceptions_1 = require("../../../common/exceptions/exceptions");
 const kelompok_1 = require("../../models/kelompok/kelompok");
 const story_1 = require("../../models/story/story");
@@ -66,6 +66,16 @@ const getKelompokById = async (id) => {
     }
 };
 exports.getKelompokById = getKelompokById;
+const getKelompokByClass = async (id_kelas) => {
+    try {
+        const kelompok = await kelompok_1.Kelompok.findAll({ where: { id_kelas: id_kelas } });
+        return kelompok || null;
+    }
+    catch (error) {
+        throw new exceptions_1.DatabaseException(error.message);
+    }
+};
+exports.getKelompokByClass = getKelompokByClass;
 const createRandomAccounts = async (accounts) => {
     try {
         const createdAccounts = [];

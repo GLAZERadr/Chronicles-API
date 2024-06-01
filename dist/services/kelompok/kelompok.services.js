@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStoryByKelompok = exports.updateStatusKelompok = exports.updateInfoKelompok = exports.getKelompokByUsernameAndPassword = exports.createRandomAccountByTeamNumbers = exports.getKelompokById = exports.getAllKelompok = exports.deleteKelompok = exports.createKelompok = void 0;
+exports.getStoryByKelompok = exports.updateStatusKelompok = exports.updateInfoKelompok = exports.getKelompokByUsernameAndPassword = exports.createRandomAccountByTeamNumbers = exports.getKelompokByClass = exports.getKelompokById = exports.getAllKelompok = exports.deleteKelompok = exports.createKelompok = void 0;
 const exceptions = __importStar(require("../../common/exceptions/exceptions"));
 const kelompokRepository = __importStar(require("../../data-access/repositories/kelompok/kelompok.repositories"));
 const kelompok_validator_1 = require("./kelompok.validator");
@@ -60,6 +60,14 @@ const getKelompokById = async (id) => {
     return kelompok;
 };
 exports.getKelompokById = getKelompokById;
+const getKelompokByClass = async (id_kelas) => {
+    const kelompok = await kelompokRepository.getKelompokByClass(id_kelas);
+    if (!kelompok) {
+        throw new exceptions.ElementNotFoundException(`Kelompok with ${id_kelas} not found!!`);
+    }
+    return kelompok;
+};
+exports.getKelompokByClass = getKelompokByClass;
 const createRandomAccountByTeamNumbers = async (teamnumbers, newKelompok) => {
     const accounts = [];
     for (let i = 0; i < teamnumbers; i++) {

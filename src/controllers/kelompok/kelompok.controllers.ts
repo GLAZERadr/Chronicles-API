@@ -53,6 +53,18 @@ export const getKelompok = async (req: CustomRequest, res: Response, next: NextF
     }
 };
 
+export const getKelompokByClass = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id_kelas } = req.params;
+
+        let result = await kelompokServices.getKelompokByClass(id_kelas);
+
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+}
+
 export const updateInfoKelompok = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { id } = req.params;

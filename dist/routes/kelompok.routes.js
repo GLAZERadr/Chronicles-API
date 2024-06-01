@@ -34,6 +34,7 @@ exports.kelompokRouter = express_1.default.Router();
 exports.kelompokRouter.get('/get', auth_middlewares_1.verifyJWTToken, kelompokController.getAllKelompok);
 exports.kelompokRouter.get('/get/:id', auth_middlewares_1.verifyJWTToken, kelompokController.getKelompok);
 exports.kelompokRouter.get('/story/:id', auth_middlewares_1.verifyJWTToken, kelompokController.getStoryByKelompok);
+exports.kelompokRouter.get('/get/class/:id_kelas', auth_middlewares_1.verifyJWTToken, kelompokController.getKelompokByClass);
 exports.kelompokRouter.post('/post', auth_middlewares_1.verifyJWTToken, kelompokController.createKelompok);
 exports.kelompokRouter.delete('/delete', auth_middlewares_1.verifyJWTToken, kelompokController.deleteKelompok);
 exports.kelompokRouter.patch('/update/info/:id', auth_middlewares_1.verifyJWTToken, kelompokController.updateInfoKelompok);
