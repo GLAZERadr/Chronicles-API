@@ -4,7 +4,7 @@ exports.Guru = void 0;
 const sequelize_1 = require("sequelize");
 const database_1 = require("../../../common/config/database");
 const kelas_1 = require("../kelas/kelas");
-const tugas_1 = require("../tugas/tugas.");
+const tugas_1 = require("../tugas/tugas");
 class Guru extends sequelize_1.Model {
 }
 exports.Guru = Guru;

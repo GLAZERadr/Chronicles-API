@@ -29,7 +29,7 @@ Tugas.init({
         allowNull: true,
     },
     komentar: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.TEXT,
         allowNull: true,
     },
     id_guru: {

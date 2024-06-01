@@ -1,6 +1,6 @@
 import { DatabaseException } from "../../../common/exceptions/exceptions";
 import { Guru } from "../../models/guru/guru";
-import { Tugas, TugasOutput } from "../../models/tugas/tugas.";
+import { Tugas, TugasOutput } from "../../models/tugas/tugas";
 
 export const createTugas = async (newTugas: Tugas): Promise<TugasOutput> => {
     try {
@@ -39,3 +39,12 @@ export const getGuruByTugas = async (id: string): Promise<TugasOutput | null> =>
         throw new DatabaseException(error.message);
     }
 }
+
+export const updateNilaiAndKomentar = async (id: string, nilai_kelompok: number, komentar: string): Promise<TugasOutput | null> => {
+    try {
+        await Tugas.update({ nilai_kelompok: nilai_kelompok, komentar: komentar }, { where: { id: id }});
+        return await Tugas.findByPk(id);
+    } catch (error: any) {
+        throw new DatabaseException(error.message); 
+    }
+};

@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getGuruByTugas = exports.deleteTugas = exports.createTugas = void 0;
+exports.updateNilaiAndKomentar = exports.getGuruByTugas = exports.deleteTugas = exports.createTugas = void 0;
 const exceptions = __importStar(require("../../common/exceptions/exceptions"));
 const tugasRepository = __importStar(require("../../data-access/repositories/tugas/tugas.repositories"));
 const tugas_validator_1 = require("./tugas.validator");
@@ -48,3 +48,11 @@ const getGuruByTugas = async (id) => {
     return await tugasRepository.getGuruByTugas(id);
 };
 exports.getGuruByTugas = getGuruByTugas;
+const updateNilaiAndKomentar = async (id, nilai_kelompok, komentar) => {
+    const existingTugas = await tugasRepository.existingTugasById(id);
+    if (!existingTugas) {
+        throw new exceptions.ElementNotFoundException(`Tugas with ${id} not found!!`);
+    }
+    return await tugasRepository.updateNilaiAndKomentar(id, nilai_kelompok, komentar);
+};
+exports.updateNilaiAndKomentar = updateNilaiAndKomentar;

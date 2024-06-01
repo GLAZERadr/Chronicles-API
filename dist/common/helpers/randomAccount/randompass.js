@@ -5,7 +5,7 @@ const generate_password_ts_1 = require("generate-password-ts");
 class generateRandomPassword {
     static generateRandPass() {
         return (0, generate_password_ts_1.generate)({
-            length: 10,
+            length: 5,
             numbers: true,
         });
     }

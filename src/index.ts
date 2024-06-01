@@ -39,10 +39,6 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ message: error.message });
 })
 
-app.use('/', (req: Request, res: Response, next: NextFunction) => {
-  res.status(200).json({ message: 'Hello Chronicles😎' });
-})
-
 app.get('/cookies', function (req: Request, res: Response) {
   console.log('Cookies: ', req);
 

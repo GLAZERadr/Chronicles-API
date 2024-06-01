@@ -44,7 +44,7 @@ Tugas.init(
             allowNull: true,
         },
         komentar: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: true,
         },
         id_guru: {

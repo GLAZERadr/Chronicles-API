@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getGuruByTugas = exports.existingTugasById = exports.deleteTugas = exports.createTugas = void 0;
+exports.updateNilaiAndKomentar = exports.getGuruByTugas = exports.existingTugasById = exports.deleteTugas = exports.createTugas = void 0;
 const exceptions_1 = require("../../../common/exceptions/exceptions");
 const guru_1 = require("../../models/guru/guru");
-const tugas_1 = require("../../models/tugas/tugas.");
+const tugas_1 = require("../../models/tugas/tugas");
 const createTugas = async (newTugas) => {
     try {
         return await tugas_1.Tugas.create(newTugas);
@@ -46,3 +46,13 @@ const getGuruByTugas = async (id) => {
     }
 };
 exports.getGuruByTugas = getGuruByTugas;
+const updateNilaiAndKomentar = async (id, nilai_kelompok, komentar) => {
+    try {
+        await tugas_1.Tugas.update({ nilai_kelompok: nilai_kelompok, komentar: komentar }, { where: { id: id } });
+        return await tugas_1.Tugas.findByPk(id);
+    }
+    catch (error) {
+        throw new exceptions_1.DatabaseException(error.message);
+    }
+};
+exports.updateNilaiAndKomentar = updateNilaiAndKomentar;

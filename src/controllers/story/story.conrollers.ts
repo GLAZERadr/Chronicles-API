@@ -73,3 +73,15 @@ export const getKelompokByStory = async (req: CustomRequest, res: Response, next
         return next(error);
     }
 };
+
+export const getStoryById = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id } = req.params;
+
+        let result = await storyServices.getStoryById(id);
+
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+};

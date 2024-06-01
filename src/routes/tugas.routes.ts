@@ -7,4 +7,5 @@ export const tugasRouter = express.Router();
 
 tugasRouter.get('/get/guru/:id', verifyJWTToken, tugasController.getGuruByTugas);
 tugasRouter.post('/post', verifyJWTToken, tugasController.createTugas);
+tugasRouter.post('/post/:id/grading/:id_story', verifyJWTToken, tugasController.gradingStory);
 tugasRouter.delete('/delete', verifyJWTToken, tugasController.deleteTugas);

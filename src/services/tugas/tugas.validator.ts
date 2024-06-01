@@ -1,6 +1,6 @@
 import * as stringValidators from '../../common/utils/validations/string.validator';
 import * as numberValidators from '../../common/utils/validations/number.validator';
-import { TugasInput } from '../../data-access/models/tugas/tugas.';
+import { TugasInput } from '../../data-access/models/tugas/tugas';
 
 export const validateTugas = (newTugas: TugasInput): void => {
     validateInstruksiTugas(newTugas.instruksi_tugas);

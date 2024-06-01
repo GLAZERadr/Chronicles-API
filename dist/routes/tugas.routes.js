@@ -33,4 +33,5 @@ const auth_middlewares_1 = require("../common/middlewares/auth.middlewares");
 exports.tugasRouter = express_1.default.Router();
 exports.tugasRouter.get('/get/guru/:id', auth_middlewares_1.verifyJWTToken, tugasController.getGuruByTugas);
 exports.tugasRouter.post('/post', auth_middlewares_1.verifyJWTToken, tugasController.createTugas);
+exports.tugasRouter.post('/post/:id/grading/:id_story', auth_middlewares_1.verifyJWTToken, tugasController.gradingStory);
 exports.tugasRouter.delete('/delete', auth_middlewares_1.verifyJWTToken, tugasController.deleteTugas);

@@ -57,3 +57,12 @@ export const updateGambar = async (id: string, url_gambar: string): Promise<Stor
         throw new DatabaseException(error.message);
     }
 };
+
+export const getStoryById = async (id: string): Promise<StoryOutput | null> => {
+    try {
+        const story = Story.findByPk(id);
+        return story || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};

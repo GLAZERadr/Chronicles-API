@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateGambar = exports.getKelompokByStory = exports.deleteStory = exports.createStory = void 0;
+exports.getStoryById = exports.updateGambar = exports.getKelompokByStory = exports.deleteStory = exports.createStory = void 0;
 const exceptions = __importStar(require("../../common/exceptions/exceptions"));
 const storyRepository = __importStar(require("../../data-access/repositories/story/story.repositories"));
 const story_validator_1 = require("./story.validator");
@@ -62,3 +62,12 @@ const updateGambar = async (id, url_gambar) => {
     return story;
 };
 exports.updateGambar = updateGambar;
+const getStoryById = async (id) => {
+    const existingStory = await storyRepository.existingStoryById(id);
+    if (!existingStory) {
+        throw new exceptions.ElementNotFoundException(`Story with id ${id} not found`);
+    }
+    const story = await storyRepository.getStoryById(id);
+    return story;
+};
+exports.getStoryById = getStoryById;
