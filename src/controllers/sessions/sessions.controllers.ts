@@ -53,7 +53,9 @@ export const loginKelompok = async (req: CustomRequest, res: Response, next: Nex
 
         res.cookie('jwt_token', token, {httpOnly: true});
         res.status(200).json({
+            message: 'Login success!!',
             id: kelompok.id,
+            nama: kelompok.nama_kelompok ?? 'Team',
             username: kelompok.username,
             token: token
         })
