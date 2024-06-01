@@ -30,7 +30,7 @@ export const getKelompokByPertandingan = async (id: string): Promise<Pertandinga
     } catch (error: any) {
         throw new DatabaseException(error.message);
     }
-}
+};
 
 export const getStoryFromKelompokByPertandingan = async (id: string): Promise<PertandinganOutput | null> => {
     try {
