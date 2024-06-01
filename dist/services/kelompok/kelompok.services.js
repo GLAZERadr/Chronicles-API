@@ -26,6 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getStoryByKelompok = exports.updateStatusKelompok = exports.updateInfoKelompok = exports.getKelompokByUsernameAndPassword = exports.createRandomAccountByTeamNumbers = exports.getKelompokByClass = exports.getKelompokById = exports.getAllKelompok = exports.deleteKelompok = exports.createKelompok = void 0;
 const exceptions = __importStar(require("../../common/exceptions/exceptions"));
 const kelompokRepository = __importStar(require("../../data-access/repositories/kelompok/kelompok.repositories"));
+const pertandinganRepository = __importStar(require("../../data-access/repositories/kelompok/pertandingan.kelompok.repositories"));
 const kelompok_validator_1 = require("./kelompok.validator");
 const randomusername_1 = require("../../common/helpers/randomAccount/randomusername");
 const generateid_1 = require("../../common/helpers/generateid/generateid");
@@ -70,12 +71,13 @@ const getKelompokByClass = async (id_kelas) => {
 exports.getKelompokByClass = getKelompokByClass;
 const createRandomAccountByTeamNumbers = async (teamnumbers, newKelompok) => {
     const accounts = [];
+    let pertandinganCreated = null;
     for (let i = 0; i < teamnumbers; i++) {
         const username = randomusername_1.generateRandomUsername.generateRandUname();
         const newKelompokId = generateid_1.generateIdUser.generateId('KEL_' + username);
         const password = randompass_1.generateRandomPassword.generateRandPass();
         let status;
-        if (i % 2 != 0) {
+        if (i % 2 !== 0) {
             status = 'story';
         }
         else {
@@ -84,7 +86,25 @@ const createRandomAccountByTeamNumbers = async (teamnumbers, newKelompok) => {
         const newKelompokData = { ...newKelompok, id: newKelompokId, username: username, password: password, status: status };
         accounts.push(newKelompokData);
     }
-    return await kelompokRepository.createRandomAccounts(accounts);
+    // Ensure all accounts are created before creating pertandingan
+    const createdAccounts = await kelompokRepository.createRandomAccounts(accounts);
+    for (let i = 1; i < teamnumbers; i += 2) {
+        const kode_kelompok_genap = accounts[i].id;
+        const kode_kelompok_ganjil = accounts[i - 1].id;
+        const id_kelas = newKelompok.id_kelas;
+        if (!kode_kelompok_ganjil || !id_kelas) {
+            throw new Error('Kelompok ganjil atau id_kelas tidak ditemukan');
+        }
+        const newPertandingan = {
+            id: generateid_1.generateIdUser.generateId('PTD_'),
+            kode_kelompok_ganjil: kode_kelompok_ganjil,
+            kode_kelompok_genap: kode_kelompok_genap,
+            id_kelas: id_kelas
+        };
+        console.log('CREATING PERTANDINGAN...');
+        pertandinganCreated = await pertandinganRepository.createPertandingan(newPertandingan);
+    }
+    return createdAccounts;
 };
 exports.createRandomAccountByTeamNumbers = createRandomAccountByTeamNumbers;
 const getKelompokByUsernameAndPassword = async (username, password) => {

@@ -1,9 +1,9 @@
 import { DatabaseException } from "../../../common/exceptions/exceptions";
 import { Kelompok } from "../../models/kelompok/kelompok";
-import { Pertandingan, PertandinganOutput } from "../../models/kelompok/pertandingan.kelompok";
+import { Pertandingan, PertandinganInput, PertandinganOutput } from "../../models/kelompok/pertandingan.kelompok";
 import { Story } from "../../models/story/story";
 
-export const createPertandingan = async (newPertandingan: Pertandingan): Promise<PertandinganOutput> => {
+export const createPertandingan = async (newPertandingan: PertandinganInput): Promise<PertandinganOutput> => {
     try {
         return await Pertandingan.create(newPertandingan);
     } catch (error: any) {

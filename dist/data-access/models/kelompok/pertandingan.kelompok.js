@@ -4,6 +4,7 @@ exports.Pertandingan = void 0;
 const sequelize_1 = require("sequelize");
 const database_1 = require("../../../common/config/database");
 const kelompok_1 = require("./kelompok");
+const kelas_1 = require("../kelas/kelas");
 ;
 ;
 class Pertandingan extends sequelize_1.Model {
@@ -30,6 +31,14 @@ Pertandingan.init({
             model: kelompok_1.Kelompok,
             key: 'id',
         }
+    },
+    id_kelas: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: kelas_1.Kelas,
+            key: 'id',
+        },
     },
 }, {
     tableName: 'pertandingan',

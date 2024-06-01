@@ -1,5 +1,5 @@
 import * as exceptions from '../../common/exceptions/exceptions';
-import * as pertandinganRepository from '../../data-access/repositories/kelompok/pertandingan.kelompok';
+import * as pertandinganRepository from '../../data-access/repositories/kelompok/pertandingan.kelompok.repositories';
 
 import { Pertandingan, PertandinganOutput } from '../../data-access/models/kelompok/pertandingan.kelompok';
 

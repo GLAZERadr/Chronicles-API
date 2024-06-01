@@ -1,10 +1,10 @@
-import { Request, NextFunction, Response } from 'express';
+import { NextFunction, Response } from 'express';
 
 import * as restoryServices from '../../services/restory/restory.services';
 import { CustomRequest } from '../../common/middlewares/auth.middlewares';
 import { generateIdUser } from '../../common/helpers/generateid/generateid';
 
-export const createRestory = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+export const createRestory = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const newRestoryId = generateIdUser.generateId('RSTRY_');
 
@@ -18,7 +18,7 @@ export const createRestory = async (req: Request, res: Response, next: NextFunct
     }
 };
 
-export const deleteRestory = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+export const deleteRestory = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { id } = req.params;
 
@@ -30,7 +30,7 @@ export const deleteRestory = async (req: Request, res: Response, next: NextFunct
     }
 };
 
-export const getKelompokByRestory = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+export const getKelompokByRestory = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { id } = req.params;
 
@@ -42,7 +42,7 @@ export const getKelompokByRestory = async (req: Request, res: Response, next: Ne
     }
 };
 
-export const getStoryOfRestoryById = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+export const getStoryOfRestoryById = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { id } = req.params;
 

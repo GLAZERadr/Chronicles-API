@@ -1,4 +1,4 @@
-import { Request, NextFunction, Response } from "express";
+import { NextFunction, Response } from "express";
 
 import * as kelompokServices from '../../services/kelompok/kelompok.services';
 import { CustomRequest } from "../../common/middlewares/auth.middlewares";

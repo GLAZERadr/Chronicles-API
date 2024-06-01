@@ -25,7 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getStoryFromKelompokByPertandingan = exports.getKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
 const exceptions = __importStar(require("../../common/exceptions/exceptions"));
-const pertandinganRepository = __importStar(require("../../data-access/repositories/kelompok/pertandingan.kelompok"));
+const pertandinganRepository = __importStar(require("../../data-access/repositories/kelompok/pertandingan.kelompok.repositories"));
 const createPertandingan = async (newPertandingan) => {
     return await pertandinganRepository.createPertandingan(newPertandingan);
 };
