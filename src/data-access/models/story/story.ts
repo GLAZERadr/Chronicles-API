@@ -1,6 +1,5 @@
 import { Model, DataTypes } from "sequelize";
 import { sequalize } from "../../../common/config/database";
-import { Gambar } from "../gambar/gambar";
 import { Restory } from "../restory/restory";
 
 interface StoryAttributes {
@@ -11,8 +10,9 @@ interface StoryAttributes {
     complication: string,
     resolution: string,
     reorientation: string,
-    kode_kelompok: string
-}
+    url_gambar: string,
+    id_kelompok: string
+};
 
 export interface StoryInput extends StoryAttributes {};
 export interface StoryOutput extends Model<StoryAttributes>, StoryAttributes {};
@@ -25,7 +25,8 @@ export class Story extends Model<StoryAttributes, StoryInput> implements StoryAt
     declare complication: string;
     declare resolution: string;
     declare reorientation: string;
-    declare kode_kelompok: string;
+    declare url_gambar: string;
+    declare id_kelompok: string;
 };
 
 Story.init(
@@ -63,7 +64,11 @@ Story.init(
             type: DataTypes.TEXT,
             allowNull: false,
         },
-        kode_kelompok: {
+        url_gambar: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        id_kelompok: {
             type: DataTypes.STRING,
             allowNull: false,
             references: {
@@ -79,7 +84,6 @@ Story.init(
     },
 );
 
-Story.hasOne(Gambar, { foreignKey: 'id_story', as: 'story' });
 Story.hasOne(Restory, { foreignKey: 'id_story', as: 'real_story' });
 
 sequalize.sync({ force: false })

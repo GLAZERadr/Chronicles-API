@@ -17,7 +17,7 @@ export const deletePertandingan = async (id: string): Promise<string> => {
     return await pertandinganRepository.deletePertandingan(id);
 }
 
-export const getKelompokByPertandingan = async (id): Promise<Pertandingan | null> => {
+export const getKelompokByPertandingan = async (id: string): Promise<Pertandingan | null> => {
     const existPertandingan = await pertandinganRepository.existingPertandinganByid(id);
 
     if (!existPertandingan) {

@@ -1,56 +1,60 @@
-import { Model, DataTypes } from "sequelize";
-import { sequalize } from "../../../common/config/database";
-import { Story } from "../story/story";
-import { Restory } from "../restory/restory";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Kelompok = void 0;
+const sequelize_1 = require("sequelize");
+const database_1 = require("../../../common/config/database");
+const story_1 = require("../story/story");
+const restory_1 = require("../restory/restory");
 ;
 ;
-export class Kelompok extends Model {
+class Kelompok extends sequelize_1.Model {
 }
+exports.Kelompok = Kelompok;
 ;
 Kelompok.init({
     id: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         primaryKey: true,
         allowNull: false,
     },
     username: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: true,
     },
     password: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: true,
     },
     nama_kelompok: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: true,
     },
     status: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
     ketua: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: true,
     },
     anggota1: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: true,
     },
     anggota2: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: true,
     },
     anggota3: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: true,
     },
     anggota4: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: true,
     },
     id_kelas: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
         references: {
             model: 'kelas',
@@ -60,10 +64,10 @@ Kelompok.init({
 }, {
     tableName: 'kelompok',
     timestamps: true,
-    sequelize: sequalize,
+    sequelize: database_1.sequalize,
 });
-Kelompok.hasOne(Story, { foreignKey: 'kode_kelompok', as: 'kelompok_story' });
-Kelompok.hasOne(Restory, { foreignKey: 'kode_kelompok', as: 'kelompok_restory' });
-sequalize.sync({ force: false })
+Kelompok.hasOne(story_1.Story, { foreignKey: 'id_kelompok', as: 'kelompok_story' });
+Kelompok.hasOne(restory_1.Restory, { foreignKey: 'id_kelompok', as: 'kelompok_restory' });
+database_1.sequalize.sync({ force: false })
     .then(() => console.log('Kelompok table created!!!'))
     .catch((error) => console.log('Error creating table kelompok: ', error));

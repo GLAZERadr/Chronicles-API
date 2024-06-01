@@ -1,18 +1,50 @@
 import { NextFunction, Response } from 'express';
 
 import * as storyServices from '../../services/story/story.services';
+import * as kelompokServices from '../../services/kelompok/kelompok.services';
 import { CustomRequest } from '../../common/middlewares/auth.middlewares';
 import { generateIdUser } from '../../common/helpers/generateid/generateid';
+import { sendRequestGenApi } from '../../api/generative-ai-gambar/genai.services';
 
 export const createStory = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const newStoryId = generateIdUser.generateId('STRY_');
 
+        const { orientation, complication, resolution, reorientation, id_kelompok } = req.body;
+
         const newStoryData = { ...req.body, id: newStoryId };
 
-        let story = await storyServices.createStory(newStoryData);
+        const story_text = orientation + '\n' + complication + '\n' + resolution + '\n' + reorientation;
 
-        return res.status(201).send(story);
+        const getKelas = await kelompokServices.getKelompokById(id_kelompok);
+ 
+        if (!getKelas) {
+            return res.status(400).json({ message: "Gagal mengenerate gambar" });
+        }
+
+        const { id_kelas } = getKelas;
+
+        console.log('GENERATE GAMBAR....') 
+        const gen_image = await sendRequestGenApi(id_kelas, id_kelompok, story_text);
+
+        const { message, status, url_gambar } = gen_image;
+
+        console.log("url gambar: ", typeof url_gambar === "string");
+        console.log("message: ",typeof message === "string");
+        console.log("status: ", typeof status === "string");
+
+        if (message != "Image processed" && status != "False") {
+            return res.status(400).json({ message: "Gagal mengenerate gambar" });
+        }
+
+        console.log("insert to database...");
+        await storyServices.createStory(newStoryData);
+
+        console.log("updating gambar...");
+        const result = await storyServices.updateGambar(newStoryId, url_gambar);
+
+        console.log("SUCCESS...");
+        return res.status(201).send(result);
     } catch (error) {
         return next(error);
     }

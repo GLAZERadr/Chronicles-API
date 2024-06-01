@@ -62,7 +62,7 @@ export const loginKelompok = async (req: CustomRequest, res: Response, next: Nex
     }
 }
 
-export const logout = async (req, CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+export const logout = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         res.clearCookie('jwt_token');
         res.send('Successfully logged out!!!');

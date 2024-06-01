@@ -1,5 +1,8 @@
-import { Sequelize } from "sequelize";
-export const sequalize = new Sequelize('defaultdb', //env
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.sequalize = void 0;
+const sequelize_1 = require("sequelize");
+exports.sequalize = new sequelize_1.Sequelize('chronicles', //env
 'avnadmin', //env
 'AVNS_DnhVSwZtBL05nYGliqY', //env
 {
@@ -17,7 +20,21 @@ export const sequalize = new Sequelize('defaultdb', //env
         timeout: 5000,
     },
 });
-sequalize.authenticate().then(() => {
+// export const sequalize = new Sequelize (
+//     'chronicles', //env
+//     'root', //env
+//     'Adrian*04', //env
+//     {
+//         host: '127.0.0.1', //env
+//         dialect: 'mysql', //env
+//         port: 3306, //env,
+//         retry: {
+//             max: 10,
+//             timeout: 5000,
+//         },
+//     },
+// );
+exports.sequalize.authenticate().then(() => {
     console.log('Successfully connect to Chronicles Database...');
 }).catch((error) => {
     console.error('Error connecting to Database.', error);

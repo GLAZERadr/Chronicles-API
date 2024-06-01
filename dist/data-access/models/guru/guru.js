@@ -1,36 +1,40 @@
-import { Model, DataTypes } from "sequelize";
-import { sequalize } from "../../../common/config/database";
-import { Kelas } from "../kelas/kelas";
-import { Tugas } from "../tugas/tugas.";
-export class Guru extends Model {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Guru = void 0;
+const sequelize_1 = require("sequelize");
+const database_1 = require("../../../common/config/database");
+const kelas_1 = require("../kelas/kelas");
+const tugas_1 = require("../tugas/tugas.");
+class Guru extends sequelize_1.Model {
 }
+exports.Guru = Guru;
 ;
 Guru.init({
     id: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         primaryKey: true,
         allowNull: false,
     },
     username: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
         unique: true,
     },
     password: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
     nama: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
 }, {
     tableName: "guru",
     timestamps: false,
-    sequelize: sequalize,
+    sequelize: database_1.sequalize,
 });
-Guru.hasMany(Kelas, { foreignKey: 'id_guru', as: 'guru' });
-Guru.hasMany(Tugas, { foreignKey: 'id_guru', as: 'tugas_guru' });
-sequalize.sync({ force: false })
+Guru.hasMany(kelas_1.Kelas, { foreignKey: 'id_guru', as: 'guru' });
+Guru.hasMany(tugas_1.Tugas, { foreignKey: 'id_guru', as: 'tugas_guru' });
+database_1.sequalize.sync({ force: false })
     .then(() => console.log('Guru table created!!!'))
     .catch((error) => console.log('Error creating table guru:', error));

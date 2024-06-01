@@ -1,103 +1,99 @@
-import { DatabaseException } from "../../../common/exceptions/exceptions";
-import { Guru } from "../../models/guru/guru";
-import { Kelas } from "../../models/kelas/kelas";
-export const createGuru = async (newGuru) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getKelasByGuru = exports.getGuruByUsernameAndPass = exports.getAllGuru = exports.getGuruById = exports.getGuruByUsername = exports.existingGuruByUsername = exports.existingGuruById = exports.deleteGuru = exports.createGuru = void 0;
+const exceptions_1 = require("../../../common/exceptions/exceptions");
+const guru_1 = require("../../models/guru/guru");
+const kelas_1 = require("../../models/kelas/kelas");
+const createGuru = async (newGuru) => {
     try {
-        return await Guru.create(newGuru);
+        return await guru_1.Guru.create(newGuru);
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const deleteGuru = async (id) => {
+exports.createGuru = createGuru;
+const deleteGuru = async (id) => {
     try {
-        const result = await Guru.destroy({ where: { id: id } });
+        const result = await guru_1.Guru.destroy({ where: { id: id } });
         if (result === 0) {
             return 'Guru not deleted';
         }
         return `Guru ${id} is deleted`;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const existingGuruById = async (id) => {
+exports.deleteGuru = deleteGuru;
+const existingGuruById = async (id) => {
     try {
-        const result = await Guru.findByPk(id);
+        const result = await guru_1.Guru.findByPk(id);
         return !!result;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const existingGuruByUsername = async (username) => {
+exports.existingGuruById = existingGuruById;
+const existingGuruByUsername = async (username) => {
     try {
-        const result = await Guru.findOne({ where: { username } });
+        const result = await guru_1.Guru.findOne({ where: { username } });
         return !!result;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const getGuruByUsername = async (username) => {
+exports.existingGuruByUsername = existingGuruByUsername;
+const getGuruByUsername = async (username) => {
     try {
-        const guru = await Guru.findOne({ where: { username } });
+        const guru = await guru_1.Guru.findOne({ where: { username } });
         return guru || null;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const getGuruById = async (id) => {
+exports.getGuruByUsername = getGuruByUsername;
+const getGuruById = async (id) => {
     try {
-        const guru = await Guru.findByPk(id);
+        const guru = await guru_1.Guru.findByPk(id);
         return guru || null;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const getAllGuru = async () => {
+exports.getGuruById = getGuruById;
+const getAllGuru = async () => {
     try {
-        const gurus = await Guru.findAll();
+        const gurus = await guru_1.Guru.findAll();
         return gurus || null;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const getGuruByUsernameAndPass = async (username, password) => {
+exports.getAllGuru = getAllGuru;
+const getGuruByUsernameAndPass = async (username, password) => {
     try {
-        const guru = await Guru.findOne({ where: { username, password } });
+        const guru = await guru_1.Guru.findOne({ where: { username, password } });
         return guru || null;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
+exports.getGuruByUsernameAndPass = getGuruByUsernameAndPass;
 // get kelas by guru
-export const getKelasByGuru = async (id) => {
+const getKelasByGuru = async (id) => {
     try {
-        const kelas_by_guru = await Guru.findByPk(id, { include: [{ model: Kelas, as: 'guru' }] });
+        const kelas_by_guru = await guru_1.Guru.findByPk(id, { include: [{ model: kelas_1.Kelas, as: 'guru' }] });
         return kelas_by_guru || null;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-// export const getKelasByGuru = async (id: string): Promise<Array<KelasOutput> | null> => {
-//     try {
-//         const kelas_by_guru = await Kelas.findAll({
-//             where: { 
-//                 id_guru: id
-//              },
-//              include: [{
-//                 model: Guru,
-//                 as: 'guru',
-//              }]
-//         })
-//         return kelas_by_guru || null;
-//     } catch (error: any) {
-//         throw new DatabaseException(error.message);
-//     }
-// };
+exports.getKelasByGuru = getKelasByGuru;

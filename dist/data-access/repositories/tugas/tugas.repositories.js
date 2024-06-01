@@ -1,41 +1,48 @@
-import { DatabaseException } from "../../../common/exceptions/exceptions";
-import { Guru } from "../../models/guru/guru";
-import { Tugas } from "../../models/tugas/tugas.";
-export const createTugas = async (newTugas) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getGuruByTugas = exports.existingTugasById = exports.deleteTugas = exports.createTugas = void 0;
+const exceptions_1 = require("../../../common/exceptions/exceptions");
+const guru_1 = require("../../models/guru/guru");
+const tugas_1 = require("../../models/tugas/tugas.");
+const createTugas = async (newTugas) => {
     try {
-        return await Tugas.create(newTugas);
+        return await tugas_1.Tugas.create(newTugas);
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const deleteTugas = async (id) => {
+exports.createTugas = createTugas;
+const deleteTugas = async (id) => {
     try {
-        const result = await Tugas.destroy({ where: { id: id } });
+        const result = await tugas_1.Tugas.destroy({ where: { id: id } });
         if (result === 0) {
             return 'Tugas not deleted';
         }
         return `Tugas ${id} is deleted`;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const existingTugasById = async (id) => {
+exports.deleteTugas = deleteTugas;
+const existingTugasById = async (id) => {
     try {
-        const result = await Tugas.findByPk(id);
+        const result = await tugas_1.Tugas.findByPk(id);
         return !!result;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const getGuruByTugas = async (id) => {
+exports.existingTugasById = existingTugasById;
+const getGuruByTugas = async (id) => {
     try {
-        const tugas = await Tugas.findByPk(id, { include: [{ model: Guru, as: 'guru' }] });
+        const tugas = await tugas_1.Tugas.findByPk(id, { include: [{ model: guru_1.Guru, as: 'guru' }] });
         return tugas || null;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
+exports.getGuruByTugas = getGuruByTugas;

@@ -1,11 +1,15 @@
-import { generate } from "generate-password-ts";
-export class generateRandomPassword {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateRandomPassword = void 0;
+const generate_password_ts_1 = require("generate-password-ts");
+class generateRandomPassword {
     static generateRandPass() {
-        return generate({
+        return (0, generate_password_ts_1.generate)({
             length: 10,
             numbers: true,
         });
     }
     ;
 }
+exports.generateRandomPassword = generateRandomPassword;
 ;

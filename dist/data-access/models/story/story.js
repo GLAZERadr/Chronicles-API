@@ -1,20 +1,24 @@
-import { Model, DataTypes } from "sequelize";
-import { sequalize } from "../../../common/config/database";
-import { Gambar } from "../gambar/gambar";
-import { Restory } from "../restory/restory";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Story = void 0;
+const sequelize_1 = require("sequelize");
+const database_1 = require("../../../common/config/database");
+const restory_1 = require("../restory/restory");
 ;
 ;
-export class Story extends Model {
+;
+class Story extends sequelize_1.Model {
 }
+exports.Story = Story;
 ;
 Story.init({
     id: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         primaryKey: true,
         allowNull: false,
     },
     id_tugas: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
         references: {
             model: 'tugas',
@@ -22,27 +26,31 @@ Story.init({
         },
     },
     judul: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
     orientation: {
-        type: DataTypes.TEXT,
+        type: sequelize_1.DataTypes.TEXT,
         allowNull: false,
     },
     complication: {
-        type: DataTypes.TEXT,
+        type: sequelize_1.DataTypes.TEXT,
         allowNull: false,
     },
     resolution: {
-        type: DataTypes.TEXT,
+        type: sequelize_1.DataTypes.TEXT,
         allowNull: false,
     },
     reorientation: {
-        type: DataTypes.TEXT,
+        type: sequelize_1.DataTypes.TEXT,
         allowNull: false,
     },
-    kode_kelompok: {
-        type: DataTypes.STRING,
+    url_gambar: {
+        type: sequelize_1.DataTypes.TEXT,
+        allowNull: true,
+    },
+    id_kelompok: {
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
         references: {
             model: 'kelompok',
@@ -52,10 +60,9 @@ Story.init({
 }, {
     tableName: 'story',
     timestamps: true,
-    sequelize: sequalize,
+    sequelize: database_1.sequalize,
 });
-Story.hasOne(Gambar, { foreignKey: 'id_story', as: 'story' });
-Story.hasOne(Restory, { foreignKey: 'id_story', as: 'real_story' });
-sequalize.sync({ force: false })
+Story.hasOne(restory_1.Restory, { foreignKey: 'id_story', as: 'real_story' });
+database_1.sequalize.sync({ force: false })
     .then(() => console.log('Story table created!!!'))
     .catch((error) => console.log('Error creating table story: ', error));

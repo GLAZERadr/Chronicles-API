@@ -1,60 +1,69 @@
-import { DatabaseException } from "../../../common/exceptions/exceptions";
-import { Restory } from "../../models/restory/restory";
-import { Kelompok } from "../../models/kelompok/kelompok";
-import { Story } from "../../models/story/story";
-export const createRestory = async (newRestory) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getStoryOfRestoryById = exports.existingRestoryById = exports.existJudulOfRestory = exports.getKelompokByRestory = exports.deleteRestory = exports.createRestory = void 0;
+const exceptions_1 = require("../../../common/exceptions/exceptions");
+const restory_1 = require("../../models/restory/restory");
+const kelompok_1 = require("../../models/kelompok/kelompok");
+const story_1 = require("../../models/story/story");
+const createRestory = async (newRestory) => {
     try {
-        return await Restory.create(newRestory);
+        return await restory_1.Restory.create(newRestory);
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const deleteRestory = async (id) => {
+exports.createRestory = createRestory;
+const deleteRestory = async (id) => {
     try {
-        const result = await Restory.destroy({ where: { id: id } });
+        const result = await restory_1.Restory.destroy({ where: { id: id } });
         if (result === 0) {
             return 'Story not deleted';
         }
         return `Story ${id} is deleted`;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const getKelompokByRestory = async (id) => {
+exports.deleteRestory = deleteRestory;
+const getKelompokByRestory = async (id) => {
     try {
-        const story = await Restory.findByPk(id, { include: Kelompok });
+        const story = await restory_1.Restory.findByPk(id, { include: kelompok_1.Kelompok });
         return story || null;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const existJudulOfRestory = async (judul) => {
+exports.getKelompokByRestory = getKelompokByRestory;
+const existJudulOfRestory = async (judul) => {
     try {
-        const result = await Restory.findOne({ where: { judul: judul } });
+        const result = await restory_1.Restory.findOne({ where: { judul: judul } });
         return !!result;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const existingRestoryById = async (id) => {
+exports.existJudulOfRestory = existJudulOfRestory;
+const existingRestoryById = async (id) => {
     try {
-        const result = await Restory.findByPk(id);
+        const result = await restory_1.Restory.findByPk(id);
         return !!result;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const getStoryOfRestoryById = async (id) => {
+exports.existingRestoryById = existingRestoryById;
+const getStoryOfRestoryById = async (id) => {
     try {
-        const restory = await Restory.findByPk(id, { include: Story });
+        const restory = await restory_1.Restory.findByPk(id, { include: story_1.Story });
         return restory || null;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
+exports.getStoryOfRestoryById = getStoryOfRestoryById;

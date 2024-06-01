@@ -1,5 +1,6 @@
 import { DatabaseException } from "../../../common/exceptions/exceptions";
 import { Kelompok, KelompokOutput } from "../../models/kelompok/kelompok";
+import { Story } from "../../models/story/story";
 
 export const createKelompok = async (newKelompok: Kelompok): Promise<KelompokOutput> => {
     try {
@@ -105,6 +106,15 @@ export const updateStatusKelompok = async (id: string, status: string): Promise<
     try {
         await Kelompok.update({ status: status }, { where: {id: id }});
         return await Kelompok.findByPk(id);
+    } catch (error: any) {
+        throw new DatabaseException(error.message); 
+    }
+};
+
+export const getStoryByKelompok = async (id: string): Promise<KelompokOutput | null> => {
+    try {
+        const kelompok_story = await Kelompok.findByPk(id, { include: [{ model: Story, as: 'kelompok_story' }]});
+        return kelompok_story || null
     } catch (error: any) {
         throw new DatabaseException(error.message); 
     }

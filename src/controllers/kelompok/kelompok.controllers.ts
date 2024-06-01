@@ -1,4 +1,4 @@
-import { Request, NextFunction, Response } from 'express';
+import { NextFunction, Response } from 'express';
 
 import * as kelompokServices from '../../services/kelompok/kelompok.services';
 import { CustomRequest } from '../../common/middlewares/auth.middlewares';
@@ -84,4 +84,16 @@ export const updateStatusKelompok = async (req: CustomRequest, res: Response, ne
     } catch (error) {
         return next(error);
     }
+};
+
+export const getStoryByKelompok = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id } = req.params;
+
+        let result = await kelompokServices.getStoryByKelompok(id);
+
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    };
 };

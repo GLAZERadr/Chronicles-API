@@ -1,58 +1,70 @@
-import { Model, DataTypes } from "sequelize";
-import { sequalize } from "../../../common/config/database";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Restory = void 0;
+const sequelize_1 = require("sequelize");
+const database_1 = require("../../../common/config/database");
 ;
 ;
 ;
-export class Restory extends Model {
+class Restory extends sequelize_1.Model {
 }
+exports.Restory = Restory;
 ;
 Restory.init({
     id: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         primaryKey: true,
         allowNull: false
     },
     id_story: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
         references: {
             model: 'story',
             key: 'id'
         },
     },
-    kode_kelompok: {
-        type: DataTypes.STRING,
+    id_kelompok: {
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
         references: {
             model: 'kelompok',
             key: 'id',
         },
     },
+    id_tugas: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: 'tugas',
+            key: 'id',
+        },
+    },
     judul: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
     orientation: {
-        type: DataTypes.TEXT,
+        type: sequelize_1.DataTypes.TEXT,
         allowNull: false,
     },
     complication: {
-        type: DataTypes.TEXT,
+        type: sequelize_1.DataTypes.TEXT,
         allowNull: false,
     },
     resolution: {
-        type: DataTypes.TEXT,
+        type: sequelize_1.DataTypes.TEXT,
         allowNull: false,
     },
     reorientation: {
-        type: DataTypes.TEXT,
+        type: sequelize_1.DataTypes.TEXT,
         allowNull: false,
     },
 }, {
     tableName: 'restory',
     timestamps: false,
-    sequelize: sequalize,
+    sequelize: database_1.sequalize,
 });
-sequalize.sync({ force: false })
+database_1.sequalize.sync({ force: false })
     .then(() => console.log('Restory table created!!!'))
     .catch((error) => console.log('Error creating table restory: ', error));

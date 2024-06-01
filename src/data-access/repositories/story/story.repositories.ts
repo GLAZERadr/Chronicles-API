@@ -40,10 +40,19 @@ export const existJudulOfStory = async (judul: string): Promise<boolean> => {
     }
 };
 
-export const existingStoryById = async(id: string): Promise<boolean> => {
+export const existingStoryById = async (id: string): Promise<boolean> => {
     try {
         const result = await Story.findByPk(id);
         return !!result;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};
+
+export const updateGambar = async (id: string, url_gambar: string): Promise<StoryOutput | null> => {
+    try {
+        await Story.update({ url_gambar: url_gambar }, { where: { id: id }});
+        return await Story.findByPk(id);
     } catch (error: any) {
         throw new DatabaseException(error.message);
     }

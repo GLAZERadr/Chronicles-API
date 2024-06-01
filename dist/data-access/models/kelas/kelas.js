@@ -1,25 +1,29 @@
-import { Model, DataTypes } from "sequelize";
-import { sequalize } from "../../../common/config/database";
-import { Kelompok } from "../kelompok/kelompok";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Kelas = void 0;
+const sequelize_1 = require("sequelize");
+const database_1 = require("../../../common/config/database");
+const kelompok_1 = require("../kelompok/kelompok");
 ;
 ;
 ;
-export class Kelas extends Model {
+class Kelas extends sequelize_1.Model {
 }
+exports.Kelas = Kelas;
 ;
 Kelas.init({
     id: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         primaryKey: true,
         allowNull: false,
     },
     nama_kelas: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
         unique: true,
     },
     id_guru: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
         references: {
             model: 'guru',
@@ -29,9 +33,9 @@ Kelas.init({
 }, {
     tableName: 'kelas',
     timestamps: false,
-    sequelize: sequalize,
+    sequelize: database_1.sequalize,
 });
-Kelas.hasMany(Kelompok, { foreignKey: 'id_kelas', as: 'kelompok_kelas' });
-sequalize.sync({ force: false })
+Kelas.hasMany(kelompok_1.Kelompok, { foreignKey: 'id_kelas', as: 'kelompok_kelas' });
+database_1.sequalize.sync({ force: false })
     .then(() => console.log('Kelas table created!!!'))
     .catch((error) => console.log('Error creating table kelas: ', error));

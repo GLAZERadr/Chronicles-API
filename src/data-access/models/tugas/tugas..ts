@@ -1,6 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { sequalize } from "../../../common/config/database";
 import { Story } from "../story/story";
+import { Restory } from "../restory/restory";
 
 interface TugasAttributes {
     id: string,
@@ -63,6 +64,7 @@ Tugas.init(
 );
 
 Tugas.hasMany(Story, { foreignKey: 'id_story', as: 'story'});
+Tugas.hasMany(Restory, { foreignKey: 'id_restory', as: 'restory '});
 
 sequalize.sync({ force: false })
     .then(() => console.log('Tugas table created!!!'))

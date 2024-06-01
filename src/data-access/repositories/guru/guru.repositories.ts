@@ -85,20 +85,3 @@ export const getKelasByGuru = async (id: string): Promise<GuruOutput | null> => 
         throw new DatabaseException(error.message);
     }
 };
-
-// export const getKelasByGuru = async (id: string): Promise<Array<KelasOutput> | null> => {
-//     try {
-//         const kelas_by_guru = await Kelas.findAll({
-//             where: { 
-//                 id_guru: id
-//              },
-//              include: [{
-//                 model: Guru,
-//                 as: 'guru',
-//              }]
-//         })
-//         return kelas_by_guru || null;
-//     } catch (error: any) {
-//         throw new DatabaseException(error.message);
-//     }
-// };

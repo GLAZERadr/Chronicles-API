@@ -4,7 +4,8 @@ import { sequalize } from "../../../common/config/database";
 interface RestoryAttributes {
     id: string,
     id_story: string,
-    kode_kelompok: string,
+    id_kelompok: string,
+    id_tugas: string,
     judul: string
     orientation: string,
     complication: string,
@@ -18,7 +19,8 @@ export interface RestoryOutput extends Model<RestoryAttributes>, RestoryAttribut
 export class Restory extends Model<RestoryAttributes, RestoryInput> implements RestoryAttributes {
     declare id: string;
     declare id_story: string;
-    declare kode_kelompok: string;
+    declare id_kelompok: string;
+    declare id_tugas: string;
     declare judul: string;
     declare orientation: string;
     declare complication: string;
@@ -41,11 +43,19 @@ Restory.init(
                 key: 'id'
             },
         },
-        kode_kelompok: {
+        id_kelompok: {
             type: DataTypes.STRING,
             allowNull: false,
             references: {
                 model: 'kelompok',
+                key: 'id',
+            },
+        },
+        id_tugas: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            references: {
+                model: 'tugas',
                 key: 'id',
             },
         },

@@ -1,111 +1,136 @@
-import { DatabaseException } from "../../../common/exceptions/exceptions";
-import { Kelompok } from "../../models/kelompok/kelompok";
-export const createKelompok = async (newKelompok) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getStoryByKelompok = exports.updateStatusKelompok = exports.updateInfoKelompok = exports.existigKelompokByUsername = exports.getKelompokByUsernameAndPassword = exports.createRandomAccounts = exports.getKelompokById = exports.getAllKelompok = exports.existingKelompokById = exports.existingKelompokByNama = exports.deleteKelompok = exports.createKelompok = void 0;
+const exceptions_1 = require("../../../common/exceptions/exceptions");
+const kelompok_1 = require("../../models/kelompok/kelompok");
+const story_1 = require("../../models/story/story");
+const createKelompok = async (newKelompok) => {
     try {
-        return await Kelompok.create(newKelompok);
+        return await kelompok_1.Kelompok.create(newKelompok);
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const deleteKelompok = async (id) => {
+exports.createKelompok = createKelompok;
+const deleteKelompok = async (id) => {
     try {
-        const result = await Kelompok.destroy({ where: { id: id } });
+        const result = await kelompok_1.Kelompok.destroy({ where: { id: id } });
         if (result === 0) {
             return 'Kelompok not deleted';
         }
         return `Kelompok ${id} is deleted`;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const existingKelompokByNama = async (nama_kelompok) => {
+exports.deleteKelompok = deleteKelompok;
+const existingKelompokByNama = async (nama_kelompok) => {
     try {
-        const result = await Kelompok.findOne({ where: { nama_kelompok: nama_kelompok } });
+        const result = await kelompok_1.Kelompok.findOne({ where: { nama_kelompok: nama_kelompok } });
         return !!result;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const existingKelompokById = async (id) => {
+exports.existingKelompokByNama = existingKelompokByNama;
+const existingKelompokById = async (id) => {
     try {
-        const result = await Kelompok.findByPk(id);
+        const result = await kelompok_1.Kelompok.findByPk(id);
         return !!result;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const getAllKelompok = async () => {
+exports.existingKelompokById = existingKelompokById;
+const getAllKelompok = async () => {
     try {
-        const kelompoks = await Kelompok.findAll();
+        const kelompoks = await kelompok_1.Kelompok.findAll();
         return kelompoks || null;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const getKelompokById = async (id) => {
+exports.getAllKelompok = getAllKelompok;
+const getKelompokById = async (id) => {
     try {
-        const kelompok = await Kelompok.findByPk(id);
+        const kelompok = await kelompok_1.Kelompok.findByPk(id);
         return kelompok || null;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const createRandomAccounts = async (accounts) => {
+exports.getKelompokById = getKelompokById;
+const createRandomAccounts = async (accounts) => {
     try {
         const createdAccounts = [];
         for (const account of accounts) {
-            const kelompok = await Kelompok.create(account);
+            const kelompok = await kelompok_1.Kelompok.create(account);
             createdAccounts.push(kelompok);
         }
         return createdAccounts;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const getKelompokByUsernameAndPassword = async (username, password) => {
+exports.createRandomAccounts = createRandomAccounts;
+const getKelompokByUsernameAndPassword = async (username, password) => {
     try {
-        const kelompok = await Kelompok.findOne({ where: { username: username, password: password } });
+        const kelompok = await kelompok_1.Kelompok.findOne({ where: { username: username, password: password } });
         return kelompok || null;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
     ;
 };
-export const existigKelompokByUsername = async (username) => {
+exports.getKelompokByUsernameAndPassword = getKelompokByUsernameAndPassword;
+const existigKelompokByUsername = async (username) => {
     try {
-        const result = await Kelompok.findOne({ where: { username: username } });
+        const result = await kelompok_1.Kelompok.findOne({ where: { username: username } });
         return !!result;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
     ;
 };
+exports.existigKelompokByUsername = existigKelompokByUsername;
 //update info kelompok
-export const updateInfoKelompok = async (id, nama_kelompok, ketua, anggota1, anggota2, anggota3, anggota4) => {
+const updateInfoKelompok = async (id, nama_kelompok, ketua, anggota1, anggota2, anggota3, anggota4) => {
     try {
-        await Kelompok.update({ nama_kelompok: nama_kelompok, ketua: ketua, anggota1: anggota1, anggota2: anggota2, anggota3: anggota3, anggota4: anggota4 }, { where: { id: id } });
-        return await Kelompok.findByPk(id);
+        await kelompok_1.Kelompok.update({ nama_kelompok: nama_kelompok, ketua: ketua, anggota1: anggota1, anggota2: anggota2, anggota3: anggota3, anggota4: anggota4 }, { where: { id: id } });
+        return await kelompok_1.Kelompok.findByPk(id);
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
+exports.updateInfoKelompok = updateInfoKelompok;
 //update status story restory kelompok
-export const updateStatusKelompok = async (id, status) => {
+const updateStatusKelompok = async (id, status) => {
     try {
-        await Kelompok.update({ status: status }, { where: { id: id } });
-        return await Kelompok.findByPk(id);
+        await kelompok_1.Kelompok.update({ status: status }, { where: { id: id } });
+        return await kelompok_1.Kelompok.findByPk(id);
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
+exports.updateStatusKelompok = updateStatusKelompok;
+const getStoryByKelompok = async (id) => {
+    try {
+        const kelompok_story = await kelompok_1.Kelompok.findByPk(id, { include: [{ model: story_1.Story, as: 'kelompok_story' }] });
+        return kelompok_story || null;
+    }
+    catch (error) {
+        throw new exceptions_1.DatabaseException(error.message);
+    }
+};
+exports.getStoryByKelompok = getStoryByKelompok;

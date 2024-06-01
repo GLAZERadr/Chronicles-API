@@ -1,34 +1,39 @@
-import { Model, DataTypes } from "sequelize";
-import { sequalize } from "../../../common/config/database";
-import { Story } from "../story/story";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Tugas = void 0;
+const sequelize_1 = require("sequelize");
+const database_1 = require("../../../common/config/database");
+const story_1 = require("../story/story");
+const restory_1 = require("../restory/restory");
 ;
 ;
-export class Tugas extends Model {
+class Tugas extends sequelize_1.Model {
 }
+exports.Tugas = Tugas;
 Tugas.init({
     id: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         primaryKey: true,
         allowNull: false,
     },
     instruksi_tugas: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
     nilai_kelompok: {
-        type: DataTypes.DECIMAL,
+        type: sequelize_1.DataTypes.DECIMAL,
         allowNull: true,
     },
     nilai_similaritas: {
-        type: DataTypes.DOUBLE,
+        type: sequelize_1.DataTypes.DOUBLE,
         allowNull: true,
     },
     komentar: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: true,
     },
     id_guru: {
-        type: DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
         references: {
             model: 'guru',
@@ -38,9 +43,10 @@ Tugas.init({
 }, {
     tableName: 'tugas',
     timestamps: true,
-    sequelize: sequalize,
+    sequelize: database_1.sequalize,
 });
-Tugas.hasMany(Story, { foreignKey: 'id_story', as: 'story' });
-sequalize.sync({ force: false })
+Tugas.hasMany(story_1.Story, { foreignKey: 'id_story', as: 'story' });
+Tugas.hasMany(restory_1.Restory, { foreignKey: 'id_restory', as: 'restory ' });
+database_1.sequalize.sync({ force: false })
     .then(() => console.log('Tugas table created!!!'))
     .catch((error) => console.log('Error creating table tugas: ', error));

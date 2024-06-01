@@ -5,7 +5,6 @@ import sessionRouter from './routes/session.routes';
 
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import { gambarRouter } from './routes/gambar.routes';
 import { kelasRouter } from './routes/kelas.routes';
 import { kelompokRouter } from './routes/kelompok.routes';
 import { pertandinganRouter } from './routes/pertandingan.routes';
@@ -35,7 +34,6 @@ app.use('/chronicles-v1/api/tugas', tugasRouter);
 app.use('/chronicles-v1/api/session', sessionRouter);
 app.use('/chronicles-v1/api/story', storyRouter);
 app.use('/chronicles-v1/api/restory', restoryRouter)
-app.use('/chronicles-v1/api/gambar', gambarRouter);
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ message: error.message });

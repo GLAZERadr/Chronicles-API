@@ -56,14 +56,14 @@ export const getKelasByGuru = async (req: CustomRequest, res: Response, next: Ne
     
 }
 
-// export const getKelompokByKelas = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
-//     try {
-//         const { id } = req.params;
+export const getKelompokByKelas = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id } = req.params;
 
-//         let result = await kelasServices.getKelompokByKelas(id);
+        let result = await kelasServices.getKelompokByKelas(id);
 
-//         return res.status(200).send(result);
-//     } catch (error) {
-//         return next(error);
-//     }
-// };
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+};

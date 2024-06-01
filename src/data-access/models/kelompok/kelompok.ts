@@ -93,8 +93,8 @@ Kelompok.init(
     },
 );
 
-Kelompok.hasOne(Story, { foreignKey: 'kode_kelompok', as: 'kelompok_story' });
-Kelompok.hasOne(Restory, { foreignKey: 'kode_kelompok', as: 'kelompok_restory' })
+Kelompok.hasOne(Story, { foreignKey: 'id_kelompok', as: 'kelompok_story' });
+Kelompok.hasOne(Restory, { foreignKey: 'id_kelompok', as: 'kelompok_restory' })
 
 sequalize.sync({ force: false })
     .then(() => console.log('Kelompok table created!!!'))

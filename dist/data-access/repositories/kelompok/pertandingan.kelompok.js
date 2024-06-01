@@ -1,58 +1,66 @@
-import { DatabaseException } from "../../../common/exceptions/exceptions";
-import { Kelompok } from "../../models/kelompok/kelompok";
-import { Pertandingan } from "../../models/kelompok/pertandingan.kelompok";
-import { Story } from "../../models/story/story";
-export const createPertandingan = async (newPertandingan) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.existingPertandinganByid = exports.getStoryFromKelompokByPertandingan = exports.getKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
+const exceptions_1 = require("../../../common/exceptions/exceptions");
+const kelompok_1 = require("../../models/kelompok/kelompok");
+const pertandingan_kelompok_1 = require("../../models/kelompok/pertandingan.kelompok");
+const story_1 = require("../../models/story/story");
+const createPertandingan = async (newPertandingan) => {
     try {
-        return await Pertandingan.create(newPertandingan);
+        return await pertandingan_kelompok_1.Pertandingan.create(newPertandingan);
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const deletePertandingan = async (id) => {
+exports.createPertandingan = createPertandingan;
+const deletePertandingan = async (id) => {
     try {
-        const result = await Pertandingan.destroy({ where: { id: id } });
+        const result = await pertandingan_kelompok_1.Pertandingan.destroy({ where: { id: id } });
         if (result === 0) {
             return 'Pertandingan not deleted';
         }
         return `Pertandingan ${id} not deleted`;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const getKelompokByPertandingan = async (id) => {
+exports.deletePertandingan = deletePertandingan;
+const getKelompokByPertandingan = async (id) => {
     try {
-        const pertandingan = await Pertandingan.findByPk(id, { include: Kelompok });
+        const pertandingan = await pertandingan_kelompok_1.Pertandingan.findByPk(id, { include: kelompok_1.Kelompok });
         return pertandingan || null;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const getStoryFromKelompokByPertandingan = async (id) => {
+exports.getKelompokByPertandingan = getKelompokByPertandingan;
+const getStoryFromKelompokByPertandingan = async (id) => {
     try {
-        const pertandingan = await Pertandingan.findByPk(id, {
+        const pertandingan = await pertandingan_kelompok_1.Pertandingan.findByPk(id, {
             include: [
                 {
-                    model: Kelompok,
-                    include: [Story],
+                    model: kelompok_1.Kelompok,
+                    include: [story_1.Story],
                 },
             ],
         });
         return pertandingan;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
-export const existingPertandinganByid = async (id) => {
+exports.getStoryFromKelompokByPertandingan = getStoryFromKelompokByPertandingan;
+const existingPertandinganByid = async (id) => {
     try {
-        const result = await Pertandingan.findByPk(id);
+        const result = await pertandingan_kelompok_1.Pertandingan.findByPk(id);
         return !!result;
     }
     catch (error) {
-        throw new DatabaseException(error.message);
+        throw new exceptions_1.DatabaseException(error.message);
     }
 };
+exports.existingPertandinganByid = existingPertandinganByid;

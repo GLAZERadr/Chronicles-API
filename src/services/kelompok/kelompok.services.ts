@@ -94,3 +94,13 @@ export const updateStatusKelompok = async (id: string, status: string): Promise<
     const updatedKelompokStatus = await kelompokRepository.updateStatusKelompok(id, status);
     return updatedKelompokStatus || null;
 };
+
+export const getStoryByKelompok = async (id: string): Promise<KelompokOutput | null> => {
+    const existingKelompok = await kelompokRepository.existingKelompokById(id);
+    if (!existingKelompok) {
+        throw new exceptions.ElementNotFoundException(`Kelompok with ${id} not found!!`);
+    }
+
+    const kelompok_story = await kelompokRepository.getStoryByKelompok(id);
+    return kelompok_story || null;
+};

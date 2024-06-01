@@ -4,9 +4,6 @@ import { TugasInput } from '../../data-access/models/tugas/tugas.';
 
 export const validateTugas = (newTugas: TugasInput): void => {
     validateInstruksiTugas(newTugas.instruksi_tugas);
-    validateNilaiKelompok(newTugas.nilai_kelompok);
-    validateNilaiSimilaritas(newTugas.nilai_similaritas);
-    validateKomentar(newTugas.komentar);
 }
 
 export const validateInstruksiTugas = (instruksi_tugas: string): void => {

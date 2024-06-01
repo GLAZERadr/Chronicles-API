@@ -13,7 +13,13 @@ export const verifyToken = async (token: string | null): Promise<DecodedToken> =
     if (!token) throw new InvalidCredentials('Invalid Token');
 
     try {
-        return jwt.verify(token, secret_key);
+        const decoded = jwt.verify(token, secret_key);
+
+        if (typeof decoded !== 'object' || !decoded.id || !decoded.username) {
+            throw new InvalidCredentials('Invalid Token');
+        }
+
+        return decoded as DecodedToken;
     } catch (error: any) {
         if (error.name === 'TokenExpiredError') {
             throw new InvalidCredentials('Token Expired');

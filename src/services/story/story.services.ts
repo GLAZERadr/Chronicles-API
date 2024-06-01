@@ -13,7 +13,7 @@ export const createStory = async (newStory:Story): Promise<StoryOutput> => {
     }
 
     return await storyRepository.createStory(newStory);
-}
+};
 
 export const deleteStory = async (id: string): Promise<string> => {
     const existingStory: boolean = await storyRepository.existingStoryById(id);
@@ -22,7 +22,7 @@ export const deleteStory = async (id: string): Promise<string> => {
     }
 
     return await storyRepository.deleteStory(id);
-}
+};
 
 export const getKelompokByStory = async (id: string): Promise<StoryOutput | null> => {
     const existingStory: boolean = await storyRepository.existingStoryById(id);
@@ -32,4 +32,14 @@ export const getKelompokByStory = async (id: string): Promise<StoryOutput | null
 
     const story = await storyRepository.getKelompokByStory(id);
     return story;
-}
+};
+
+export const updateGambar = async (id: string, url_gambar: string): Promise<StoryOutput | null> => {
+    const existingStory: boolean = await storyRepository.existingStoryById(id); 
+    if (!existingStory) {
+        throw new exceptions.ElementNotFoundException(`Story with id ${id} not found`);
+    }
+
+    const story = await storyRepository.updateGambar(id, url_gambar);
+    return story;
+};

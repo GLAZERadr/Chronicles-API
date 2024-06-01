@@ -1,8 +1,34 @@
-import * as kelompokServices from '../../services/kelompok/kelompok.services';
-import { generateIdUser } from '../../common/helpers/generateid/generateid';
-export const createKelompok = async (req, res, next) => {
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getStoryByKelompok = exports.updateStatusKelompok = exports.updateInfoKelompok = exports.getKelompok = exports.getAllKelompok = exports.deleteKelompok = exports.createKelompok = void 0;
+const kelompokServices = __importStar(require("../../services/kelompok/kelompok.services"));
+const generateid_1 = require("../../common/helpers/generateid/generateid");
+const createKelompok = async (req, res, next) => {
     try {
-        const newKelompokId = generateIdUser.generateId('KEL_');
+        const newKelompokId = generateid_1.generateIdUser.generateId('KEL_');
         const newKelompokData = { ...req.body, id: newKelompokId };
         let kelompok = await kelompokServices.createKelompok(newKelompokData);
         return res.status(201).send(kelompok);
@@ -11,7 +37,8 @@ export const createKelompok = async (req, res, next) => {
         return next(error);
     }
 };
-export const deleteKelompok = async (req, res, next) => {
+exports.createKelompok = createKelompok;
+const deleteKelompok = async (req, res, next) => {
     try {
         const { id } = req.params;
         let result = await kelompokServices.deleteKelompok(id);
@@ -21,7 +48,8 @@ export const deleteKelompok = async (req, res, next) => {
         return next(error);
     }
 };
-export const getAllKelompok = async (req, res, next) => {
+exports.deleteKelompok = deleteKelompok;
+const getAllKelompok = async (req, res, next) => {
     try {
         let result = await kelompokServices.getAllKelompok();
         return res.status(200).send(result);
@@ -30,7 +58,8 @@ export const getAllKelompok = async (req, res, next) => {
         return next(error);
     }
 };
-export const getKelompok = async (req, res, next) => {
+exports.getAllKelompok = getAllKelompok;
+const getKelompok = async (req, res, next) => {
     try {
         const { id } = req.params;
         let result = await kelompokServices.getKelompokById(id);
@@ -40,7 +69,8 @@ export const getKelompok = async (req, res, next) => {
         return next(error);
     }
 };
-export const updateInfoKelompok = async (req, res, next) => {
+exports.getKelompok = getKelompok;
+const updateInfoKelompok = async (req, res, next) => {
     try {
         const { id } = req.params;
         const { nama_kelompok } = req.body;
@@ -56,7 +86,8 @@ export const updateInfoKelompok = async (req, res, next) => {
         return next(error);
     }
 };
-export const updateStatusKelompok = async (req, res, next) => {
+exports.updateInfoKelompok = updateInfoKelompok;
+const updateStatusKelompok = async (req, res, next) => {
     try {
         const { id } = req.params;
         const { status } = req.body;
@@ -67,3 +98,16 @@ export const updateStatusKelompok = async (req, res, next) => {
         return next(error);
     }
 };
+exports.updateStatusKelompok = updateStatusKelompok;
+const getStoryByKelompok = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        let result = await kelompokServices.getStoryByKelompok(id);
+        return res.status(200).send(result);
+    }
+    catch (error) {
+        return next(error);
+    }
+    ;
+};
+exports.getStoryByKelompok = getStoryByKelompok;

@@ -28,7 +28,7 @@ export const getAllKelas = async (): Promise<Array<KelasOutput> | null> => {
     return await kelasRepository.getAllKelas() || null;
 };
 
-export const getKelasByNamaKelas = async(nama_kelas: string): Promise<KelasOutput | null> => {
+export const getKelasByNamaKelas = async (nama_kelas: string): Promise<KelasOutput | null> => {
     const existingKelas: boolean = await kelasRepository.existingKelasByName(nama_kelas);
     if (!existingKelas) {
         throw new exceptions.ElementNotFoundException(`Kelas ${nama_kelas} not found!!`);
@@ -37,3 +37,13 @@ export const getKelasByNamaKelas = async(nama_kelas: string): Promise<KelasOutpu
     const kelas = kelasRepository.getKelasByNamaKelas(nama_kelas);
     return kelas || null;
 };
+
+export const getKelompokByKelas = async (id: string): Promise<KelasOutput | null> => {
+    const existingKelas: boolean = await kelasRepository.existingKelasById(id);
+    if (!existingKelas) {
+        throw new exceptions.ElementNotFoundException(`Kelas ${id} not found!!`);
+    }
+
+    const kelas = kelasRepository.getKelompokByKelas(id);
+    return kelas || null;
+}

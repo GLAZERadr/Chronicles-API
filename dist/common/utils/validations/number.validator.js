@@ -1,16 +1,22 @@
-import { ElementInvalidException } from '../../exceptions/exceptions';
-export const throwExceptionIfNumberLessThan = (val, min, message) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.throwExceptionIfNotNumber = exports.throwExceptionIfNumberGreaterThan = exports.throwExceptionIfNumberLessThan = void 0;
+const exceptions_1 = require("../../exceptions/exceptions");
+const throwExceptionIfNumberLessThan = (val, min, message) => {
     if (val < min) {
-        throw new ElementInvalidException(message);
+        throw new exceptions_1.ElementInvalidException(message);
     }
 };
-export const throwExceptionIfNumberGreaterThan = (val, max, message) => {
+exports.throwExceptionIfNumberLessThan = throwExceptionIfNumberLessThan;
+const throwExceptionIfNumberGreaterThan = (val, max, message) => {
     if (val > max) {
-        throw new ElementInvalidException(message);
+        throw new exceptions_1.ElementInvalidException(message);
     }
 };
-export const throwExceptionIfNotNumber = (val, message) => {
+exports.throwExceptionIfNumberGreaterThan = throwExceptionIfNumberGreaterThan;
+const throwExceptionIfNotNumber = (val, message) => {
     if (!val || isNaN(val)) {
-        throw new ElementInvalidException(message);
+        throw new exceptions_1.ElementInvalidException(message);
     }
 };
+exports.throwExceptionIfNotNumber = throwExceptionIfNotNumber;
