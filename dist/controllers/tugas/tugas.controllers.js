@@ -23,9 +23,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getGuruByTugas = exports.deleteTugas = exports.createTugas = void 0;
+exports.gradingStory = exports.getGuruByTugas = exports.deleteTugas = exports.createTugas = void 0;
 const tugasServices = __importStar(require("../../services/tugas/tugas.services"));
+const storyServices = __importStar(require("../../services/story/story.services"));
 const generateid_1 = require("../../common/helpers/generateid/generateid");
+const penilaian_llm_1 = require("../../api/penilaian-llm/penilaian-llm");
 const createTugas = async (req, res, next) => {
     try {
         const newTugasId = generateid_1.generateIdUser.generateId('TGS_');
@@ -60,3 +62,28 @@ const getGuruByTugas = async (req, res, next) => {
     }
 };
 exports.getGuruByTugas = getGuruByTugas;
+const gradingStory = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { id_story } = req.params;
+        const getStory = await storyServices.getStoryById(id_story);
+        if (!getStory) {
+            return res.status(400).json({ message: "Gagal mengenerate penilaian" });
+        }
+        const { orientation, complication, resolution, reorientation } = getStory;
+        const story_text = orientation + ',' + complication + ',' + resolution + ',' + reorientation;
+        const grade = await (0, penilaian_llm_1.sendRequestGradingLlmApi)(story_text);
+        const { message, result, final_grade } = grade;
+        if (message != "Processed text" && result === null && final_grade === 0) {
+            return res.status(400).send({ message: "Gagal mengenerate penilaian" });
+        }
+        ;
+        const nilai_kelompok = parseFloat(final_grade);
+        const nilai_komentar = await tugasServices.updateNilaiAndKomentar(id, nilai_kelompok, result);
+        return res.status(200).send(nilai_komentar);
+    }
+    catch (error) {
+        return next(error);
+    }
+};
+exports.gradingStory = gradingStory;

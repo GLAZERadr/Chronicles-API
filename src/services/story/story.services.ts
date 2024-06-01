@@ -43,3 +43,13 @@ export const updateGambar = async (id: string, url_gambar: string): Promise<Stor
     const story = await storyRepository.updateGambar(id, url_gambar);
     return story;
 };
+
+export const getStoryById = async (id: string): Promise<StoryOutput | null> => {
+    const existingStory: boolean = await storyRepository.existingStoryById(id);
+    if (!existingStory) {
+        throw new exceptions.ElementNotFoundException(`Story with id ${id} not found`);
+    }
+
+    const story = await storyRepository.getStoryById(id);
+    return story;
+}

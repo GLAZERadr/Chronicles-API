@@ -1,7 +1,7 @@
 import { Model,DataTypes } from "sequelize";
 import { sequalize } from "../../../common/config/database";
 import { Kelas } from "../kelas/kelas";
-import { Tugas } from "../tugas/tugas.";
+import { Tugas } from "../tugas/tugas";
 
 interface GuruAttributes {
     id: string,

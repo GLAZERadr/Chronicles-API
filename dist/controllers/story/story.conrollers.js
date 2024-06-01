@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getKelompokByStory = exports.deleteStory = exports.createStory = void 0;
+exports.getStoryById = exports.getKelompokByStory = exports.deleteStory = exports.createStory = void 0;
 const storyServices = __importStar(require("../../services/story/story.services"));
 const kelompokServices = __importStar(require("../../services/kelompok/kelompok.services"));
 const generateid_1 = require("../../common/helpers/generateid/generateid");
@@ -82,3 +82,14 @@ const getKelompokByStory = async (req, res, next) => {
     }
 };
 exports.getKelompokByStory = getKelompokByStory;
+const getStoryById = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        let result = await storyServices.getStoryById(id);
+        return res.status(200).send(result);
+    }
+    catch (error) {
+        return next(error);
+    }
+};
+exports.getStoryById = getStoryById;

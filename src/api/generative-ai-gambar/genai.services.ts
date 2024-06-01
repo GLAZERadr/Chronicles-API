@@ -7,7 +7,7 @@ export const sendRequestGenApi = async (kelas: string, kelompok: string, story: 
             kelas: kelas,
             kelompok: kelompok,
             story: story
-        })
+        });
 
         console.log("message:", (await response).data.message);
         console.log("status:", (await response).data.status);

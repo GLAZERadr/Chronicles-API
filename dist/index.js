@@ -37,9 +37,6 @@ app.use('/chronicles-v1/api/restory', restory_routes_1.restoryRouter);
 app.use((error, req, res, next) => {
     res.status(500).json({ message: error.message });
 });
-app.use('/', (req, res, next) => {
-    res.status(200).json({ message: 'Hello Chronicles😎' });
-});
 app.get('/cookies', function (req, res) {
     console.log('Cookies: ', req);
     console.log('Signed Cookies: ', req.signedCookies);
