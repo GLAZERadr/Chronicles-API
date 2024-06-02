@@ -23,19 +23,21 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateKomentar = exports.validateNilaiSimilaritas = exports.validateNilaiKelompok = exports.validateInstruksiTugas = exports.validateTugas = void 0;
+exports.validateKomentar = exports.validateNilaiSimilaritas = exports.validateNilaiKelompok = exports.validateKomentarProcess = exports.validateNilaiSimilaritasProcess = exports.validateNilaiKelompokProcess = void 0;
 const stringValidators = __importStar(require("../../common/utils/validations/string.validator"));
 const numberValidators = __importStar(require("../../common/utils/validations/number.validator"));
-const validateTugas = (newTugas) => {
-    (0, exports.validateInstruksiTugas)(newTugas.instruksi_tugas);
+const validateNilaiKelompokProcess = (newNilai) => {
+    (0, exports.validateNilaiKelompok)(newNilai.nilai_kelompok);
 };
-exports.validateTugas = validateTugas;
-const validateInstruksiTugas = (instruksi_tugas) => {
-    stringValidators.throwExeptionIfEmptyString(instruksi_tugas, 'Instruksi tugas cannot be empty');
-    stringValidators.throwExceptionIfMinLength(instruksi_tugas, 10, 'Instruksi tugas must be more than 10 characters');
-    stringValidators.throwExceptionIfMaxLength(instruksi_tugas, 50, 'Instruksi tugas must be less than 50 character');
+exports.validateNilaiKelompokProcess = validateNilaiKelompokProcess;
+const validateNilaiSimilaritasProcess = (newNilai) => {
+    (0, exports.validateNilaiSimilaritas)(newNilai.nilai_similaritas);
 };
-exports.validateInstruksiTugas = validateInstruksiTugas;
+exports.validateNilaiSimilaritasProcess = validateNilaiSimilaritasProcess;
+const validateKomentarProcess = (newNilai) => {
+    (0, exports.validateKomentar)(newNilai.komentar);
+};
+exports.validateKomentarProcess = validateKomentarProcess;
 const validateNilaiKelompok = (nilai_kelompok) => {
     numberValidators.throwExceptionIfNotNumber(nilai_kelompok, 'Nilai kelompok cannot be empty');
     numberValidators.throwExceptionIfNumberLessThan(nilai_kelompok, 0, 'Nilai kelompok must be greater than 0');

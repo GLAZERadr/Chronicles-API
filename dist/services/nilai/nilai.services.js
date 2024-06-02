@@ -23,36 +23,37 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateNilaiAndKomentar = exports.getGuruByTugas = exports.deleteTugas = exports.createTugas = void 0;
+exports.updateNilaiAndKomentar = exports.getGuruByNilai = exports.deleteNilai = exports.createNilai = void 0;
 const exceptions = __importStar(require("../../common/exceptions/exceptions"));
-const tugasRepository = __importStar(require("../../data-access/repositories/tugas/tugas.repositories"));
-const tugas_validator_1 = require("./tugas.validator");
-const createTugas = async (newTugas) => {
-    (0, tugas_validator_1.validateTugas)(newTugas);
-    return await tugasRepository.createTugas(newTugas);
+const nilaiRepository = __importStar(require("../../data-access/repositories/nilai/nilai.repositories"));
+const nilai_validator_1 = require("./nilai.validator");
+const createNilai = async (newNilai) => {
+    return await nilaiRepository.createNilai(newNilai);
 };
-exports.createTugas = createTugas;
-const deleteTugas = async (id) => {
-    const existingTugas = await tugasRepository.existingTugasById(id);
+exports.createNilai = createNilai;
+const deleteNilai = async (id) => {
+    const existingTugas = await nilaiRepository.existingNilaiById(id);
     if (!existingTugas) {
         throw new exceptions.ElementNotFoundException(`Tugas with ${id} not found!!`);
     }
-    return await tugasRepository.deleteTugas(id);
+    return await nilaiRepository.deleteNilai(id);
 };
-exports.deleteTugas = deleteTugas;
-const getGuruByTugas = async (id) => {
-    const existingTugas = await tugasRepository.existingTugasById(id);
+exports.deleteNilai = deleteNilai;
+const getGuruByNilai = async (id) => {
+    const existingTugas = await nilaiRepository.existingNilaiById(id);
     if (!existingTugas) {
         throw new exceptions.ElementNotFoundException(`Tugas with ${id} not found!!`);
     }
-    return await tugasRepository.getGuruByTugas(id);
+    return await nilaiRepository.getGuruByNilai(id);
 };
-exports.getGuruByTugas = getGuruByTugas;
+exports.getGuruByNilai = getGuruByNilai;
 const updateNilaiAndKomentar = async (id, nilai_kelompok, komentar) => {
-    const existingTugas = await tugasRepository.existingTugasById(id);
+    const existingTugas = await nilaiRepository.existingNilaiById(id);
     if (!existingTugas) {
         throw new exceptions.ElementNotFoundException(`Tugas with ${id} not found!!`);
     }
-    return await tugasRepository.updateNilaiAndKomentar(id, nilai_kelompok, komentar);
+    (0, nilai_validator_1.validateNilaiKelompok)(nilai_kelompok);
+    (0, nilai_validator_1.validateKomentar)(komentar);
+    return await nilaiRepository.updateNilaiAndKomentar(id, nilai_kelompok, komentar);
 };
 exports.updateNilaiAndKomentar = updateNilaiAndKomentar;

@@ -85,3 +85,15 @@ export const getStoryById = async (req: CustomRequest, res: Response, next: Next
         return next(error);
     }
 };
+
+export const getKelompokStory = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id_kelompok } = req.params;
+
+        let result = await storyServices.getKelompokStory(id_kelompok);
+
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+};

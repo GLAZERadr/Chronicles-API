@@ -1,7 +1,7 @@
 import { DatabaseException } from "../../../common/exceptions/exceptions";
 import { Restory, RestoryOutput } from "../../models/restory/restory";
 import { Kelompok } from "../../models/kelompok/kelompok";
-import { Story } from "../../models/story/story";
+import { Story, StoryOutput } from "../../models/story/story";
 
 export const createRestory = async (newRestory: Restory): Promise<RestoryOutput> => {
     try {
@@ -59,11 +59,20 @@ export const getStoryOfRestoryById = async (id: string): Promise<RestoryOutput |
     }
 };
 
-export const getRealStoryImages = async (id_story: string): Promise<RestoryOutput | null> => {
+export const getRealStoryImages = async (id_story: string, id_kelompok: string): Promise<StoryOutput | null> => {
     try {
-        const result = await Restory.findOne({ where: { id_story: id_story }, include: [{ model: Story, as: 'real_story' }]});
+        const result = await Story.findOne({ where: {id: id_story, id_kelompok: id_kelompok }, attributes: ['url_gambar'] });
         return result || null;
     } catch (error: any) {
         throw new DatabaseException(error.message);
     }
 };
+
+export const getRestoryByKelompokId = async (id: string, id_kelompok: string): Promise<RestoryOutput | null> => {
+    try {
+        const story = await Restory.findOne({ where: { id: id, id_kelompok: id_kelompok } });
+        return story || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+}

@@ -1,23 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Tugas = void 0;
+exports.Nilai = void 0;
 const sequelize_1 = require("sequelize");
 const database_1 = require("../../../common/config/database");
-const story_1 = require("../story/story");
-const restory_1 = require("../restory/restory");
 ;
 ;
-class Tugas extends sequelize_1.Model {
+class Nilai extends sequelize_1.Model {
 }
-exports.Tugas = Tugas;
-Tugas.init({
+exports.Nilai = Nilai;
+Nilai.init({
     id: {
         type: sequelize_1.DataTypes.STRING,
         primaryKey: true,
-        allowNull: false,
-    },
-    instruksi_tugas: {
-        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
     nilai_kelompok: {
@@ -32,6 +26,14 @@ Tugas.init({
         type: sequelize_1.DataTypes.TEXT,
         allowNull: true,
     },
+    id_kelompok: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: 'kelompok',
+            key: 'id',
+        },
+    },
     id_guru: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
@@ -41,12 +43,10 @@ Tugas.init({
         },
     },
 }, {
-    tableName: 'tugas',
+    tableName: 'nilai',
     timestamps: true,
     sequelize: database_1.sequalize,
 });
-Tugas.hasMany(story_1.Story, { foreignKey: 'id_story', as: 'story' });
-Tugas.hasMany(restory_1.Restory, { foreignKey: 'id_restory', as: 'restory ' });
 database_1.sequalize.sync({ force: false })
-    .then(() => console.log('Tugas table created!!!'))
-    .catch((error) => console.log('Error creating table tugas: ', error));
+    .then(() => console.log('Nilai table created!!!'))
+    .catch((error) => console.log('Error creating table nilai: ', error));

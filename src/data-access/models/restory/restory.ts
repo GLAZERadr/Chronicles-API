@@ -5,7 +5,6 @@ interface RestoryAttributes {
     id: string,
     id_story: string,
     id_kelompok: string,
-    id_tugas: string,
     judul: string
     orientation: string,
     complication: string,
@@ -20,7 +19,6 @@ export class Restory extends Model<RestoryAttributes, RestoryInput> implements R
     declare id: string;
     declare id_story: string;
     declare id_kelompok: string;
-    declare id_tugas: string;
     declare judul: string;
     declare orientation: string;
     declare complication: string;
@@ -48,14 +46,6 @@ Restory.init(
             allowNull: false,
             references: {
                 model: 'kelompok',
-                key: 'id',
-            },
-        },
-        id_tugas: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            references: {
-                model: 'tugas',
                 key: 'id',
             },
         },

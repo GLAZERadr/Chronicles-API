@@ -4,7 +4,7 @@ exports.Guru = void 0;
 const sequelize_1 = require("sequelize");
 const database_1 = require("../../../common/config/database");
 const kelas_1 = require("../kelas/kelas");
-const tugas_1 = require("../tugas/tugas");
+const nilai_1 = require("../nilai/nilai");
 class Guru extends sequelize_1.Model {
 }
 exports.Guru = Guru;
@@ -34,7 +34,7 @@ Guru.init({
     sequelize: database_1.sequalize,
 });
 Guru.hasMany(kelas_1.Kelas, { foreignKey: 'id_guru', as: 'guru' });
-Guru.hasMany(tugas_1.Tugas, { foreignKey: 'id_guru', as: 'tugas_guru' });
+Guru.hasMany(nilai_1.Nilai, { foreignKey: 'id_guru', as: 'nilai_guru' });
 database_1.sequalize.sync({ force: false })
     .then(() => console.log('Guru table created!!!'))
     .catch((error) => console.log('Error creating table guru:', error));

@@ -4,7 +4,6 @@ import { Restory } from "../restory/restory";
 
 interface StoryAttributes {
     id: string,
-    id_tugas: string,
     judul: string
     orientation: string,
     complication: string,
@@ -19,7 +18,6 @@ export interface StoryOutput extends Model<StoryAttributes>, StoryAttributes {};
 
 export class Story extends Model<StoryAttributes, StoryInput> implements StoryAttributes {
     declare id: string;
-    declare id_tugas: string;
     declare judul: string;
     declare orientation: string;
     declare complication: string;
@@ -35,14 +33,6 @@ Story.init(
             type: DataTypes.STRING,
             primaryKey: true,
             allowNull: false,
-        },
-        id_tugas: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            references: {
-                model: 'tugas',
-                key: 'id'
-            },
         },
         judul: {
             type: DataTypes.STRING,

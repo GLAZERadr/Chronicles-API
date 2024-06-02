@@ -73,8 +73,9 @@ const getStoryOfRestoryById = async (req, res, next) => {
 exports.getStoryOfRestoryById = getStoryOfRestoryById;
 const getRealStoryImages = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        let result = await restoryServices.getRealStoryImages(id);
+        const { id_story } = req.params;
+        const { id_kelompok } = req.params;
+        let result = await restoryServices.getRealStoryImages(id_story, id_kelompok);
         return res.status(200).send(result);
     }
     catch (error) {

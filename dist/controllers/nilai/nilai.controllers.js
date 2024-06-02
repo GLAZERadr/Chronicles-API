@@ -23,52 +23,66 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.gradingStory = exports.getGuruByTugas = exports.deleteTugas = exports.createTugas = void 0;
-const tugasServices = __importStar(require("../../services/tugas/tugas.services"));
+exports.updateNilaiAndKomentar = exports.gradingStory = exports.getGuruByNilai = exports.deleteNilai = exports.createNilai = void 0;
+const nilaiServices = __importStar(require("../../services/nilai/nilai.services"));
 const storyServices = __importStar(require("../../services/story/story.services"));
+const restoryServices = __importStar(require("../../services/restory/restory.services"));
+const kelompokServices = __importStar(require("../../services/kelompok/kelompok.services"));
 const generateid_1 = require("../../common/helpers/generateid/generateid");
 const penilaian_llm_1 = require("../../api/penilaian-llm/penilaian-llm");
-const createTugas = async (req, res, next) => {
+const createNilai = async (req, res, next) => {
     try {
         const newTugasId = generateid_1.generateIdUser.generateId('TGS_');
         const newTugasData = { ...req.body, id: newTugasId };
-        let tugas = await tugasServices.createTugas(newTugasData);
+        let tugas = await nilaiServices.createNilai(newTugasData);
         return res.status(201).send(tugas);
     }
     catch (error) {
         return next(error);
     }
 };
-exports.createTugas = createTugas;
-const deleteTugas = async (req, res, next) => {
+exports.createNilai = createNilai;
+const deleteNilai = async (req, res, next) => {
     try {
         const { id } = req.params;
-        let result = await tugasServices.deleteTugas(id);
+        let result = await nilaiServices.deleteNilai(id);
         return res.status(200).send(result);
     }
     catch (error) {
         return next(error);
     }
 };
-exports.deleteTugas = deleteTugas;
-const getGuruByTugas = async (req, res, next) => {
+exports.deleteNilai = deleteNilai;
+const getGuruByNilai = async (req, res, next) => {
     try {
         const { id } = req.params;
-        let result = await tugasServices.getGuruByTugas(id);
+        let result = await nilaiServices.getGuruByNilai(id);
         return res.status(200).send(result);
     }
     catch (error) {
         return next(error);
     }
 };
-exports.getGuruByTugas = getGuruByTugas;
+exports.getGuruByNilai = getGuruByNilai;
 const gradingStory = async (req, res, next) => {
     try {
-        const { id } = req.params;
+        const newNilaiId = generateid_1.generateIdUser.generateId('NIL_');
+        const { id_kelompok } = req.params;
         const { id_story } = req.params;
-        const getStory = await storyServices.getStoryById(id_story);
-        if (!getStory) {
-            return res.status(400).json({ message: "Gagal mengenerate penilaian" });
+        const { id_guru } = req.params;
+        const getKelompok = await kelompokServices.getKelompokById(id_kelompok);
+        if (!getKelompok) {
+            return res.status(404).send({ message: 'Kelompok tidak ditemukan' });
+        }
+        const { status } = getKelompok;
+        let getStory;
+        if (status === "story") {
+            console.log('story...');
+            getStory = await storyServices.getStoryByKelompok(id_story, id_kelompok);
+        }
+        if (status === "restory") {
+            console.log('restory...');
+            getStory = await restoryServices.getRestoryByKelompok(id_story, id_kelompok);
         }
         const { orientation, complication, resolution, reorientation } = getStory;
         const story_text = orientation + ',' + complication + ',' + resolution + ',' + reorientation;
@@ -79,7 +93,9 @@ const gradingStory = async (req, res, next) => {
         }
         ;
         const nilai_kelompok = parseFloat(final_grade);
-        const nilai_komentar = await tugasServices.updateNilaiAndKomentar(id, nilai_kelompok, result);
+        console.log('Inserting nilai processes...');
+        const newNilaiData = { ...req.body, id: newNilaiId, id_kelompok: id_kelompok, id_guru: id_guru, nilai_kelompok: nilai_kelompok, komentar: result };
+        const nilai_komentar = await nilaiServices.createNilai(newNilaiData);
         return res.status(200).send(nilai_komentar);
     }
     catch (error) {
@@ -87,3 +103,15 @@ const gradingStory = async (req, res, next) => {
     }
 };
 exports.gradingStory = gradingStory;
+const updateNilaiAndKomentar = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { nilai_kelompok, komentar } = req.body;
+        let result = await nilaiServices.updateNilaiAndKomentar(id, nilai_kelompok, komentar);
+        return res.status(200).send(result);
+    }
+    catch (error) {
+        return next(error);
+    }
+};
+exports.updateNilaiAndKomentar = updateNilaiAndKomentar;
