@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStoryOfRestoryById = exports.getKelompokByRestory = exports.deleteRestory = exports.createRestory = void 0;
+exports.getRealStoryImages = exports.getStoryOfRestoryById = exports.getKelompokByRestory = exports.deleteRestory = exports.createRestory = void 0;
 const restoryServices = __importStar(require("../../services/restory/restory.services"));
 const generateid_1 = require("../../common/helpers/generateid/generateid");
 const createRestory = async (req, res, next) => {
@@ -71,3 +71,14 @@ const getStoryOfRestoryById = async (req, res, next) => {
     }
 };
 exports.getStoryOfRestoryById = getStoryOfRestoryById;
+const getRealStoryImages = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        let result = await restoryServices.getRealStoryImages(id);
+        return res.status(200).send(result);
+    }
+    catch (error) {
+        return next(error);
+    }
+};
+exports.getRealStoryImages = getRealStoryImages;

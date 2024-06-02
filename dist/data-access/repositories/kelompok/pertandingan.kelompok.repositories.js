@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.existingPertandinganByid = exports.getStoryFromKelompokByPertandingan = exports.getKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
+exports.getAllPertandingan = exports.getKelompokPertandingan = exports.getPertandinganRival = exports.existingPertandinganByid = exports.getStoryFromKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
 const exceptions_1 = require("../../../common/exceptions/exceptions");
 const kelompok_1 = require("../../models/kelompok/kelompok");
 const pertandingan_kelompok_1 = require("../../models/kelompok/pertandingan.kelompok");
 const story_1 = require("../../models/story/story");
+const sequelize_1 = require("sequelize");
 const createPertandingan = async (newPertandingan) => {
     try {
         return await pertandingan_kelompok_1.Pertandingan.create(newPertandingan);
@@ -18,7 +19,7 @@ const deletePertandingan = async (id) => {
     try {
         const result = await pertandingan_kelompok_1.Pertandingan.destroy({ where: { id: id } });
         if (result === 0) {
-            return 'Pertandingan not deleted';
+            return `Pertandingan ${id} not delete`;
         }
         return `Pertandingan ${id} not deleted`;
     }
@@ -27,16 +28,6 @@ const deletePertandingan = async (id) => {
     }
 };
 exports.deletePertandingan = deletePertandingan;
-const getKelompokByPertandingan = async (id) => {
-    try {
-        const pertandingan = await pertandingan_kelompok_1.Pertandingan.findByPk(id, { include: kelompok_1.Kelompok });
-        return pertandingan || null;
-    }
-    catch (error) {
-        throw new exceptions_1.DatabaseException(error.message);
-    }
-};
-exports.getKelompokByPertandingan = getKelompokByPertandingan;
 const getStoryFromKelompokByPertandingan = async (id) => {
     try {
         const pertandingan = await pertandingan_kelompok_1.Pertandingan.findByPk(id, {
@@ -64,3 +55,45 @@ const existingPertandinganByid = async (id) => {
     }
 };
 exports.existingPertandinganByid = existingPertandinganByid;
+const getPertandinganRival = async (id, id_kelompok) => {
+    try {
+        const pertandingan = await pertandingan_kelompok_1.Pertandingan.findOne({
+            where: {
+                id,
+                [sequelize_1.Op.or]: [
+                    { kode_kelompok_ganjil: id_kelompok },
+                    { kode_kelompok_genap: id_kelompok }
+                ]
+            },
+            include: [
+                { model: kelompok_1.Kelompok, as: 'kelompokGanjil' },
+                { model: kelompok_1.Kelompok, as: 'kelompokGenap' }
+            ]
+        });
+        return pertandingan || null;
+    }
+    catch (error) {
+        throw new exceptions_1.DatabaseException(error.message);
+    }
+};
+exports.getPertandinganRival = getPertandinganRival;
+const getKelompokPertandingan = async (id) => {
+    try {
+        const kelompok = await kelompok_1.Kelompok.findByPk(id, { include: [{ model: pertandingan_kelompok_1.Pertandingan, as: 'kode_kelompok_ganjil' }] });
+        return kelompok || null;
+    }
+    catch (error) {
+        throw new exceptions_1.DatabaseException(error.message);
+    }
+};
+exports.getKelompokPertandingan = getKelompokPertandingan;
+const getAllPertandingan = async () => {
+    try {
+        const pertandingan = await pertandingan_kelompok_1.Pertandingan.findAll();
+        return pertandingan || null;
+    }
+    catch (error) {
+        throw new exceptions_1.DatabaseException(error.message);
+    }
+};
+exports.getAllPertandingan = getAllPertandingan;

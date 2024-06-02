@@ -1,7 +1,8 @@
 import { DatabaseException } from "../../../common/exceptions/exceptions";
-import { Kelompok } from "../../models/kelompok/kelompok";
+import { Kelompok, KelompokOutput } from "../../models/kelompok/kelompok";
 import { Pertandingan, PertandinganInput, PertandinganOutput } from "../../models/kelompok/pertandingan.kelompok";
 import { Story } from "../../models/story/story";
+import { Op } from "sequelize";
 
 export const createPertandingan = async (newPertandingan: PertandinganInput): Promise<PertandinganOutput> => {
     try {
@@ -15,22 +16,13 @@ export const deletePertandingan = async (id: string): Promise<string> => {
     try {
         const result = await Pertandingan.destroy({ where: { id: id }});
         if (result === 0) {
-            return 'Pertandingan not deleted';
+            return `Pertandingan ${id} not delete`;
         }
         return `Pertandingan ${id} not deleted`;
     } catch (error: any) {
         throw new DatabaseException(error.message);
     }
 }; 
-
-export const getKelompokByPertandingan = async (id: string): Promise<PertandinganOutput | null> => {
-    try {
-        const pertandingan = await Pertandingan.findByPk(id, { include: Kelompok });
-        return pertandingan || null;
-    } catch (error: any) {
-        throw new DatabaseException(error.message);
-    }
-};
 
 export const getStoryFromKelompokByPertandingan = async (id: string): Promise<PertandinganOutput | null> => {
     try {
@@ -54,5 +46,46 @@ export const existingPertandinganByid = async (id: string): Promise<boolean> => 
         return !!result;
     } catch (error: any) {
         throw new DatabaseException(error.message);
-      }
+    }
+};
+
+export const getPertandinganRival = async (id: string, id_kelompok: string): Promise<PertandinganOutput | null> => {
+    try {
+        const pertandingan = await Pertandingan.findOne({
+            where: {
+                id,
+                [Op.or]: [
+                    { kode_kelompok_ganjil: id_kelompok },
+                    { kode_kelompok_genap: id_kelompok }
+                ]
+            },
+            include: [
+                { model: Kelompok, as: 'kelompokGanjil' },
+                { model: Kelompok, as: 'kelompokGenap' }
+            ]
+        });
+
+        return pertandingan || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};
+
+
+export const getKelompokPertandingan = async (id: string): Promise<KelompokOutput | null> => {
+    try {
+        const kelompok = await Kelompok.findByPk(id, { include: [{ model: Pertandingan, as: 'kode_kelompok_ganjil' }] });
+        return kelompok || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};
+
+export const getAllPertandingan = async (): Promise<Array<PertandinganOutput> | null> => {
+    try {
+        const pertandingan = await Pertandingan.findAll();
+        return pertandingan || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
 };

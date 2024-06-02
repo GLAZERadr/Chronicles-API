@@ -30,18 +30,6 @@ export const deletePertandingan = async (req: CustomRequest, res: Response, next
     }
 };
 
-export const getKelompokByPertandingan = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
-    try {
-        const { id } = req.params;
-
-        let result = await pertandinganServices.getKelompokByPertandingan(id);
-
-        return res.status(200).send(result);
-    } catch (error) {
-        return next(error);
-    }
-};
-
 export const getStoryFromKelompokByPertandingan = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { id } = req.params;
@@ -54,3 +42,37 @@ export const getStoryFromKelompokByPertandingan = async (req: CustomRequest, res
     }
 };
 
+export const getPertandinganRival = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id } = req.params;
+        const { id_kelompok } = req.params;
+
+        let result = await pertandinganServices.getPertandinganRival(id, id_kelompok);
+
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+};
+
+export const getKelompokPertandingan = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id } = req.params;
+
+        let result = await pertandinganServices.getKelompokPertandingan(id);
+
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+};
+
+export const getAllPertandingan  = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        let result = await pertandinganServices.getAllPertandingan();
+
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+};

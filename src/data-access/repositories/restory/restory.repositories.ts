@@ -58,3 +58,12 @@ export const getStoryOfRestoryById = async (id: string): Promise<RestoryOutput |
         throw new DatabaseException(error.message);
     }
 };
+
+export const getRealStoryImages = async (id_story: string): Promise<RestoryOutput | null> => {
+    try {
+        const result = await Restory.findOne({ where: { id_story: id_story }, include: [{ model: Story, as: 'real_story' }]});
+        return result || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};

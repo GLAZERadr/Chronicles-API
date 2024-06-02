@@ -5,7 +5,9 @@ import { verifyJWTToken } from '../common/middlewares/auth.middlewares';
 
 export const pertandinganRouter = express.Router();
 
-pertandinganRouter.get('/get/kelompok/:id', verifyJWTToken, pertandinganController.getKelompokByPertandingan);
 pertandinganRouter.get('/get/story/kelompok/:id', verifyJWTToken, pertandinganController.getStoryFromKelompokByPertandingan);
+pertandinganRouter.get('/get/:id/kelompok/:id_kelompok', verifyJWTToken, pertandinganController.getPertandinganRival);
+pertandinganRouter.get('/get/all', verifyJWTToken, pertandinganController.getAllPertandingan);
+pertandinganRouter.get('/get/:id', verifyJWTToken, pertandinganController.getKelompokPertandingan);
 pertandinganRouter.post('/post', verifyJWTToken, pertandinganController.createPertandingan);
 pertandinganRouter.delete('/delete', verifyJWTToken, pertandinganController.deletePertandingan);

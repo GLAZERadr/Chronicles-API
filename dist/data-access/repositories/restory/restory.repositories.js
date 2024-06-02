@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStoryOfRestoryById = exports.existingRestoryById = exports.existJudulOfRestory = exports.getKelompokByRestory = exports.deleteRestory = exports.createRestory = void 0;
+exports.getRealStoryImages = exports.getStoryOfRestoryById = exports.existingRestoryById = exports.existJudulOfRestory = exports.getKelompokByRestory = exports.deleteRestory = exports.createRestory = void 0;
 const exceptions_1 = require("../../../common/exceptions/exceptions");
 const restory_1 = require("../../models/restory/restory");
 const kelompok_1 = require("../../models/kelompok/kelompok");
@@ -67,3 +67,13 @@ const getStoryOfRestoryById = async (id) => {
     }
 };
 exports.getStoryOfRestoryById = getStoryOfRestoryById;
+const getRealStoryImages = async (id_story) => {
+    try {
+        const result = await restory_1.Restory.findOne({ where: { id_story: id_story }, include: [{ model: story_1.Story, as: 'real_story' }] });
+        return result || null;
+    }
+    catch (error) {
+        throw new exceptions_1.DatabaseException(error.message);
+    }
+};
+exports.getRealStoryImages = getRealStoryImages;

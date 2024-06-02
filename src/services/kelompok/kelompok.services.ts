@@ -51,8 +51,7 @@ export const getKelompokByClass = async (id_kelas: string): Promise<Array<Kelomp
     }
     
     return kelompok;
-}
-
+};
 
 export const createRandomAccountByTeamNumbers = async (teamnumbers: number, newKelompok: Partial<Kelompok>): Promise<Array<KelompokOutput> | null> => {
     const accounts: Array<Kelompok> = [];
@@ -72,7 +71,7 @@ export const createRandomAccountByTeamNumbers = async (teamnumbers: number, newK
 
         const newKelompokData: Partial<Kelompok> = { ...newKelompok, id: newKelompokId, username: username, password: password, status: status };
         accounts.push(newKelompokData as Kelompok);
-    }
+    };
 
     // Ensure all accounts are created before creating pertandingan
     const createdAccounts = await kelompokRepository.createRandomAccounts(accounts);
@@ -95,7 +94,7 @@ export const createRandomAccountByTeamNumbers = async (teamnumbers: number, newK
 
         console.log('CREATING PERTANDINGAN...');
         pertandinganCreated = await pertandinganRepository.createPertandingan(newPertandingan);
-    }
+    };
 
     return createdAccounts;
 };
