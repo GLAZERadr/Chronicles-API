@@ -5,6 +5,7 @@ const sequelize_1 = require("sequelize");
 const database_1 = require("../../../common/config/database");
 const story_1 = require("../story/story");
 const restory_1 = require("../restory/restory");
+const nilai_1 = require("../nilai/nilai");
 ;
 ;
 class Kelompok extends sequelize_1.Model {
@@ -68,6 +69,7 @@ Kelompok.init({
 });
 Kelompok.hasOne(story_1.Story, { foreignKey: 'id_kelompok', as: 'kelompok_story' });
 Kelompok.hasOne(restory_1.Restory, { foreignKey: 'id_kelompok', as: 'kelompok_restory' });
+Kelompok.hasMany(nilai_1.Nilai, { foreignKey: 'id_kelompok', as: 'nilai_kelompok' });
 database_1.sequalize.sync({ force: false })
     .then(() => console.log('Kelompok table created!!!'))
     .catch((error) => console.log('Error creating table kelompok: ', error));

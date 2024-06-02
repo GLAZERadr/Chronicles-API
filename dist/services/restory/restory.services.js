@@ -23,9 +23,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRealStoryImages = exports.getStoryOfRestoryById = exports.getKelompokByRestory = exports.deleteRestory = exports.createRestory = void 0;
+exports.getRestoryByKelompok = exports.getRealStoryImages = exports.getStoryOfRestoryById = exports.getKelompokByRestory = exports.deleteRestory = exports.createRestory = void 0;
 const exceptions = __importStar(require("../../common/exceptions/exceptions"));
 const restoryRepository = __importStar(require("../../data-access/repositories/restory/restory.repositories"));
+const kelompokRepository = __importStar(require("../../data-access/repositories/kelompok/kelompok.repositories"));
 const storyRepository = __importStar(require("../../data-access/repositories/story/story.repositories"));
 const restory_validator_1 = require("./restory.validator");
 const createRestory = async (newRestory) => {
@@ -63,12 +64,25 @@ const getStoryOfRestoryById = async (id) => {
     return restory;
 };
 exports.getStoryOfRestoryById = getStoryOfRestoryById;
-const getRealStoryImages = async (id_kelompok) => {
-    const existingStory = await storyRepository.existingStoryById(id_kelompok);
-    if (!existingStory) {
-        throw new exceptions.ElementNotFoundException(`Restory with id ${id_kelompok} not found`);
+const getRealStoryImages = async (id_story, id_kelompok) => {
+    const existingKelompok = await kelompokRepository.existingKelompokById(id_kelompok);
+    if (!existingKelompok) {
+        throw new exceptions.ElementNotFoundException(`Story with id ${id_kelompok} not found`);
     }
-    const result = await restoryRepository.getRealStoryImages(id_kelompok);
+    const existingStory = await storyRepository.existingStoryById(id_story);
+    if (!existingStory) {
+        throw new exceptions.ElementNotFoundException(`Story with id ${id_story} not found`);
+    }
+    const result = await restoryRepository.getRealStoryImages(id_story, id_kelompok);
     return result;
 };
 exports.getRealStoryImages = getRealStoryImages;
+const getRestoryByKelompok = async (id, id_kelompok) => {
+    const existingKelompok = await kelompokRepository.existingKelompokById(id_kelompok);
+    if (!existingKelompok) {
+        throw new exceptions.ElementNotFoundException(`Kelompok with id ${id_kelompok} not found`);
+    }
+    const story = await restoryRepository.getRestoryByKelompokId(id, id_kelompok);
+    return story;
+};
+exports.getRestoryByKelompok = getRestoryByKelompok;

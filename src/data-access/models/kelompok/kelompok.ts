@@ -2,6 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import { sequalize } from "../../../common/config/database";
 import { Story } from "../story/story";
 import { Restory } from "../restory/restory";
+import { Nilai } from "../nilai/nilai";
 
 interface KelompokAttributes {
     id: string,
@@ -95,6 +96,8 @@ Kelompok.init(
 
 Kelompok.hasOne(Story, { foreignKey: 'id_kelompok', as: 'kelompok_story' });
 Kelompok.hasOne(Restory, { foreignKey: 'id_kelompok', as: 'kelompok_restory' })
+
+Kelompok.hasMany(Nilai, { foreignKey: 'id_kelompok', as: 'nilai_kelompok' });
 
 sequalize.sync({ force: false })
     .then(() => console.log('Kelompok table created!!!'))

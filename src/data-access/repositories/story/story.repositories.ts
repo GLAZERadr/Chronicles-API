@@ -66,3 +66,12 @@ export const getStoryById = async (id: string): Promise<StoryOutput | null> => {
         throw new DatabaseException(error.message);
     }
 };
+
+export const getStoryByKelompokId = async (id: string, id_kelompok: string): Promise<StoryOutput | null> => {
+    try {
+        const story = await Story.findOne({ where: { id: id, id_kelompok: id_kelompok } });
+        return story || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+}

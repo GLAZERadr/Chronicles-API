@@ -1,5 +1,6 @@
 import * as exceptions from '../../common/exceptions/exceptions';
 import * as storyRepository from '../../data-access/repositories/story/story.repositories';
+import * as kelompokRepository from '../../data-access/repositories/kelompok/kelompok.repositories';
 
 import { validateStory } from './story.validator';
 import { Story, StoryOutput } from '../../data-access/models/story/story';
@@ -51,5 +52,15 @@ export const getStoryById = async (id: string): Promise<StoryOutput | null> => {
     }
 
     const story = await storyRepository.getStoryById(id);
+    return story;
+}
+
+export const getStoryByKelompok = async (id: string, id_kelompok: string): Promise<StoryOutput | null> => {
+    const existingKelompok: boolean = await kelompokRepository.existingKelompokById(id_kelompok);
+    if (!existingKelompok) {
+        throw new exceptions.ElementNotFoundException(`Kelompok with id ${id_kelompok} not found`);
+    }
+
+    const story = await storyRepository.getStoryByKelompokId(id, id_kelompok);
     return story;
 }

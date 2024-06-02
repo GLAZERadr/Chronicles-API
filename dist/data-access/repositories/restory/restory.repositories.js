@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRealStoryImages = exports.getStoryOfRestoryById = exports.existingRestoryById = exports.existJudulOfRestory = exports.getKelompokByRestory = exports.deleteRestory = exports.createRestory = void 0;
+exports.getRestoryByKelompokId = exports.getRealStoryImages = exports.getStoryOfRestoryById = exports.existingRestoryById = exports.existJudulOfRestory = exports.getKelompokByRestory = exports.deleteRestory = exports.createRestory = void 0;
 const exceptions_1 = require("../../../common/exceptions/exceptions");
 const restory_1 = require("../../models/restory/restory");
 const kelompok_1 = require("../../models/kelompok/kelompok");
@@ -67,9 +67,9 @@ const getStoryOfRestoryById = async (id) => {
     }
 };
 exports.getStoryOfRestoryById = getStoryOfRestoryById;
-const getRealStoryImages = async (id_kelompok) => {
+const getRealStoryImages = async (id_story, id_kelompok) => {
     try {
-        const result = await story_1.Story.findOne({ where: { id_kelompok: id_kelompok }, attributes: ['url_gambar'] });
+        const result = await story_1.Story.findOne({ where: { id: id_story, id_kelompok: id_kelompok }, attributes: ['url_gambar'] });
         return result || null;
     }
     catch (error) {
@@ -77,3 +77,13 @@ const getRealStoryImages = async (id_kelompok) => {
     }
 };
 exports.getRealStoryImages = getRealStoryImages;
+const getRestoryByKelompokId = async (id, id_kelompok) => {
+    try {
+        const story = await restory_1.Restory.findOne({ where: { id: id, id_kelompok: id_kelompok } });
+        return story || null;
+    }
+    catch (error) {
+        throw new exceptions_1.DatabaseException(error.message);
+    }
+};
+exports.getRestoryByKelompokId = getRestoryByKelompokId;

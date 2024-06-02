@@ -23,9 +23,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStoryById = exports.updateGambar = exports.getKelompokByStory = exports.deleteStory = exports.createStory = void 0;
+exports.getStoryByKelompok = exports.getStoryById = exports.updateGambar = exports.getKelompokByStory = exports.deleteStory = exports.createStory = void 0;
 const exceptions = __importStar(require("../../common/exceptions/exceptions"));
 const storyRepository = __importStar(require("../../data-access/repositories/story/story.repositories"));
+const kelompokRepository = __importStar(require("../../data-access/repositories/kelompok/kelompok.repositories"));
 const story_validator_1 = require("./story.validator");
 const createStory = async (newStory) => {
     (0, story_validator_1.validateStory)(newStory);
@@ -71,3 +72,12 @@ const getStoryById = async (id) => {
     return story;
 };
 exports.getStoryById = getStoryById;
+const getStoryByKelompok = async (id, id_kelompok) => {
+    const existingKelompok = await kelompokRepository.existingKelompokById(id_kelompok);
+    if (!existingKelompok) {
+        throw new exceptions.ElementNotFoundException(`Kelompok with id ${id_kelompok} not found`);
+    }
+    const story = await storyRepository.getStoryByKelompokId(id, id_kelompok);
+    return story;
+};
+exports.getStoryByKelompok = getStoryByKelompok;

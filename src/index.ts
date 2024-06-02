@@ -8,7 +8,7 @@ import cors from 'cors';
 import { kelasRouter } from './routes/kelas.routes';
 import { kelompokRouter } from './routes/kelompok.routes';
 import { pertandinganRouter } from './routes/pertandingan.routes';
-import { tugasRouter } from './routes/tugas.routes';
+import { nilaiRouter } from './routes/nilai.routes';
 import { storyRouter } from './routes/story.routes';
 import { restoryRouter } from './routes/restory.routes';
 
@@ -30,7 +30,7 @@ app.use('/chronicles-v1/api/guru', guruRouter);
 app.use('/chronicles-v1/api/kelas', kelasRouter);
 app.use('/chronicles-v1/api/kelompok', kelompokRouter);
 app.use('/chronicles-v1/api/pertandingan', pertandinganRouter);
-app.use('/chronicles-v1/api/tugas', tugasRouter);
+app.use('/chronicles-v1/api/nilai', nilaiRouter);
 app.use('/chronicles-v1/api/session', sessionRouter);
 app.use('/chronicles-v1/api/story', storyRouter);
 app.use('/chronicles-v1/api/restory', restoryRouter)

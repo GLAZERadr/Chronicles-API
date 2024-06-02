@@ -33,5 +33,6 @@ const auth_middlewares_1 = require("../common/middlewares/auth.middlewares");
 exports.restoryRouter = express_1.default.Router();
 exports.restoryRouter.get('/get/kelompok/:id', auth_middlewares_1.verifyJWTToken, restoryController.getKelompokByRestory);
 exports.restoryRouter.get('/get/real-story/:id', auth_middlewares_1.verifyJWTToken, restoryController.getStoryOfRestoryById);
+exports.restoryRouter.get('/get/images/:id_story/kelompok/id_kelompok', auth_middlewares_1.verifyJWTToken, restoryController.getRealStoryImages);
 exports.restoryRouter.post('/post', auth_middlewares_1.verifyJWTToken, restoryController.createRestory);
 exports.restoryRouter.delete('/delete', auth_middlewares_1.verifyJWTToken, restoryController.deleteRestory);

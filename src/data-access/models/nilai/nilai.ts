@@ -1,38 +1,32 @@
 import { Model, DataTypes } from "sequelize";
 import { sequalize } from "../../../common/config/database";
-import { Story } from "../story/story";
-import { Restory } from "../restory/restory";
 
-interface TugasAttributes {
+interface NilaiAttributes {
     id: string,
-    instruksi_tugas: string,
     nilai_kelompok: number,
     nilai_similaritas:  number,
     komentar: string,
+    id_kelompok: string,
     id_guru: string  
 }
 
-export interface TugasInput extends TugasAttributes {};
-export interface TugasOutput extends Model<TugasAttributes>, TugasAttributes {};
+export interface NilaiInput extends NilaiAttributes {};
+export interface NilaiOutput extends Model<NilaiAttributes>, NilaiAttributes {};
 
-export class Tugas extends Model<TugasAttributes, TugasInput> implements TugasAttributes {
+export class Nilai extends Model<NilaiAttributes, NilaiInput> implements NilaiAttributes {
     declare id: string;
-    declare instruksi_tugas: string;
     declare nilai_kelompok: number;
     declare nilai_similaritas: number;
     declare komentar: string;
+    declare id_kelompok: string;
     declare id_guru: string;
 }
 
-Tugas.init(
+Nilai.init(
     {
         id: {
             type: DataTypes.STRING,
             primaryKey: true,
-            allowNull: false,
-        },
-        instruksi_tugas: {
-            type: DataTypes.STRING,
             allowNull: false,
         },
         nilai_kelompok: {
@@ -47,6 +41,14 @@ Tugas.init(
             type: DataTypes.TEXT,
             allowNull: true,
         },
+        id_kelompok: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            references: {
+                model: 'kelompok',
+                key: 'id',
+            },
+        },
         id_guru: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -57,15 +59,12 @@ Tugas.init(
         },
     },
     {
-        tableName: 'tugas',
+        tableName: 'nilai',
         timestamps: true,
         sequelize: sequalize,
     },
 );
 
-Tugas.hasMany(Story, { foreignKey: 'id_story', as: 'story'});
-Tugas.hasMany(Restory, { foreignKey: 'id_restory', as: 'restory '});
-
 sequalize.sync({ force: false })
-    .then(() => console.log('Tugas table created!!!'))
-    .catch((error: Error) => console.log('Error creating table tugas: ', error));
+    .then(() => console.log('Nilai table created!!!'))
+    .catch((error: Error) => console.log('Error creating table nilai: ', error));

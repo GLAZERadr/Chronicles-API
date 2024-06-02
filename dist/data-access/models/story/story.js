@@ -17,14 +17,6 @@ Story.init({
         primaryKey: true,
         allowNull: false,
     },
-    id_tugas: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
-        references: {
-            model: 'tugas',
-            key: 'id'
-        },
-    },
     judul: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,

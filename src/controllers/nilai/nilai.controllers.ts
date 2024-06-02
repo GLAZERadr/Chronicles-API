@@ -1,18 +1,20 @@
 import { NextFunction, Response } from 'express';
 
-import * as tugasServices from '../../services/tugas/tugas.services';
+import * as nilaiServices from '../../services/nilai/nilai.services';
 import * as storyServices from '../../services/story/story.services';
+import * as restoryServices from '../../services/restory/restory.services';
+import * as kelompokServices from '../../services/kelompok/kelompok.services';
 import { CustomRequest } from '../../common/middlewares/auth.middlewares';
 import { generateIdUser } from '../../common/helpers/generateid/generateid';
 import { sendRequestGradingLlmApi } from '../../api/penilaian-llm/penilaian-llm';
 
-export const createTugas = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+export const createNilai = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const newTugasId = generateIdUser.generateId('TGS_')
 
         const newTugasData = { ...req.body, id: newTugasId };
 
-        let tugas = await tugasServices.createTugas(newTugasData);
+        let tugas = await nilaiServices.createNilai(newTugasData);
 
         return res.status(201).send(tugas);
     } catch (error) {
@@ -20,11 +22,11 @@ export const createTugas = async (req: CustomRequest, res: Response, next: NextF
     }
 };
 
-export const deleteTugas = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+export const deleteNilai = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { id } = req.params;
 
-        let result = await tugasServices.deleteTugas(id);
+        let result = await nilaiServices.deleteNilai(id);
 
         return res.status(200).send(result);
     } catch (error) {
@@ -32,11 +34,11 @@ export const deleteTugas = async (req: CustomRequest, res: Response, next: NextF
     }
 };
 
-export const getGuruByTugas = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+export const getGuruByNilai = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { id } = req.params;
 
-        let result = await tugasServices.getGuruByTugas(id);
+        let result = await nilaiServices.getGuruByNilai(id);
 
         return res.status(200).send(result);
     } catch (error) {
@@ -46,13 +48,29 @@ export const getGuruByTugas = async (req: CustomRequest, res: Response, next: Ne
 
 export const gradingStory =  async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
-        const { id } = req.params;
+        const newNilaiId = generateIdUser.generateId('NIL_');
+        const { id_kelompok } = req.params;
         const { id_story } = req.params;
+        const { id_guru } = req.params;
 
-        const getStory = await storyServices.getStoryById(id_story);
+        const getKelompok = await kelompokServices.getKelompokById(id_kelompok);
 
-        if (!getStory) {
-            return res.status(400).json({ message: "Gagal mengenerate penilaian" });
+        if (!getKelompok) {
+            return res.status(404).send({ message: 'Kelompok tidak ditemukan' });
+        }
+
+        const { status } = getKelompok;
+
+        let getStory;
+
+        if (status === "story") {
+            console.log('story...')
+            getStory = await storyServices.getStoryByKelompok(id_story, id_kelompok);
+        }
+
+        if (status === "restory") {
+            console.log('restory...')
+            getStory = await restoryServices.getRestoryByKelompok(id_story, id_kelompok);
         }
 
         const { orientation, complication, resolution, reorientation } = getStory;
@@ -69,7 +87,9 @@ export const gradingStory =  async (req: CustomRequest, res: Response, next: Nex
 
         const nilai_kelompok = parseFloat(final_grade);
 
-        const nilai_komentar = await tugasServices.updateNilaiAndKomentar(id, nilai_kelompok, result);
+        console.log('Inserting nilai processes...')
+        const newNilaiData = { ...req.body, id: newNilaiId, id_kelompok: id_kelompok, id_guru: id_guru, nilai_kelompok: nilai_kelompok, komentar: result};
+        const nilai_komentar = await nilaiServices.createNilai(newNilaiData);
     
         return res.status(200).send(nilai_komentar);
     } catch (error) {
@@ -83,7 +103,7 @@ export const updateNilaiAndKomentar =  async (req: CustomRequest, res: Response,
 
     const { nilai_kelompok, komentar } = req.body;
 
-    let result = await tugasServices.updateNilaiAndKomentar(id, nilai_kelompok, komentar);
+    let result = await nilaiServices.updateNilaiAndKomentar(id, nilai_kelompok, komentar);
 
     return res.status(200).send(result);
     } catch (error) {

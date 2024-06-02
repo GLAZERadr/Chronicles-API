@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStoryById = exports.updateGambar = exports.existingStoryById = exports.existJudulOfStory = exports.getKelompokByStory = exports.deleteStory = exports.createStory = void 0;
+exports.getStoryByKelompokId = exports.getStoryById = exports.updateGambar = exports.existingStoryById = exports.existJudulOfStory = exports.getKelompokByStory = exports.deleteStory = exports.createStory = void 0;
 const exceptions_1 = require("../../../common/exceptions/exceptions");
 const kelompok_1 = require("../../models/kelompok/kelompok");
 const story_1 = require("../../models/story/story");
@@ -76,3 +76,13 @@ const getStoryById = async (id) => {
     }
 };
 exports.getStoryById = getStoryById;
+const getStoryByKelompokId = async (id, id_kelompok) => {
+    try {
+        const story = await story_1.Story.findOne({ where: { id: id, id_kelompok: id_kelompok } });
+        return story || null;
+    }
+    catch (error) {
+        throw new exceptions_1.DatabaseException(error.message);
+    }
+};
+exports.getStoryByKelompokId = getStoryByKelompokId;

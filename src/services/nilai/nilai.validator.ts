@@ -1,16 +1,18 @@
 import * as stringValidators from '../../common/utils/validations/string.validator';
 import * as numberValidators from '../../common/utils/validations/number.validator';
-import { TugasInput } from '../../data-access/models/tugas/tugas';
+import { NilaiInput } from '../../data-access/models/nilai/nilai';
 
-export const validateTugas = (newTugas: TugasInput): void => {
-    validateInstruksiTugas(newTugas.instruksi_tugas);
-}
+export const validateNilaiKelompokProcess = (newNilai: NilaiInput): void => {
+    validateNilaiKelompok(newNilai.nilai_kelompok);
+};
 
-export const validateInstruksiTugas = (instruksi_tugas: string): void => {
-    stringValidators.throwExeptionIfEmptyString(instruksi_tugas, 'Instruksi tugas cannot be empty');
-    stringValidators.throwExceptionIfMinLength(instruksi_tugas, 10, 'Instruksi tugas must be more than 10 characters');
-    stringValidators.throwExceptionIfMaxLength(instruksi_tugas, 50, 'Instruksi tugas must be less than 50 character');
-}
+export const validateNilaiSimilaritasProcess = (newNilai: NilaiInput): void => {
+    validateNilaiSimilaritas(newNilai.nilai_similaritas);
+};
+
+export const validateKomentarProcess = (newNilai: NilaiInput): void => {
+    validateKomentar(newNilai.komentar);
+};
 
 export const validateNilaiKelompok = (nilai_kelompok: number): void => {
     numberValidators.throwExceptionIfNotNumber(nilai_kelompok, 'Nilai kelompok cannot be empty');

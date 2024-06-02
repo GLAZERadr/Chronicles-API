@@ -1,5 +1,6 @@
 import * as exceptions from '../../common/exceptions/exceptions';
 import * as restoryRepository from '../../data-access/repositories/restory/restory.repositories';
+import * as kelompokRepository from '../../data-access/repositories/kelompok/kelompok.repositories';
 import * as storyRepository from '../../data-access/repositories/story/story.repositories';
 
 import { validateRestory } from './restory.validator';
@@ -46,13 +47,28 @@ export const getStoryOfRestoryById = async (id: string): Promise<RestoryOutput |
     return restory;
 };
 
-export const getRealStoryImages = async (id_kelompok: string): Promise<StoryOutput | null> => {
-    const existingStory: boolean = await storyRepository.existingStoryById(id_kelompok);
-    if (!existingStory) {
-        throw new exceptions.ElementNotFoundException(`Restory with id ${id_kelompok} not found`);
+export const getRealStoryImages = async (id_story: string, id_kelompok: string): Promise<StoryOutput | null> => {
+    const existingKelompok: boolean = await kelompokRepository.existingKelompokById(id_kelompok);
+    if (!existingKelompok) {
+        throw new exceptions.ElementNotFoundException(`Story with id ${id_kelompok} not found`);
     }
 
-    const result = await restoryRepository.getRealStoryImages(id_kelompok);
+    const existingStory: boolean = await storyRepository.existingStoryById(id_story);
+    if (!existingStory) {
+        throw new exceptions.ElementNotFoundException(`Story with id ${id_story} not found`);
+    }
+
+    const result = await restoryRepository.getRealStoryImages(id_story, id_kelompok);
     return result;
 };
+
+export const getRestoryByKelompok = async (id: string, id_kelompok: string): Promise<RestoryOutput | null> => {
+    const existingKelompok: boolean = await kelompokRepository.existingKelompokById(id_kelompok);
+    if (!existingKelompok) {
+        throw new exceptions.ElementNotFoundException(`Kelompok with id ${id_kelompok} not found`);
+    }
+
+    const story = await restoryRepository.getRestoryByKelompokId(id, id_kelompok);
+    return story;
+}
 
