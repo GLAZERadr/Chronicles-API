@@ -61,7 +61,7 @@ export const gradingStory =  async (req: CustomRequest, res: Response, next: Nex
 
         const { status } = getKelompok;
 
-        let getStory;
+        let getStory: any;
 
         if (status === "story") {
             console.log('story...')
