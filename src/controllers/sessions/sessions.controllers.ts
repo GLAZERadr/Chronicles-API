@@ -57,7 +57,8 @@ export const loginKelompok = async (req: CustomRequest, res: Response, next: Nex
             id: kelompok.id,
             nama: kelompok.nama_kelompok ?? 'Team',
             username: kelompok.username,
-            token: token
+            token: token,
+            class_id: kelompok.id_kelas,
         })
     } catch (error) {
         next(error);
