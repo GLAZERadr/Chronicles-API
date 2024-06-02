@@ -75,3 +75,12 @@ export const getStoryByKelompokId = async (id: string, id_kelompok: string): Pro
         throw new DatabaseException(error.message);
     }
 }
+
+export const getKelompokStory = async (id_kelompok: string): Promise<Array<StoryOutput> | null> => {
+    try {
+        const story = await Story.findAll({ where: { id_kelompok: id_kelompok } });
+        return story || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};

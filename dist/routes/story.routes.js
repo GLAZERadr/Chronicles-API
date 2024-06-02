@@ -28,10 +28,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.storyRouter = void 0;
 const express_1 = __importDefault(require("express"));
-const storyController = __importStar(require("../controllers/story/story.conrollers"));
+const storyController = __importStar(require("../controllers/story/story.controllers"));
 const auth_middlewares_1 = require("../common/middlewares/auth.middlewares");
 exports.storyRouter = express_1.default.Router();
 exports.storyRouter.get('/get/kelompok/:id', auth_middlewares_1.verifyJWTToken, storyController.getKelompokByStory);
 exports.storyRouter.get('/get/:id', auth_middlewares_1.verifyJWTToken, storyController.getStoryById);
+exports.storyRouter.get('/get/all/kelompok/:id_kelompok', auth_middlewares_1.verifyJWTToken, storyController.getKelompokStory);
 exports.storyRouter.post('/post', auth_middlewares_1.verifyJWTToken, storyController.createStory);
 exports.storyRouter.delete('/delete', auth_middlewares_1.verifyJWTToken, storyController.deleteStory);

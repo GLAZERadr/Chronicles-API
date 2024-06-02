@@ -53,7 +53,7 @@ export const getStoryById = async (id: string): Promise<StoryOutput | null> => {
 
     const story = await storyRepository.getStoryById(id);
     return story;
-}
+};
 
 export const getStoryByKelompok = async (id: string, id_kelompok: string): Promise<StoryOutput | null> => {
     const existingKelompok: boolean = await kelompokRepository.existingKelompokById(id_kelompok);
@@ -63,4 +63,14 @@ export const getStoryByKelompok = async (id: string, id_kelompok: string): Promi
 
     const story = await storyRepository.getStoryByKelompokId(id, id_kelompok);
     return story;
-}
+};
+
+export const getKelompokStory = async (id_kelompok: string): Promise<Array<StoryOutput> | null> => {
+    const existingKelompok: boolean = await kelompokRepository.existingKelompokById(id_kelompok);
+    if (!existingKelompok) {
+        throw new exceptions.ElementNotFoundException(`Kelompok with id ${id_kelompok} not found`);
+    }
+
+    const allstory = await storyRepository.getKelompokStory(id_kelompok);
+    return allstory;
+};

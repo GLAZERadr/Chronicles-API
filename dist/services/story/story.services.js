@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStoryByKelompok = exports.getStoryById = exports.updateGambar = exports.getKelompokByStory = exports.deleteStory = exports.createStory = void 0;
+exports.getKelompokStory = exports.getStoryByKelompok = exports.getStoryById = exports.updateGambar = exports.getKelompokByStory = exports.deleteStory = exports.createStory = void 0;
 const exceptions = __importStar(require("../../common/exceptions/exceptions"));
 const storyRepository = __importStar(require("../../data-access/repositories/story/story.repositories"));
 const kelompokRepository = __importStar(require("../../data-access/repositories/kelompok/kelompok.repositories"));
@@ -81,3 +81,12 @@ const getStoryByKelompok = async (id, id_kelompok) => {
     return story;
 };
 exports.getStoryByKelompok = getStoryByKelompok;
+const getKelompokStory = async (id_kelompok) => {
+    const existingKelompok = await kelompokRepository.existingKelompokById(id_kelompok);
+    if (!existingKelompok) {
+        throw new exceptions.ElementNotFoundException(`Kelompok with id ${id_kelompok} not found`);
+    }
+    const allstory = await storyRepository.getKelompokStory(id_kelompok);
+    return allstory;
+};
+exports.getKelompokStory = getKelompokStory;
