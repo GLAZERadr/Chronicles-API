@@ -4,6 +4,7 @@ import * as storyRepository from '../../data-access/repositories/story/story.rep
 
 import { validateRestory } from './restory.validator';
 import { Restory, RestoryOutput } from '../../data-access/models/restory/restory';
+import { StoryOutput } from '../../data-access/models/story/story';
 
 export const createRestory = async (newRestory:Restory): Promise<RestoryOutput> => {
     validateRestory(newRestory);
@@ -45,13 +46,13 @@ export const getStoryOfRestoryById = async (id: string): Promise<RestoryOutput |
     return restory;
 };
 
-export const getRealStoryImages = async (id_story: string): Promise<RestoryOutput | null> => {
-    const existingStory: boolean = await storyRepository.existingStoryById(id_story);
+export const getRealStoryImages = async (id_kelompok: string): Promise<StoryOutput | null> => {
+    const existingStory: boolean = await storyRepository.existingStoryById(id_kelompok);
     if (!existingStory) {
-        throw new exceptions.ElementNotFoundException(`Restory with id ${id_story} not found`);
+        throw new exceptions.ElementNotFoundException(`Restory with id ${id_kelompok} not found`);
     }
 
-    const result = await restoryRepository.getRealStoryImages(id_story);
+    const result = await restoryRepository.getRealStoryImages(id_kelompok);
     return result;
 };
 

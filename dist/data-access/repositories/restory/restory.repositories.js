@@ -67,9 +67,9 @@ const getStoryOfRestoryById = async (id) => {
     }
 };
 exports.getStoryOfRestoryById = getStoryOfRestoryById;
-const getRealStoryImages = async (id_story) => {
+const getRealStoryImages = async (id_kelompok) => {
     try {
-        const result = await restory_1.Restory.findOne({ where: { id_story: id_story }, include: [{ model: story_1.Story, as: 'real_story' }] });
+        const result = await story_1.Story.findOne({ where: { id_kelompok: id_kelompok }, attributes: ['url_gambar'] });
         return result || null;
     }
     catch (error) {

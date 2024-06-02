@@ -35,3 +35,4 @@ exports.tugasRouter.get('/get/guru/:id', auth_middlewares_1.verifyJWTToken, tuga
 exports.tugasRouter.post('/post', auth_middlewares_1.verifyJWTToken, tugasController.createTugas);
 exports.tugasRouter.post('/post/:id/grading/:id_story', auth_middlewares_1.verifyJWTToken, tugasController.gradingStory);
 exports.tugasRouter.delete('/delete', auth_middlewares_1.verifyJWTToken, tugasController.deleteTugas);
+exports.tugasRouter.patch('/update/nilai-komentar/:id', auth_middlewares_1.verifyJWTToken, tugasController.updateNilaiAndKomentar);

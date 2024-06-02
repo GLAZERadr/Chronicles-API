@@ -56,9 +56,9 @@ export const getStoryOfRestoryById = async (req: CustomRequest, res: Response, n
 
 export const getRealStoryImages = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
-        const { id } = req.params
+        const { story_id } = req.params
 
-        let result = await restoryServices.getRealStoryImages(id);
+        let result = await restoryServices.getRealStoryImages(story_id);
 
         return res.status(200).send(result);
     } catch (error) {

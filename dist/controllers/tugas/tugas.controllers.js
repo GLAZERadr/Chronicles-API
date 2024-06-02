@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.gradingStory = exports.getGuruByTugas = exports.deleteTugas = exports.createTugas = void 0;
+exports.updateNilaiAndKomentar = exports.gradingStory = exports.getGuruByTugas = exports.deleteTugas = exports.createTugas = void 0;
 const tugasServices = __importStar(require("../../services/tugas/tugas.services"));
 const storyServices = __importStar(require("../../services/story/story.services"));
 const generateid_1 = require("../../common/helpers/generateid/generateid");
@@ -87,3 +87,15 @@ const gradingStory = async (req, res, next) => {
     }
 };
 exports.gradingStory = gradingStory;
+const updateNilaiAndKomentar = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { nilai_kelompok, komentar } = req.body;
+        let result = await tugasServices.updateNilaiAndKomentar(id, nilai_kelompok, komentar);
+        return res.status(200).send(result);
+    }
+    catch (error) {
+        return next(error);
+    }
+};
+exports.updateNilaiAndKomentar = updateNilaiAndKomentar;

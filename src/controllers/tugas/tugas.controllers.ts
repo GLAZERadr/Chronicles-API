@@ -76,3 +76,17 @@ export const gradingStory =  async (req: CustomRequest, res: Response, next: Nex
         return next(error);
     }
 };
+
+export const updateNilaiAndKomentar =  async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+  try{
+    const { id } = req.params;
+
+    const { nilai_kelompok, komentar } = req.body;
+
+    let result = await tugasServices.updateNilaiAndKomentar(id, nilai_kelompok, komentar);
+
+    return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+};
