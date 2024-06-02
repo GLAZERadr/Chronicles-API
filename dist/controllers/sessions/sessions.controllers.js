@@ -67,7 +67,8 @@ const loginKelompok = async (req, res, next) => {
             id: kelompok.id,
             nama: kelompok.nama_kelompok ?? 'Team',
             username: kelompok.username,
-            token: token
+            token: token,
+            class_id: kelompok.id_kelas,
         });
     }
     catch (error) {
