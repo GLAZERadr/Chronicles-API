@@ -3,6 +3,7 @@ import { validateLogin } from '../../services/sessions/sessions.validator';
 
 import * as guruServices from '../../services/guru/guru.services'
 import * as kelompokServices from '../../services/kelompok/kelompok.services'
+import * as kelasServices from '../../services/kelas/kelas.services'
 import * as tokenServices from '../../services/tokens/token.services'
 import { CustomRequest } from '../../common/middlewares/auth.middlewares';
 import { ElementInvalidException } from '../../common/exceptions/exceptions';
@@ -44,12 +45,13 @@ export const loginKelompok = async (req: CustomRequest, res: Response, next: Nex
         validateLogin(loginInfo);
 
         let kelompok = await kelompokServices.getKelompokByUsernameAndPassword(loginInfo.username, loginInfo.password);
-
+        
         if (!kelompok) {
             throw new ElementInvalidException('Murid credentials are invalid!!');
         }
-
+        
         let token = await tokenServices.generateToken(kelompok);
+        const kelass = await kelasServices.getKelasById(kelompok?.id_kelas);
 
         res.cookie('jwt_token', token, {httpOnly: true});
         res.status(200).json({
@@ -59,6 +61,7 @@ export const loginKelompok = async (req: CustomRequest, res: Response, next: Nex
             username: kelompok.username,
             token: token,
             class_id: kelompok.id_kelas,
+            guru_id: kelass?.id_guru,
         })
     } catch (error) {
         next(error);

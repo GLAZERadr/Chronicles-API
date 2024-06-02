@@ -24,6 +24,12 @@ export const deleteKelas = async (id: string): Promise<string> => {
     return await kelasRepository.deleteKelas(id);
 };
 
+export const getKelasById = async (id: string): Promise<KelasOutput | null> => {
+    const kelas = await kelasRepository.getKelasById(id);
+
+    return kelas;
+}
+
 export const getAllKelas = async (): Promise<Array<KelasOutput> | null> => {
     return await kelasRepository.getAllKelas() || null;
 };

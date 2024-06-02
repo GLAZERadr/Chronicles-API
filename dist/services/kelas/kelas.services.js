@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getKelompokByKelas = exports.getKelasByNamaKelas = exports.getAllKelas = exports.deleteKelas = exports.createKelas = void 0;
+exports.getKelompokByKelas = exports.getKelasByNamaKelas = exports.getAllKelas = exports.getKelasById = exports.deleteKelas = exports.createKelas = void 0;
 const exceptions = __importStar(require("../../common/exceptions/exceptions"));
 const kelasRepository = __importStar(require("../../data-access/repositories/kelas/kelas.repositories"));
 const kelas_validator_1 = require("./kelas.validator");
@@ -44,6 +44,11 @@ const deleteKelas = async (id) => {
     return await kelasRepository.deleteKelas(id);
 };
 exports.deleteKelas = deleteKelas;
+const getKelasById = async (id) => {
+    const kelas = await kelasRepository.getKelasById(id);
+    return kelas;
+};
+exports.getKelasById = getKelasById;
 const getAllKelas = async () => {
     return await kelasRepository.getAllKelas() || null;
 };

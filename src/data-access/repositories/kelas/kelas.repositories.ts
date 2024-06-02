@@ -22,6 +22,20 @@ export const deleteKelas = async (id: string): Promise<string> => {
     }
 };
 
+export const getKelasById = async(id: string): Promise<KelasOutput> => {
+    try {
+        const result = await Kelas.findByPk(id);
+
+        if (!result) {
+            throw new DatabaseException(`Couldn't find kelas with the id "${id}"`);
+        }
+
+        return result;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+}
+
 export const existingKelasById = async (id: string): Promise<boolean> => {
     try {
         const result = await Kelas.findByPk(id);

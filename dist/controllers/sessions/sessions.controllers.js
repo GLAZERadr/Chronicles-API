@@ -27,6 +27,7 @@ exports.logout = exports.loginKelompok = exports.loginGuru = void 0;
 const sessions_validator_1 = require("../../services/sessions/sessions.validator");
 const guruServices = __importStar(require("../../services/guru/guru.services"));
 const kelompokServices = __importStar(require("../../services/kelompok/kelompok.services"));
+const kelasServices = __importStar(require("../../services/kelas/kelas.services"));
 const tokenServices = __importStar(require("../../services/tokens/token.services"));
 const exceptions_1 = require("../../common/exceptions/exceptions");
 const loginGuru = async (req, res, next) => {
@@ -61,6 +62,7 @@ const loginKelompok = async (req, res, next) => {
             throw new exceptions_1.ElementInvalidException('Murid credentials are invalid!!');
         }
         let token = await tokenServices.generateToken(kelompok);
+        const kelass = await kelasServices.getKelasById(kelompok?.id_kelas);
         res.cookie('jwt_token', token, { httpOnly: true });
         res.status(200).json({
             message: 'Login success!!',
@@ -69,6 +71,7 @@ const loginKelompok = async (req, res, next) => {
             username: kelompok.username,
             token: token,
             class_id: kelompok.id_kelas,
+            guru_id: kelass?.id_guru,
         });
     }
     catch (error) {

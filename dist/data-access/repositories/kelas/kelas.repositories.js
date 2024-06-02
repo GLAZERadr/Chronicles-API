@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getKelasByNamaKelas = exports.getKelompokByKelas = exports.getAllKelas = exports.existingKelasByName = exports.existingKelasById = exports.deleteKelas = exports.createKelas = void 0;
+exports.getKelasByNamaKelas = exports.getKelompokByKelas = exports.getAllKelas = exports.existingKelasByName = exports.existingKelasById = exports.getKelasById = exports.deleteKelas = exports.createKelas = void 0;
 const exceptions_1 = require("../../../common/exceptions/exceptions");
 const kelas_1 = require("../../models/kelas/kelas");
 const kelompok_1 = require("../../models/kelompok/kelompok");
@@ -26,6 +26,19 @@ const deleteKelas = async (id) => {
     }
 };
 exports.deleteKelas = deleteKelas;
+const getKelasById = async (id) => {
+    try {
+        const result = await kelas_1.Kelas.findByPk(id);
+        if (!result) {
+            throw new exceptions_1.DatabaseException(`Couldn't find kelas with the id "${id}"`);
+        }
+        return result;
+    }
+    catch (error) {
+        throw new exceptions_1.DatabaseException(error.message);
+    }
+};
+exports.getKelasById = getKelasById;
 const existingKelasById = async (id) => {
     try {
         const result = await kelas_1.Kelas.findByPk(id);
