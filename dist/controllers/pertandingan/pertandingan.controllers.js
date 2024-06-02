@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStoryFromKelompokByPertandingan = exports.getKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
+exports.getAllPertandingan = exports.getKelompokPertandingan = exports.getPertandinganRival = exports.getStoryFromKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
 const pertandinganServices = __importStar(require("../../services/pertandingan/pertandingan.services"));
 const generateid_1 = require("../../common/helpers/generateid/generateid");
 const createPertandingan = async (req, res, next) => {
@@ -49,17 +49,6 @@ const deletePertandingan = async (req, res, next) => {
     }
 };
 exports.deletePertandingan = deletePertandingan;
-const getKelompokByPertandingan = async (req, res, next) => {
-    try {
-        const { id } = req.params;
-        let result = await pertandinganServices.getKelompokByPertandingan(id);
-        return res.status(200).send(result);
-    }
-    catch (error) {
-        return next(error);
-    }
-};
-exports.getKelompokByPertandingan = getKelompokByPertandingan;
 const getStoryFromKelompokByPertandingan = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -71,3 +60,36 @@ const getStoryFromKelompokByPertandingan = async (req, res, next) => {
     }
 };
 exports.getStoryFromKelompokByPertandingan = getStoryFromKelompokByPertandingan;
+const getPertandinganRival = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { id_kelompok } = req.params;
+        let result = await pertandinganServices.getPertandinganRival(id, id_kelompok);
+        return res.status(200).send(result);
+    }
+    catch (error) {
+        return next(error);
+    }
+};
+exports.getPertandinganRival = getPertandinganRival;
+const getKelompokPertandingan = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        let result = await pertandinganServices.getKelompokPertandingan(id);
+        return res.status(200).send(result);
+    }
+    catch (error) {
+        return next(error);
+    }
+};
+exports.getKelompokPertandingan = getKelompokPertandingan;
+const getAllPertandingan = async (req, res, next) => {
+    try {
+        let result = await pertandinganServices.getAllPertandingan();
+        return res.status(200).send(result);
+    }
+    catch (error) {
+        return next(error);
+    }
+};
+exports.getAllPertandingan = getAllPertandingan;

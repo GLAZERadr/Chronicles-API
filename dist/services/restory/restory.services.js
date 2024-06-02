@@ -23,9 +23,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStoryOfRestoryById = exports.getKelompokByRestory = exports.deleteRestory = exports.createRestory = void 0;
+exports.getRealStoryImages = exports.getStoryOfRestoryById = exports.getKelompokByRestory = exports.deleteRestory = exports.createRestory = void 0;
 const exceptions = __importStar(require("../../common/exceptions/exceptions"));
 const restoryRepository = __importStar(require("../../data-access/repositories/restory/restory.repositories"));
+const storyRepository = __importStar(require("../../data-access/repositories/story/story.repositories"));
 const restory_validator_1 = require("./restory.validator");
 const createRestory = async (newRestory) => {
     (0, restory_validator_1.validateRestory)(newRestory);
@@ -62,3 +63,12 @@ const getStoryOfRestoryById = async (id) => {
     return restory;
 };
 exports.getStoryOfRestoryById = getStoryOfRestoryById;
+const getRealStoryImages = async (id_story) => {
+    const existingStory = await storyRepository.existingStoryById(id_story);
+    if (!existingStory) {
+        throw new exceptions.ElementNotFoundException(`Restory with id ${id_story} not found`);
+    }
+    const result = await restoryRepository.getRealStoryImages(id_story);
+    return result;
+};
+exports.getRealStoryImages = getRealStoryImages;

@@ -53,3 +53,15 @@ export const getStoryOfRestoryById = async (req: CustomRequest, res: Response, n
         return next(error);
     }
 };
+
+export const getRealStoryImages = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id } = req.params
+
+        let result = await restoryServices.getRealStoryImages(id);
+
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+};

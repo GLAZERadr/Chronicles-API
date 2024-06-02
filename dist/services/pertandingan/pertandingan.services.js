@@ -23,9 +23,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStoryFromKelompokByPertandingan = exports.getKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
+exports.getAllPertandingan = exports.getKelompokPertandingan = exports.getPertandinganRival = exports.getStoryFromKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
 const exceptions = __importStar(require("../../common/exceptions/exceptions"));
 const pertandinganRepository = __importStar(require("../../data-access/repositories/kelompok/pertandingan.kelompok.repositories"));
+const kelompokRepository = __importStar(require("../../data-access/repositories/kelompok/kelompok.repositories"));
 const createPertandingan = async (newPertandingan) => {
     return await pertandinganRepository.createPertandingan(newPertandingan);
 };
@@ -38,15 +39,6 @@ const deletePertandingan = async (id) => {
     return await pertandinganRepository.deletePertandingan(id);
 };
 exports.deletePertandingan = deletePertandingan;
-const getKelompokByPertandingan = async (id) => {
-    const existPertandingan = await pertandinganRepository.existingPertandinganByid(id);
-    if (!existPertandingan) {
-        throw new exceptions.ElementNotFoundException(`Pertandingan ${id} not found`);
-    }
-    const pertandingan_antara_kelompok = await pertandinganRepository.getKelompokByPertandingan(id);
-    return pertandingan_antara_kelompok || null;
-};
-exports.getKelompokByPertandingan = getKelompokByPertandingan;
 const getStoryFromKelompokByPertandingan = async (id) => {
     const existPertandingan = await pertandinganRepository.existingPertandinganByid(id);
     if (!existPertandingan) {
@@ -56,3 +48,25 @@ const getStoryFromKelompokByPertandingan = async (id) => {
     return cerita_hasil_pertandingan_antar_kelompok || null;
 };
 exports.getStoryFromKelompokByPertandingan = getStoryFromKelompokByPertandingan;
+const getPertandinganRival = async (id, id_kelompok) => {
+    const existPertandingan = await pertandinganRepository.existingPertandinganByid(id);
+    if (!existPertandingan) {
+        throw new exceptions.ElementNotFoundException(`Pertandingan ${id} not found`);
+    }
+    const pertandingan = await pertandinganRepository.getPertandinganRival(id, id_kelompok);
+    return pertandingan || null;
+};
+exports.getPertandinganRival = getPertandinganRival;
+const getKelompokPertandingan = async (id) => {
+    const existKelompok = await kelompokRepository.existingKelompokById(id);
+    if (!existKelompok) {
+        throw new exceptions.ElementNotFoundException(`Pertandingan ${id} not found`);
+    }
+    const pertandingan = await pertandinganRepository.getKelompokPertandingan(id);
+    return pertandingan || null;
+};
+exports.getKelompokPertandingan = getKelompokPertandingan;
+const getAllPertandingan = async () => {
+    return await pertandinganRepository.getAllPertandingan();
+};
+exports.getAllPertandingan = getAllPertandingan;

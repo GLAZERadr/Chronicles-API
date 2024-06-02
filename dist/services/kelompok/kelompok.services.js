@@ -86,6 +86,7 @@ const createRandomAccountByTeamNumbers = async (teamnumbers, newKelompok) => {
         const newKelompokData = { ...newKelompok, id: newKelompokId, username: username, password: password, status: status };
         accounts.push(newKelompokData);
     }
+    ;
     // Ensure all accounts are created before creating pertandingan
     const createdAccounts = await kelompokRepository.createRandomAccounts(accounts);
     for (let i = 1; i < teamnumbers; i += 2) {
@@ -104,6 +105,7 @@ const createRandomAccountByTeamNumbers = async (teamnumbers, newKelompok) => {
         console.log('CREATING PERTANDINGAN...');
         pertandinganCreated = await pertandinganRepository.createPertandingan(newPertandingan);
     }
+    ;
     return createdAccounts;
 };
 exports.createRandomAccountByTeamNumbers = createRandomAccountByTeamNumbers;
