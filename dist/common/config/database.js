@@ -15,6 +15,12 @@ exports.sequalize = new sequelize_1.Sequelize('chronicles', //env
             rejectUnauthorized: false
         },
     },
+    pool: {
+        max: 50,
+        min: 0,
+        acquire: 1200000,
+        idle: 1000000,
+    },
     retry: {
         max: 10,
         timeout: 5000,

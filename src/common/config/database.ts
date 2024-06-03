@@ -14,6 +14,12 @@ export const sequalize = new Sequelize (
                 rejectUnauthorized: false
             },
         },
+        pool: {
+            max: 50,
+            min: 0,
+            acquire: 1200000,
+            idle: 1000000,
+        },
         retry: {
             max: 10,
             timeout: 5000,
