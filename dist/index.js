@@ -17,13 +17,14 @@ const story_routes_1 = require("./routes/story.routes");
 const restory_routes_1 = require("./routes/restory.routes");
 const app = (0, express_1.default)();
 const port = 8080;
-const corsOption = {
-    origin: ['https://chronicles.heritsam.dev', 'http://localhost:5173'],
-    credentials: true,
-};
+// const corsOption = {
+//   origin: ['https://chronicles.heritsam.dev', 'http://localhost:5173'],
+//   credentials: true,
+// }
 app.use(express_1.default.json());
 app.use(error_middlewares_1.errorMiddleware);
-app.use((0, cors_1.default)(corsOption));
+app.use((0, cors_1.default)());
+app.options('*', (0, cors_1.default)());
 app.use((0, cookie_parser_1.default)());
 //handle logger
 app.use((req, res, next) => {
