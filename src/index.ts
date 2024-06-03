@@ -15,14 +15,14 @@ import { restoryRouter } from './routes/restory.routes';
 const app: Application = express();
 const port: number = 8080;
 
-// const corsOption = {
-//   origin: ['https://chronicles.heritsam.dev', 'http://localhost:5173'],
-//   credentials: true,
-// }
+const corsOption = {
+  origin: ['https://chronicles.heritsam.dev', 'http://localhost:5173'],
+  credentials: true,
+}
 
 app.use(express.json());
 app.use(errorMiddleware);
-app.use(cors());
+app.use(cors(corsOption));
 app.options('*', cors());
 app.use(cookieParser());
 
