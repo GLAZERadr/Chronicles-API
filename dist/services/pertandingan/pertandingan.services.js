@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllPertandingan = exports.getKelompokPertandingan = exports.getPertandinganRival = exports.getStoryFromKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
+exports.getAllPertandingan = exports.getKelompokPertandingan = exports.getPertandinganRival = exports.getPertandinganRivalNew = exports.getStoryFromKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
 const exceptions = __importStar(require("../../common/exceptions/exceptions"));
 const pertandinganRepository = __importStar(require("../../data-access/repositories/kelompok/pertandingan.kelompok.repositories"));
 const kelompokRepository = __importStar(require("../../data-access/repositories/kelompok/kelompok.repositories"));
@@ -48,6 +48,11 @@ const getStoryFromKelompokByPertandingan = async (id) => {
     return cerita_hasil_pertandingan_antar_kelompok || null;
 };
 exports.getStoryFromKelompokByPertandingan = getStoryFromKelompokByPertandingan;
+const getPertandinganRivalNew = async (id_kelompok) => {
+    const pertandingan = await pertandinganRepository.getPertandinganRivalNew(id_kelompok);
+    return pertandingan;
+};
+exports.getPertandinganRivalNew = getPertandinganRivalNew;
 const getPertandinganRival = async (id, id_kelompok) => {
     const existPertandingan = await pertandinganRepository.existingPertandinganByid(id);
     if (!existPertandingan) {

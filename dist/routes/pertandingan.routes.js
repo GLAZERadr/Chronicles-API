@@ -32,6 +32,7 @@ const pertandinganController = __importStar(require("../controllers/pertandingan
 const auth_middlewares_1 = require("../common/middlewares/auth.middlewares");
 exports.pertandinganRouter = express_1.default.Router();
 exports.pertandinganRouter.get('/get/story/kelompok/:id', auth_middlewares_1.verifyJWTToken, pertandinganController.getStoryFromKelompokByPertandingan);
+exports.pertandinganRouter.get('/get/kelompok/:id', auth_middlewares_1.verifyJWTToken, pertandinganController.getPertandinganRivalNew);
 exports.pertandinganRouter.get('/get/:id/kelompok/:id_kelompok', auth_middlewares_1.verifyJWTToken, pertandinganController.getPertandinganRival);
 exports.pertandinganRouter.get('/get/all', auth_middlewares_1.verifyJWTToken, pertandinganController.getAllPertandingan);
 exports.pertandinganRouter.get('/get/:id', auth_middlewares_1.verifyJWTToken, pertandinganController.getKelompokPertandingan);

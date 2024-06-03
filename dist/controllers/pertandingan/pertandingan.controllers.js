@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllPertandingan = exports.getKelompokPertandingan = exports.getPertandinganRival = exports.getStoryFromKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
+exports.getAllPertandingan = exports.getKelompokPertandingan = exports.getPertandinganRival = exports.getPertandinganRivalNew = exports.getStoryFromKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
 const pertandinganServices = __importStar(require("../../services/pertandingan/pertandingan.services"));
 const generateid_1 = require("../../common/helpers/generateid/generateid");
 const createPertandingan = async (req, res, next) => {
@@ -60,6 +60,17 @@ const getStoryFromKelompokByPertandingan = async (req, res, next) => {
     }
 };
 exports.getStoryFromKelompokByPertandingan = getStoryFromKelompokByPertandingan;
+const getPertandinganRivalNew = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const result = await pertandinganServices.getPertandinganRivalNew(id);
+        return res.status(200).send(result);
+    }
+    catch (error) {
+        return next(error);
+    }
+};
+exports.getPertandinganRivalNew = getPertandinganRivalNew;
 const getPertandinganRival = async (req, res, next) => {
     try {
         const { id } = req.params;

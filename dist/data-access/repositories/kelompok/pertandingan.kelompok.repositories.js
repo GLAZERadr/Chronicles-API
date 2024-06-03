@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllPertandingan = exports.getKelompokPertandingan = exports.getPertandinganRival = exports.existingPertandinganByid = exports.getStoryFromKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
+exports.getAllPertandingan = exports.getKelompokPertandingan = exports.getPertandinganRival = exports.getPertandinganRivalNew = exports.existingPertandinganByid = exports.getStoryFromKelompokByPertandingan = exports.deletePertandingan = exports.createPertandingan = void 0;
 const exceptions_1 = require("../../../common/exceptions/exceptions");
 const kelompok_1 = require("../../models/kelompok/kelompok");
 const pertandingan_kelompok_1 = require("../../models/kelompok/pertandingan.kelompok");
@@ -55,6 +55,30 @@ const existingPertandinganByid = async (id) => {
     }
 };
 exports.existingPertandinganByid = existingPertandinganByid;
+const getPertandinganRivalNew = async (id_kelompok) => {
+    try {
+        const pertandingan = await pertandingan_kelompok_1.Pertandingan.findOne({
+            where: {
+                [sequelize_1.Op.or]: [
+                    { kode_kelompok_ganjil: id_kelompok },
+                    { kode_kelompok_genap: id_kelompok }
+                ],
+            },
+            include: [
+                { model: kelompok_1.Kelompok, as: 'kelompokGanjil' },
+                { model: kelompok_1.Kelompok, as: 'kelompokGenap' }
+            ],
+        });
+        if (!pertandingan) {
+            throw new exceptions_1.DatabaseException(`Pertandingan not found`);
+        }
+        return pertandingan;
+    }
+    catch (error) {
+        throw new exceptions_1.DatabaseException(error.message);
+    }
+};
+exports.getPertandinganRivalNew = getPertandinganRivalNew;
 const getPertandinganRival = async (id, id_kelompok) => {
     try {
         const pertandingan = await pertandingan_kelompok_1.Pertandingan.findOne({

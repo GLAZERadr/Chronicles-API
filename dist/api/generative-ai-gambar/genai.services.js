@@ -9,9 +9,9 @@ const sendRequestGenApi = async (kelas, kelompok, story) => {
     try {
         console.log('REQUESTING TO COLAB...');
         const response = axios_1.default.post('https://adder-robust-seasnail.ngrok-free.app/v1/generate', {
-            kelas: kelas,
-            kelompok: kelompok,
-            story: story
+            Kelas: kelas,
+            Kelompok: kelompok,
+            Story: story
         });
         console.log("message:", (await response).data.message);
         console.log("status:", (await response).data.status);

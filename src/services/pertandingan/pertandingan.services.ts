@@ -30,6 +30,11 @@ export const getStoryFromKelompokByPertandingan = async (id: string): Promise<Pe
     return cerita_hasil_pertandingan_antar_kelompok || null;
 }
 
+export const getPertandinganRivalNew = async(id_kelompok: string): Promise<PertandinganOutput | null> => {
+    const pertandingan = await pertandinganRepository.getPertandinganRivalNew(id_kelompok);
+    return pertandingan;
+};
+
 export const getPertandinganRival = async (id: string, id_kelompok: string): Promise<PertandinganOutput | null> => {
     const existPertandingan = await pertandinganRepository.existingPertandinganByid(id);
 

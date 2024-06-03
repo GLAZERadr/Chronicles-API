@@ -10,7 +10,7 @@ export const createRestory = async (req: CustomRequest, res: Response, next: Nex
 
         const newRestoryData = { ...req.body, id: newRestoryId };
 
-        let restory = await restoryServices.createRestory(newRestoryData);
+        const restory = await restoryServices.createRestory(newRestoryData);
 
         return res.status(201).send(restory);
     } catch (error) {
@@ -22,7 +22,7 @@ export const deleteRestory = async (req: CustomRequest, res: Response, next: Nex
     try {
         const { id } = req.params;
 
-        let result = await restoryServices.deleteRestory(id);
+        const result = await restoryServices.deleteRestory(id);
 
         return res.status(200).send(result);
     } catch (error) {
@@ -34,7 +34,7 @@ export const getKelompokByRestory = async (req: CustomRequest, res: Response, ne
     try {
         const { id } = req.params;
 
-        let result = await restoryServices.getKelompokByRestory(id);
+        const result = await restoryServices.getKelompokByRestory(id);
 
         return res.status(200).send(result);
     } catch (error) {
@@ -46,7 +46,7 @@ export const getStoryOfRestoryById = async (req: CustomRequest, res: Response, n
     try {
         const { id } = req.params;
 
-        let result = await restoryServices.getStoryOfRestoryById(id);
+        const result = await restoryServices.getStoryOfRestoryById(id);
 
         return res.status(200).send(result);
     } catch (error) {
@@ -59,7 +59,7 @@ export const getRealStoryImages = async (req: CustomRequest, res: Response, next
         const { id_story } = req.params;
         const { id_kelompok } = req.params;
 
-        let result = await restoryServices.getRealStoryImages(id_story, id_kelompok);
+        const result = await restoryServices.getRealStoryImages(id_story, id_kelompok);
 
         return res.status(200).send(result);
     } catch (error) {

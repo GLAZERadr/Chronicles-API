@@ -42,6 +42,18 @@ export const getStoryFromKelompokByPertandingan = async (req: CustomRequest, res
     }
 };
 
+export const getPertandinganRivalNew = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const {id} = req.params;
+
+        const result = await pertandinganServices.getPertandinganRivalNew(id);
+
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+}
+
 export const getPertandinganRival = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { id } = req.params;

@@ -49,6 +49,31 @@ export const existingPertandinganByid = async (id: string): Promise<boolean> => 
     }
 };
 
+export const getPertandinganRivalNew = async (id_kelompok: string): Promise<PertandinganOutput | null> => {
+    try {
+        const pertandingan = await Pertandingan.findOne({
+            where: {
+                [Op.or]: [
+                    { kode_kelompok_ganjil: id_kelompok },
+                    { kode_kelompok_genap: id_kelompok }
+                ],
+            },
+            include: [
+                { model: Kelompok, as: 'kelompokGanjil' },
+                { model: Kelompok, as: 'kelompokGenap' }
+            ],
+        });
+
+        if (!pertandingan) {
+            throw new DatabaseException(`Pertandingan not found`);
+        }
+
+        return pertandingan;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+}
+
 export const getPertandinganRival = async (id: string, id_kelompok: string): Promise<PertandinganOutput | null> => {
     try {
         const pertandingan = await Pertandingan.findOne({
