@@ -21,11 +21,23 @@ const corsOption = {
     origin: ['https://chronicles.heritsam.dev', 'http://localhost:5173'],
     credentials: true,
 };
+function corsMidd(req, res, next) {
+    // Allow requests from any origin
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    // Allow specific HTTP methods
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    // Allow specific headers to be sent in the request
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    // Allow credentials (e.g., cookies, authentication) to be included in requests
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+}
 app.use(express_1.default.json());
 app.use(error_middlewares_1.errorMiddleware);
 app.use((0, cors_1.default)(corsOption));
 app.options('*', (0, cors_1.default)());
 app.use((0, cookie_parser_1.default)());
+app.use(corsMidd);
 //handle logger
 app.use((req, res, next) => {
     console.log(req.method, req.hostname, req.path);
