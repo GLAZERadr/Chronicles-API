@@ -68,11 +68,12 @@ export const getRealStoryImages = async (id_story: string, id_kelompok: string):
     }
 };
 
-export const getRestoryByKelompokId = async (id: string, id_kelompok: string): Promise<RestoryOutput | null> => {
+export const getRestoryByKelompokId = async (id_kelompok: string): Promise<RestoryOutput | null> => {
     try {
-        const story = await Restory.findOne({ where: { id: id, id_kelompok: id_kelompok } });
+        const story = await Restory.findOne({ where: { id_kelompok: id_kelompok } });
         return story || null;
     } catch (error: any) {
         throw new DatabaseException(error.message);
     }
 }
+

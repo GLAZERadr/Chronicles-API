@@ -66,3 +66,15 @@ export const getRealStoryImages = async (req: CustomRequest, res: Response, next
         return next(error);
     }
 };
+
+export const getRestoryByKelompokId = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id_kelompok } = req.params;
+
+        const result = await restoryServices.getRestoryByKelompok(id_kelompok);
+
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+};
