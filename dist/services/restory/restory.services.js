@@ -77,12 +77,12 @@ const getRealStoryImages = async (id_story, id_kelompok) => {
     return result;
 };
 exports.getRealStoryImages = getRealStoryImages;
-const getRestoryByKelompok = async (id, id_kelompok) => {
+const getRestoryByKelompok = async (id_kelompok) => {
     const existingKelompok = await kelompokRepository.existingKelompokById(id_kelompok);
     if (!existingKelompok) {
         throw new exceptions.ElementNotFoundException(`Kelompok with id ${id_kelompok} not found`);
     }
-    const story = await restoryRepository.getRestoryByKelompokId(id, id_kelompok);
+    const story = await restoryRepository.getRestoryByKelompokId(id_kelompok);
     return story;
 };
 exports.getRestoryByKelompok = getRestoryByKelompok;

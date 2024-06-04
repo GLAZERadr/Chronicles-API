@@ -77,9 +77,9 @@ const getRealStoryImages = async (id_story, id_kelompok) => {
     }
 };
 exports.getRealStoryImages = getRealStoryImages;
-const getRestoryByKelompokId = async (id, id_kelompok) => {
+const getRestoryByKelompokId = async (id_kelompok) => {
     try {
-        const story = await restory_1.Restory.findOne({ where: { id: id, id_kelompok: id_kelompok } });
+        const story = await restory_1.Restory.findOne({ where: { id_kelompok: id_kelompok } });
         return story || null;
     }
     catch (error) {

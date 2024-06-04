@@ -82,7 +82,7 @@ const gradingStory = async (req, res, next) => {
         }
         if (status === "restory") {
             console.log('restory...');
-            getStory = await restoryServices.getRestoryByKelompok(id_story, id_kelompok);
+            getStory = await restoryServices.getRestoryByKelompok(id_kelompok);
         }
         const { orientation, complication, resolution, reorientation } = getStory;
         const story_text = orientation + ',' + complication + ',' + resolution + ',' + reorientation;

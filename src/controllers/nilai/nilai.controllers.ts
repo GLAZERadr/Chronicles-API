@@ -70,7 +70,7 @@ export const gradingStory =  async (req: CustomRequest, res: Response, next: Nex
 
         if (status === "restory") {
             console.log('restory...')
-            getStory = await restoryServices.getRestoryByKelompok(id_story, id_kelompok);
+            getStory = await restoryServices.getRestoryByKelompok(id_kelompok);
         }
 
         const { orientation, complication, resolution, reorientation } = getStory;
