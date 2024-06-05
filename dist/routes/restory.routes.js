@@ -31,7 +31,7 @@ const express_1 = __importDefault(require("express"));
 const restoryController = __importStar(require("../controllers/restory/restory.controllers"));
 const auth_middlewares_1 = require("../common/middlewares/auth.middlewares");
 exports.restoryRouter = express_1.default.Router();
-exports.restoryRouter.get('/get/kelompok/:id', auth_middlewares_1.verifyJWTToken, restoryController.getKelompokByRestory);
+// restoryRouter.get('/get/kelompok/:id', verifyJWTToken, restoryController.getKelompokByRestory);
 exports.restoryRouter.get('/get/real-story/:id', auth_middlewares_1.verifyJWTToken, restoryController.getStoryOfRestoryById);
 exports.restoryRouter.get('/get/images/:id_story/kelompok/:id_kelompok', auth_middlewares_1.verifyJWTToken, restoryController.getRealStoryImages);
 exports.restoryRouter.get('/get/kelompok/:id_kelompok', auth_middlewares_1.verifyJWTToken, restoryController.getRestoryByKelompokId);
