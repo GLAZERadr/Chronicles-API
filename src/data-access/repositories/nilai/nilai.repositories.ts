@@ -1,6 +1,6 @@
 import { DatabaseException } from "../../../common/exceptions/exceptions";
 import { Guru } from "../../models/guru/guru";
-import { Nilai, NilaiOutput } from "../../models/nilai/nilai";
+import { Nilai, NilaiInput, NilaiOutput } from "../../models/nilai/nilai";
 
 export const createNilai = async (newNilai: Nilai): Promise<NilaiOutput> => {
     try {
@@ -40,10 +40,30 @@ export const getGuruByNilai = async (id: string): Promise<NilaiOutput | null> =>
     }
 }
 
-export const updateNilaiAndKomentar = async (id: string, nilai_kelompok: number, komentar: string): Promise<NilaiOutput | null> => {
+export const updateNilaiAndKomentar = async (id: string, updatedNilai: NilaiInput): Promise<NilaiOutput | null> => {
     try {
-        await Nilai.update({ nilai_kelompok: nilai_kelompok, komentar: komentar }, { where: { id: id }});
+        await Nilai.update(updatedNilai, { where: { id: id }});
         return await Nilai.findByPk(id);
+    } catch (error: any) {
+        throw new DatabaseException(error.message); 
+    }
+};
+
+export const existingNilaiByIdGuruAndIdKelompok = async (id_guru: string, id_kelompok: string): Promise<boolean> => {
+    try {
+        const existNilai = await Nilai.findOne({ where: { id_guru: id_guru, id_kelompok: id_kelompok  }});
+
+        return !!existNilai;
+    } catch (error: any) {
+        throw new DatabaseException(error.message); 
+    }
+};
+
+export const getNilaiByKelompok = async (id_kelompok: string): Promise<NilaiOutput | null> => {
+    try {
+        const nilai = await Nilai.findOne({ where: { id_kelompok: id_kelompok } });
+
+        return nilai || null;
     } catch (error: any) {
         throw new DatabaseException(error.message); 
     }

@@ -2,11 +2,7 @@
   "name": "chronicles-backend",
   "version": "0.0.0",
   "description": "Chronicles backend api",
-  "pre-commit": [
-    "ts.check",
-    "build",
-    "add-build"
-  ],
+
   "engines": {
     "node": ">= 20.9 < 21"
   },

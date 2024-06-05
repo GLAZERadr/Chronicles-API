@@ -79,7 +79,18 @@ export const getStoryByKelompokId = async (id: string, id_kelompok: string): Pro
 export const getKelompokStory = async (id_kelompok: string): Promise<Array<StoryOutput> | null> => {
     try {
         const story = await Story.findAll({ where: { id_kelompok: id_kelompok } });
+        
         return story || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};
+
+export const existingStoryByKelompokId = async (id: string, id_kelompok: string): Promise<boolean> => {
+    try {
+        const existStory = await Story.findOne({ where: { id: id, id_kelompok: id_kelompok }});
+        
+        return !!existStory;
     } catch (error: any) {
         throw new DatabaseException(error.message);
     }

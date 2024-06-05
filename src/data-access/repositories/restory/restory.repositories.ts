@@ -75,5 +75,14 @@ export const getRestoryByKelompokId = async (id_kelompok: string): Promise<Resto
     } catch (error: any) {
         throw new DatabaseException(error.message);
     }
-}
+};
+
+export const existingRestoryByKelompokId = async (id: string, id_kelompok: string): Promise<boolean> => {
+    try {
+        const existingRestory = await Restory.findOne({ where: { id: id, id_kelompok: id_kelompok } });
+        return !!existingRestory;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};
 
