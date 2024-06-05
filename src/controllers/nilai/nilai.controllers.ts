@@ -14,7 +14,7 @@ export const createNilai = async (req: CustomRequest, res: Response, next: NextF
 
         const newTugasData = { ...req.body, id: newTugasId };
 
-        let tugas = await nilaiServices.createNilai(newTugasData);
+        const tugas = await nilaiServices.createNilai(newTugasData);
 
         return res.status(201).send(tugas);
     } catch (error) {
@@ -26,7 +26,7 @@ export const deleteNilai = async (req: CustomRequest, res: Response, next: NextF
     try {
         const { id } = req.params;
 
-        let result = await nilaiServices.deleteNilai(id);
+        const result = await nilaiServices.deleteNilai(id);
 
         return res.status(200).send(result);
     } catch (error) {
@@ -38,7 +38,7 @@ export const getGuruByNilai = async (req: CustomRequest, res: Response, next: Ne
     try {
         const { id } = req.params;
 
-        let result = await nilaiServices.getGuruByNilai(id);
+        const result = await nilaiServices.getGuruByNilai(id);
 
         return res.status(200).send(result);
     } catch (error) {
@@ -103,7 +103,7 @@ export const updateNilaiAndKomentar =  async (req: CustomRequest, res: Response,
 
     const { nilai_kelompok, komentar } = req.body;
 
-    let result = await nilaiServices.updateNilaiAndKomentar(id, nilai_kelompok, komentar);
+    const result = await nilaiServices.updateNilaiAndKomentar(id, nilai_kelompok, komentar);
 
     return res.status(200).send(result);
     } catch (error) {
