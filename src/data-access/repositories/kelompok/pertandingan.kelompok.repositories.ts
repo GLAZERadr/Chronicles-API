@@ -1,6 +1,7 @@
 import { DatabaseException } from "../../../common/exceptions/exceptions";
 import { Kelompok, KelompokOutput } from "../../models/kelompok/kelompok";
 import { Pertandingan, PertandinganInput, PertandinganOutput } from "../../models/kelompok/pertandingan.kelompok";
+import { Restory } from "../../models/restory/restory";
 import { Story } from "../../models/story/story";
 import { Op } from "sequelize";
 
@@ -28,10 +29,20 @@ export const getStoryFromKelompokByPertandingan = async (id: string): Promise<Pe
     try {
       const pertandingan = await Pertandingan.findByPk(id, {
         include: [
-          {
-            model: Kelompok,
-            include: [Story],
-          },
+            { 
+                model: Kelompok, as: 'kelompokGanjil', include: [
+                    {
+                        model: Story, as: 'kelompok_story', 
+                    },
+                ],
+            },
+            { 
+                model: Kelompok, as: 'kelompokGenap', include: [
+                    {
+                        model: Restory, as: 'kelompok_restory', 
+                    },
+                ],
+            },
         ],
       });
       return pertandingan;
@@ -39,6 +50,7 @@ export const getStoryFromKelompokByPertandingan = async (id: string): Promise<Pe
       throw new DatabaseException(error.message);
     }
 };
+
 
 export const existingPertandinganByid = async (id: string): Promise<boolean> => {
     try {
@@ -109,6 +121,23 @@ export const getKelompokPertandingan = async (id: string): Promise<KelompokOutpu
 export const getAllPertandingan = async (): Promise<Array<PertandinganOutput> | null> => {
     try {
         const pertandingan = await Pertandingan.findAll();
+        return pertandingan || null;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};
+
+export const showPertandinganByKelas = async (id_kelas: string): Promise<Array<PertandinganOutput> | null> => {
+    try {
+        const pertandingan = await Pertandingan.findAll({
+            where: {
+                id_kelas: id_kelas,
+            },
+            include: [
+                { model: Kelompok, as: 'kelompokGanjil' },
+                { model: Kelompok, as: 'kelompokGenap' }
+            ]
+        });
         return pertandingan || null;
     } catch (error: any) {
         throw new DatabaseException(error.message);

@@ -7,6 +7,7 @@ import * as kelompokServices from '../../services/kelompok/kelompok.services';
 import { CustomRequest } from '../../common/middlewares/auth.middlewares';
 import { generateIdUser } from '../../common/helpers/generateid/generateid';
 import { sendRequestGradingLlmApi } from '../../api/penilaian-llm/penilaian-llm';
+import { sendRequestSimilarityApi } from '../../api/cek-similaritas/cek-similaritas';
 
 export const createNilai = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
@@ -81,7 +82,7 @@ export const gradingStory =  async (req: CustomRequest, res: Response, next: Nex
 
         const { message, result, final_grade } = grade;
 
-        if (message != "Processed text" && result === null && final_grade === 0) {
+        if (message != "Processed text" || result === null || final_grade === 0) {
             return res.status(400).send({ message: "Gagal mengenerate penilaian" });
         };
 
@@ -118,5 +119,52 @@ export const getNilaiByKelompok = async (req: CustomRequest, res: Response, next
         return res.status(200).send(result);
     } catch (error) {
         return next(error);
+    }
+};
+
+export const similarityChecking = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const {
+            id_story_ganjil,
+            orientation_ganjil,
+            complication_ganjil,
+            resolution_ganjil,
+            reorientation_ganjil,
+            kode_kelompok_ganjil,
+            id_story_genap,
+            orientation_genap,
+            complication_genap,
+            resolution_genap,
+            reorientation_genap,
+            kode_kelompok_genap
+        } = req.body;
+
+        const result = await sendRequestSimilarityApi(
+            id_story_ganjil,
+            orientation_ganjil,
+            complication_ganjil,
+            resolution_ganjil,
+            reorientation_ganjil,
+            kode_kelompok_ganjil,
+            id_story_genap,
+            orientation_genap,
+            complication_genap,
+            resolution_genap,
+            reorientation_genap,
+            kode_kelompok_genap
+        );
+
+        if (result instanceof Error) {
+            return res.status(500).send({ error: result.message });
+        }
+
+
+
+        // updateGanjil = await nilaiServices.updateNilaiAndKomentar(id_story_ganjil, );
+        // updateGenap = await nilaiServices.updateNilaiAndKomentar
+
+        return res.status(200).send(result);
+    } catch (error) {
+        next(error);
     }
 };

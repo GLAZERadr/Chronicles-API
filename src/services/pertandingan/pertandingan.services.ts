@@ -1,6 +1,7 @@
 import * as exceptions from '../../common/exceptions/exceptions';
 import * as pertandinganRepository from '../../data-access/repositories/kelompok/pertandingan.kelompok.repositories';
 import * as kelompokRepository from '../../data-access/repositories/kelompok/kelompok.repositories';
+import * as kelasRepository from '../../data-access/repositories/kelas/kelas.repositories';
 
 import { Pertandingan, PertandinganOutput } from '../../data-access/models/kelompok/pertandingan.kelompok';
 import { KelompokOutput } from '../../data-access/models/kelompok/kelompok';
@@ -59,4 +60,15 @@ export const getKelompokPertandingan = async (id: string): Promise<KelompokOutpu
 
 export const getAllPertandingan = async (): Promise<Array<PertandinganOutput> | null> => {
     return await pertandinganRepository.getAllPertandingan();
+};
+
+export const showPertandinganByKelas = async (id_kelas: string): Promise<Array<PertandinganOutput> | null> => {
+    const existKelas = await kelasRepository.existingKelasById(id_kelas);
+
+    if (!existKelas) {
+        throw new exceptions.ElementNotFoundException(`Kelas ${id_kelas} not found`);
+    }
+
+    const pertandingan = await pertandinganRepository.showPertandinganByKelas(id_kelas);
+    return pertandingan || null;
 };

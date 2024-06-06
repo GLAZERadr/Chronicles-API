@@ -37,16 +37,6 @@ export const getKelompokByRestory = async (id: string): Promise<RestoryOutput | 
     return restory;
 };
 
-export const getStoryOfRestoryById = async (id: string): Promise<RestoryOutput | null> => {
-    const existingRestory: boolean = await restoryRepository.existingRestoryById(id);
-    if (!existingRestory) {
-        throw new exceptions.ElementNotFoundException(`Restory with id ${id} not found`);
-    }
-
-    const restory = await restoryRepository.getStoryOfRestoryById(id);
-    return restory;
-};
-
 export const getRealStoryImages = async (id_story: string, id_kelompok: string): Promise<StoryOutput | null> => {
     const existingKelompok: boolean = await kelompokRepository.existingKelompokById(id_kelompok);
     if (!existingKelompok) {

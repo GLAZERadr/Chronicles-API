@@ -59,9 +59,9 @@ export const existingNilaiByIdGuruAndIdKelompok = async (id_guru: string, id_kel
     }
 };
 
-export const getNilaiByKelompok = async (id_kelompok: string): Promise<NilaiOutput | null> => {
+export const getNilaiByKelompok = async (id_kelompok: string): Promise<Array<NilaiOutput> | null> => {
     try {
-        const nilai = await Nilai.findOne({ where: { id_kelompok: id_kelompok } });
+        const nilai = await Nilai.findAll({ where: { id_kelompok: id_kelompok } });
 
         return nilai || null;
     } catch (error: any) {

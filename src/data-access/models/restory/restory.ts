@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import { sequalize } from "../../../common/config/database";
+import { Kelompok } from "../kelompok/kelompok";
 
 interface RestoryAttributes {
     id: string,

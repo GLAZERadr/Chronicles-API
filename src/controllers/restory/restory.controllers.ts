@@ -1,6 +1,7 @@
 import { NextFunction, Response } from 'express';
 
 import * as restoryServices from '../../services/restory/restory.services';
+import * as storyServices from '../../services/story/story.services';
 import { CustomRequest } from '../../common/middlewares/auth.middlewares';
 import { generateIdUser } from '../../common/helpers/generateid/generateid';
 
@@ -46,7 +47,7 @@ export const getStoryOfRestoryById = async (req: CustomRequest, res: Response, n
     try {
         const { id } = req.params;
 
-        const result = await restoryServices.getStoryOfRestoryById(id);
+        const result = await storyServices.getStoryById(id);
 
         return res.status(200).send(result);
     } catch (error) {

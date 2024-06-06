@@ -50,15 +50,6 @@ export const existingRestoryById = async (id: string): Promise<boolean> => {
     }
 };
 
-export const getStoryOfRestoryById = async (id: string): Promise<RestoryOutput | null> => {
-    try {
-        const restory = await Restory.findByPk(id, { include: Story });
-        return restory || null;
-    } catch (error: any) {
-        throw new DatabaseException(error.message);
-    }
-};
-
 export const getRealStoryImages = async (id_story: string, id_kelompok: string): Promise<StoryOutput | null> => {
     try {
         const result = await Story.findOne({ where: {id: id_story, id_kelompok: id_kelompok }, attributes: ['url_gambar'] });

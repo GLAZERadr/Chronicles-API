@@ -88,3 +88,15 @@ export const getAllPertandingan  = async (req: CustomRequest, res: Response, nex
         return next(error);
     }
 };
+
+export const showPertandinganByKelas  = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const { id_kelas } = req.params;
+        
+        let result = await pertandinganServices.showPertandinganByKelas(id_kelas);
+
+        return res.status(200).send(result);
+    } catch (error) {
+        return next(error);
+    }
+};

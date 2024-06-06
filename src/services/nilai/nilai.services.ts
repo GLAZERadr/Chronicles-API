@@ -37,29 +37,7 @@ export const updateNilaiAndKomentar = async (id: string, updatedNilai: NilaiInpu
     return await nilaiRepository.updateNilaiAndKomentar(id, updatedNilai);
 };
 
-// export const existingNilaiByIdGuruAndIdKelompokAndIdStory = async (id_guru: string, id_kelompok: string, id_story: string): Promise<boolean> => {
-//     const existingNilai: boolean = await nilaiRepository.existingNilaiByIdGuruAndIdKelompok(id_guru, id_kelompok);
-//     const existingStory: boolean = await storyRepository.existingStoryByKelompokId(id_story, id_kelompok);
-
-//     if (!existingNilai && !existingStory) {
-//         return false;
-//     }
-
-//     return true;
-// };
-
-// export const existingNilaiByIdGuruAndIdKelompokAndIdRestory = async (id_guru: string, id_kelompok: string, id_story: string): Promise<boolean> => {
-//     const existingNilai: boolean = await nilaiRepository.existingNilaiByIdGuruAndIdKelompok(id_guru, id_kelompok);
-//     const existingStory: boolean = await restoryRepository.existingRestoryByKelompokId(id_story, id_kelompok);
-
-//     if (!existingNilai && !existingStory) {
-//         return false;
-//     }
-
-//     return true;
-// };
-
-export const getNilaiByKelompok = async (id_kelompok: string): Promise<NilaiOutput | null> => {
+export const getNilaiByKelompok = async (id_kelompok: string): Promise<Array<NilaiOutput> | null> => {
     const existingKelompok = kelompokRepository.existingKelompokById(id_kelompok);
 
     if (!existingKelompok) {
