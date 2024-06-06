@@ -30,16 +30,21 @@ export const getStoryFromKelompokByPertandingan = async (id: string): Promise<Pe
       const pertandingan = await Pertandingan.findByPk(id, {
         include: [
             { 
-                model: Kelompok, as: 'kelompokGanjil', include: [
+                model: Kelompok, 
+                as: 'kelompokGanjil', 
+                include: [
                     {
-                        model: Story, as: 'kelompok_story', 
+                        model: Story, 
+                        as: 'kelompok_story', 
                     },
                 ],
             },
             { 
-                model: Kelompok, as: 'kelompokGenap', include: [
+                model: Kelompok, as: 'kelompokGenap', 
+                include: [
                     {
-                        model: Restory, as: 'kelompok_restory', 
+                        model: Restory, 
+                        as: 'kelompok_restory', 
                     },
                 ],
             },

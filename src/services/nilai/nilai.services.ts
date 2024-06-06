@@ -47,3 +47,12 @@ export const getNilaiByKelompok = async (id_kelompok: string): Promise<Array<Nil
     const result = await nilaiRepository.getNilaiByKelompok(id_kelompok);
     return result || null;
 };
+
+export const updateNilaiAndKomentarByKelompok =  async (id: string, id_kelompok: string, updatedNilai: NilaiInput): Promise<NilaiOutput | null> => {
+    const existingNilai: boolean = await nilaiRepository.existingNilaiById(id);
+    if (!existingNilai) {
+        throw new exceptions.ElementNotFoundException(`Tugas with ${id} not found!!`);
+    }
+
+    return await nilaiRepository.updateNilaiAndKomentarByKelompok(id, id_kelompok, updatedNilai);
+}; 

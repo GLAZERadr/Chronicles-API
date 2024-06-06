@@ -68,3 +68,12 @@ export const getNilaiByKelompok = async (id_kelompok: string): Promise<Array<Nil
         throw new DatabaseException(error.message); 
     }
 };
+
+export const updateNilaiAndKomentarByKelompok = async (id: string, id_kelompok: string, updatedNilai: NilaiInput): Promise<NilaiOutput | null> => {
+    try {
+        await Nilai.update(updatedNilai, { where: { id: id, id_kelompok: id_kelompok } });
+        return await Nilai.findByPk(id);
+    } catch (error: any) {
+        throw new DatabaseException(error.message); 
+    }
+};

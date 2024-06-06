@@ -124,6 +124,8 @@ export const getNilaiByKelompok = async (req: CustomRequest, res: Response, next
 
 export const similarityChecking = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
+        // const { id_nilai } = req.params;
+
         const {
             id_story_ganjil,
             orientation_ganjil,
@@ -158,10 +160,21 @@ export const similarityChecking = async (req: CustomRequest, res: Response, next
             return res.status(500).send({ error: result.message });
         }
 
+        const { similarity_score } = result;
 
+        if (similarity_score === null) {
+            return res.status(400).send({ message: "Gagal mengenerate penilaian similaritas" });
+        };
 
-        // updateGanjil = await nilaiServices.updateNilaiAndKomentar(id_story_ganjil, );
-        // updateGenap = await nilaiServices.updateNilaiAndKomentar
+        console.log('skor similaritas:', similarity_score);
+
+        const newNilaiData = { ...req.body, nilai_similaritas: similarity_score };
+
+        // console.log('Updating nilai dan komentar ganjil...')
+        // await nilaiServices.updateNilaiAndKomentarByKelompok(id_nilai, kode_kelompok_ganjil, newNilaiData);
+
+        // console.log('Updating nilai dan komentar genap...')
+        // await nilaiServices.updateNilaiAndKomentarByKelompok(id_nilai, kode_kelompok_genap, newNilaiData);
 
         return res.status(200).send(result);
     } catch (error) {
