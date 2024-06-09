@@ -47,6 +47,12 @@ export class ElementAlreadyExists extends Error {
   }
 }
 
+export class ImageInappropriate extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}
+
 export const evalException = (err: Error, res: Response) => {
   if (err instanceof ElementInvalidException) {
     return res.status(HttpErrorCodes.ERROR_BAD_REQUEST).send(err.message);

@@ -5,6 +5,7 @@ import * as kelompokServices from '../../services/kelompok/kelompok.services';
 import { CustomRequest } from '../../common/middlewares/auth.middlewares';
 import { generateIdUser } from '../../common/helpers/generateid/generateid';
 import { sendRequestGenApi } from '../../api/generative-ai-gambar/genai.services';
+import { ImageInappropriate } from '../../common/exceptions/exceptions';
 
 export const createStory = async (req: CustomRequest, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
@@ -33,8 +34,12 @@ export const createStory = async (req: CustomRequest, res: Response, next: NextF
         console.log("message: ",typeof message === "string");
         console.log("status: ", typeof status === "string");
 
-        if (message != "Image processed" && status != "False") {
-            return res.status(400).json({ message: "Gagal mengenerate gambar" });
+        // if (message != "Image processed") {
+        //     return res.status(400).json({ message: "Gagal mengenerate gambar" });
+        // }
+
+        if (status === "True") {
+            throw new ImageInappropriate("Your story contains some negative\n You need to modify the story!")
         }
 
         console.log("insert to database...");
