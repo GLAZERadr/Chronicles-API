@@ -11,6 +11,7 @@ import { pertandinganRouter } from './routes/pertandingan.routes';
 import { nilaiRouter } from './routes/nilai.routes';
 import { storyRouter } from './routes/story.routes';
 import { restoryRouter } from './routes/restory.routes';
+import { speechRouter } from './routes/chronicles-speech.routes';
 
 const app: Application = express();
 const port: number = 8080;
@@ -20,7 +21,7 @@ const corsOption = {
   credentials: true,
 }
 
-function corsMidd(req, res, next) {
+function corsMidd(req: Request, res: Response, next: NextFunction) {
   // Allow requests from any origin
   res.setHeader('Access-Control-Allow-Origin', '*');
 
@@ -31,7 +32,7 @@ function corsMidd(req, res, next) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   // Allow credentials (e.g., cookies, authentication) to be included in requests
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
 
   next();
 }
@@ -57,6 +58,7 @@ app.use('/chronicles-v1/api/nilai', nilaiRouter);
 app.use('/chronicles-v1/api/session', sessionRouter);
 app.use('/chronicles-v1/api/story', storyRouter);
 app.use('/chronicles-v1/api/restory', restoryRouter)
+app.use('/chronicles-v1/api/speech', speechRouter);
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ message: error.message });

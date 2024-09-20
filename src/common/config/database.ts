@@ -1,13 +1,13 @@
 import { Sequelize } from "sequelize";
 
 export const sequalize = new Sequelize (
-    'chronicles', //env
+    'defaultdb', //env
     'avnadmin', //env
-    'AVNS_DnhVSwZtBL05nYGliqY', //env
+    'AVNS_0TJd6eSX7gQVMTDswmO', //env
     {
-        host: 'chronicles-student-dbf6.g.aivencloud.com', //env
+        host: 'chronicles-beta-glazeradrian41-5fba.h.aivencloud.com', //env
         dialect: 'mysql', //env
-        port: 22155, //env,
+        port: 27598, //env,
         dialectOptions: {
             ssl: {
                 require: true,
