@@ -1,13 +1,48 @@
 import { Sequelize } from "sequelize";
+import dotenv from 'dotenv';
+import path from 'path';
 
+// Access environment variables
+dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+
+interface IEnv {
+    DATABASE_NAME: string;
+    DATABASE_HOST: string;
+    DATABASE_USER: string;
+    DATABASE_PASSWORD: string;
+    DATABASE_PORT: number;
+}
+
+const getEnvVars = (): IEnv => {
+    return {
+        DATABASE_NAME: process.env.DATABASE_NAME || '',
+        DATABASE_HOST: process.env.DATABASE_HOST || '',
+        DATABASE_USER: process.env.DATABASE_USER || '',
+        DATABASE_PASSWORD: process.env.DATABASE_PASSWORD || '',
+        DATABASE_PORT: parseInt(process.env.DATABASE_PORT || '3306', 10),
+    };
+};
+
+const validateEnvVars = (config: IEnv): IEnv => {
+    for (const [key, value] of Object.entries(config)) {
+        if (value === '') {
+            throw new Error(`Missing environment variable: ${key}`);
+        }
+    }
+    return config;
+};
+
+const envVars = validateEnvVars(getEnvVars());
+
+// Create a new Sequelize instance
 export const sequalize = new Sequelize (
-    'defaultdb', //env
-    'avnadmin', //env
-    'AVNS_0TJd6eSX7gQVMTDswmO', //env
+    envVars.DATABASE_NAME,
+    envVars.DATABASE_USER,
+    envVars.DATABASE_PASSWORD,
     {
-        host: 'chronicles-beta-glazeradrian41-5fba.h.aivencloud.com', //env
+        host: envVars.DATABASE_HOST, //env
         dialect: 'mysql', //env
-        port: 27598, //env,
+        port: envVars.DATABASE_PORT, //env,
         dialectOptions: {
             ssl: {
                 require: true,

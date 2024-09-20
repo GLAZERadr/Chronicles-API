@@ -3,9 +3,9 @@ import axios from "axios";
 export const sendTextForTTS = async (input_text: string) => {
     try {
         console.log('REQUESTING TO COLAB...');
-        const url = 'musical-instantly-lionfish.ngrok-free.app/chronicles-tts'
-        const response = axios.post(url, {
-            "input_text": input_text
+        const url = 'https://musical-instantly-lionfish.ngrok-free.app'
+        const response = axios.post(url + '/chronicles-tts', {
+            "text": input_text
         });
 
         console.log("message: ", (await response).data.audio_file);

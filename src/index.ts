@@ -1,3 +1,5 @@
+import path from 'path';
+import dotenv from 'dotenv';
 import express, { Application, Request, Response, NextFunction } from 'express';
 import { errorMiddleware } from './common/middlewares/error.middlewares';
 import guruRouter from './routes/guru.routes';
@@ -13,8 +15,33 @@ import { storyRouter } from './routes/story.routes';
 import { restoryRouter } from './routes/restory.routes';
 import { speechRouter } from './routes/chronicles-speech.routes';
 
+// Access environment variables
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+interface IEnv {
+  SERVER_PORT: number
+}
+
+const getEnvVars = (): IEnv => {
+  return {
+    SERVER_PORT: parseInt(process.env.SERVER_PORT || '8080', 10)
+  };
+};
+
+const validateEnvVars = (config: IEnv): IEnv => {
+  for (const [key, value] of Object.entries(config)) {
+      if (value === '') {
+          throw new Error(`Missing environment variable: ${key}`);
+      }
+  }
+  return config;
+};
+
+const envVars = validateEnvVars(getEnvVars());
+
+// Create a new Express application
 const app: Application = express();
-const port: number = 8080;
+const port: number = envVars.SERVER_PORT;
 
 const corsOption = {
   origin: ['https://chronicles.heritsam.dev', 'http://localhost:5173'],
