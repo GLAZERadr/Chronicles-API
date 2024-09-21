@@ -74,3 +74,8 @@ export const getKelompokStory = async (id_kelompok: string): Promise<Array<Story
     const allstory = await storyRepository.getKelompokStory(id_kelompok);
     return allstory;
 };
+
+export const getRandomStory = async (): Promise<StoryOutput | null> => {
+    const story = await storyRepository.getRandomStory();
+    return story;
+};

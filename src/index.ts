@@ -13,7 +13,7 @@ import { pertandinganRouter } from './routes/pertandingan.routes';
 import { nilaiRouter } from './routes/nilai.routes';
 import { storyRouter } from './routes/story.routes';
 import { restoryRouter } from './routes/restory.routes';
-import { speechRouter } from './routes/chronicles-speech.routes';
+import { chroniclesSelfLearn } from './routes/chronicles-self-learning.routes';
 
 // Access environment variables
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
@@ -24,7 +24,7 @@ interface IEnv {
 
 const getEnvVars = (): IEnv => {
   return {
-    SERVER_PORT: parseInt(process.env.SERVER_PORT || '8080', 10)
+    SERVER_PORT: parseInt(process.env.SERVER_PORT || '3000', 10)
   };
 };
 
@@ -85,7 +85,7 @@ app.use('/chronicles-v1/api/nilai', nilaiRouter);
 app.use('/chronicles-v1/api/session', sessionRouter);
 app.use('/chronicles-v1/api/story', storyRouter);
 app.use('/chronicles-v1/api/restory', restoryRouter)
-app.use('/chronicles-v1/api/speech', speechRouter);
+app.use('/chronicles-v1/api/self-learn', chroniclesSelfLearn);
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ message: error.message });

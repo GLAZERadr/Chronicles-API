@@ -1,12 +1,21 @@
-# fly.toml app configuration file generated for chronicles-beta-api on 2024-09-20T21:56:16+07:00
+# fly.toml app configuration file generated for chronicles-demo-api on 2024-09-21T13:12:17+07:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'chronicles-beta-api'
+app = 'chronicles-demo-api'
 primary_region = 'sin'
 
 [build]
+
+[env]
+  DATABASE_HOST = 'chronicles-beta-glazeradrian41-5fba.h.aivencloud.com'
+  DATABASE_NAME = 'chronicles'
+  DATABASE_PASSWORD = 'AVNS_0TJd6eSX7gQVMTDswmO'
+  DATABASE_PORT = '27598'
+  DATABASE_USER = 'avnadmin'
+  EXPIRED_TIME = '6h'
+  JWT_SECRET = 'DamnMann*tap'
 
 [http_service]
   internal_port = 3000

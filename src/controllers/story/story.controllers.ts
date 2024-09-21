@@ -1,4 +1,4 @@
-import { NextFunction, Response } from 'express';
+import { Request, NextFunction, Response } from 'express';
 
 import * as storyServices from '../../services/story/story.services';
 import * as kelompokServices from '../../services/kelompok/kelompok.services';

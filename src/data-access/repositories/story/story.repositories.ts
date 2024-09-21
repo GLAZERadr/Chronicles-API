@@ -1,6 +1,7 @@
 import { DatabaseException } from "../../../common/exceptions/exceptions";
 import { Kelompok } from "../../models/kelompok/kelompok";
 import { Story, StoryOutput } from "../../models/story/story";
+import { Sequelize } from 'sequelize';
 
 export const createStory = async (newStory: Story): Promise<StoryOutput> => {
     try {
@@ -91,6 +92,32 @@ export const existingStoryByKelompokId = async (id: string, id_kelompok: string)
         const existStory = await Story.findOne({ where: { id: id, id_kelompok: id_kelompok }});
         
         return !!existStory;
+    } catch (error: any) {
+        throw new DatabaseException(error.message);
+    }
+};
+
+export const getRandomStory = async (): Promise<StoryOutput | null> => {
+    try {
+        const count = await Story.count();
+        console.log(`Number of stories in database: ${count}`);
+        
+        if (count === 0) {
+            console.log('No stories found in the database.');
+            return null;
+        }
+
+        // Fetch a random story using Sequelize ORM with "ORDER BY RAND()"
+        const story = await Story.findOne({
+            order: Sequelize.literal('RAND()') // MySQL specific random ordering
+        });
+
+        if (!story) {
+            console.log('Random story query returned null unexpectedly.');
+            return null;
+        }
+
+        return story as StoryOutput; // Cast to StoryOutput if needed
     } catch (error: any) {
         throw new DatabaseException(error.message);
     }
